@@ -49,12 +49,12 @@ function AulaService(AulaModel) {
     });
   }
 
-    function update(id, aula) {
+  function update(id, aula) {
     return new Promise(function (resolve, reject) {
       AulaModel.findByIdAndUpdate(id, aula, function (err, aulaUpdated) {
         if (err) reject("Couldn't update aula");
-          resolve(aulaUpdated);
-          console.log("Aula: ", aula);
+        resolve(aulaUpdated);
+        console.log("Aula: ", aula);
       });
     });
   }
@@ -64,7 +64,7 @@ function AulaService(AulaModel) {
       AulaModel.findByIdAndRemove(id, function (err) {
         if (err)
           reject({
-            message: "Couldn't remove aula",
+            message: "Impossible to remove",
           });
 
         resolve();

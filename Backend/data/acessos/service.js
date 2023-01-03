@@ -1,0 +1,88 @@
+function AcessosService(AcessoModel) {
+  let service = {
+    create,
+    findAll,
+    update,
+    removeById,
+    findAcessoById,
+  };
+
+  function create(acesso) {
+    let newAcesso = AcessoModel(acesso);
+    return save(newAcesso);
+  }
+
+  function save(model) {
+    return new Promise(function (resolve, reject) {
+      model.save(function (err) {
+        if (err) reject("Ocorreu um erro ao criar a acesso");
+
+        resolve({
+          message: "Acesso Criado",
+          acesso: model,
+        });
+      });
+    });
+  }
+
+  function findAll(pagination) {
+    const { limit, skip } = pagination;
+
+    return new Promise(function (resolve, reject) {
+      AcessoModel.find({}, {}, { skip, limit }, function (err, acessos) {
+        if (err) reject(err);
+
+        resolve(acessos);
+      });
+    }).then(async (acessos) => {
+      const totalAcessos = await AcessoModel.count();
+
+      return Promise.resolve({
+        data: acessos,
+        pagination: {
+          pageSize: limit,
+          page: Math.floor(skip / limit),
+          hasMore: skip + limit < totalAcessos,
+          total: totalAcessos,
+        },
+      });
+    });
+  }
+
+  function update(id, acesso) {
+    return new Promise(function (resolve, reject) {
+      AcessoModel.findByIdAndUpdate(id, acesso, function (err, acessoUpdated) {
+        if (err) reject("Couldn't update acesso");
+        resolve(acessoUpdated);
+        console.log("Acesso: ", acesso);
+      });
+    });
+  }
+
+  function removeById(id) {
+    return new Promise(function (resolve, reject) {
+      AcessoModel.findByIdAndRemove(id, function (err) {
+        if (err)
+          reject({
+            message: "Impossible to remove",
+          });
+
+        resolve();
+      });
+    });
+  }
+
+  function findAcessoById(id) {
+    return new Promise(function (resolve, reject) {
+      AcessoModel.findById(id, function (err, acesso) {
+        if (err) reject(err);
+
+        resolve(acesso);
+      });
+    });
+  }
+
+  return service;
+}
+
+module.exports = AcessosService;

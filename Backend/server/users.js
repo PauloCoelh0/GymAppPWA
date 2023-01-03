@@ -90,23 +90,42 @@ const UsersRouter = (io) => {
           next();
         });
     })
-    .get(
-      Users.autorize([scopes.Gestor]),
-      function (req, res, next) {
-        console.log("get user by id");
-        let userId = req.params.userId;
-        Users.findUserById(userId)
-          .then((user) => {
-            res.status(200);
-            res.send(user);
-            next();
-          })
-          .catch((err) => {
-            res.status(404);
-            next();
+    .get(Users.autorize([scopes.Gestor]), function (req, res, next) {
+      console.log("get user by id");
+      let userId = req.params.userId;
+      Users.findUserById(userId)
+        .then((user) => {
+          res.status(200);
+          res.send(user);
+          next();
+        })
+        .catch((err) => {
+          res.status(404);
+          next();
+        });
+    })
+
+    .delete(Users.autorize([scopes.Gestor]), function (req, res, next) {
+      const id = req.params.userId;
+      User.findByIdAndRemove(id)
+        .exec()
+        .then((result) => {
+          res.status(200).json({
+            mesage: "USER SUCCESSFULLY DELETED",
+            request: {
+              type: "GET",
+              description: "GET ALL USERS LIST",
+              url: "http://localhost:5000/users",
+            },
           });
-      }
-    );
+        })
+        .catch((err) => {
+          console.log(err);
+          res.status(500).json({
+            error: err,
+          });
+        });
+    });
 
   return router;
 };
