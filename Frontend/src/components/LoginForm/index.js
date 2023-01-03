@@ -66,6 +66,7 @@ const LoginForm = ({ title, role, data }) => {
   return (
     <Row align="middle" justify="center" data={data}>
       <div>
+        <p></p>
         <h2>Login</h2>
         <p></p>
         <form className={styles.loginForm} onSubmit={handleSubmit(onSubmit)}>
