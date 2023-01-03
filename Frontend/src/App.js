@@ -74,9 +74,11 @@ function App() {
             path="/admin"
             element={
               <ProtectedRoute>
-                <TabProvider>
-                  <AdminPage />
-                </TabProvider>
+                <UsersProvider>
+                  <TabProvider>
+                    <AdminPage />
+                  </TabProvider>
+                </UsersProvider>
               </ProtectedRoute>
             }
           />

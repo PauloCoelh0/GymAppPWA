@@ -10,34 +10,38 @@ import {
   TabPane,
 } from "reactstrap";
 import Games from "./components/Games";
+import Aulas from "./components/Aulas";
 import Stadium from "./components/Stadium";
 import Users from "./components/Users";
 import Tickets from "./components/Tickets";
 import { TabContext } from "./contexts";
-
+import { UsersContext } from "../../contexts/UsersProvider";
 
 const AdminPage = () => {
   const [activePage, setActivePage] = useState("1");
   const { countGames } = useContext(TabContext);
+  const { countUsers } = useContext(UsersContext);
 
   const navItems = [
     {
       id: "1",
       title: "Users",
+      count: countUsers,
     },
     {
       id: "2",
-      title: "Stadium",
-    },
-    {
-      id: "3",
-      title: "Games",
+      title: "Aulas",
       count: countGames,
     },
-    {
-      id: "4",
-      title: "Tickets",
-    },
+    // {
+    //   id: "3",
+    //   title: "Games",
+    //   count: countGames,
+    // },
+    // {
+    //   id: "4",
+    //   title: "Tickets",
+    // },
   ];
 
   const items = [
@@ -47,16 +51,16 @@ const AdminPage = () => {
     },
     {
       id: "2",
-      children: <Stadium/>,
+      children: <Aulas />,
     },
-    {
-      id: "3",
-      children: <Games/>,
-    },
-    {
-      id: "4",
-      children: <Tickets/>,
-    },
+    // {
+    //   id: "3",
+    //   children: <Games />,
+    // },
+    // {
+    //   id: "4",
+    //   children: <Tickets />,
+    // },
   ];
 
   return (
@@ -64,26 +68,25 @@ const AdminPage = () => {
       <h1>Admin</h1>
       <Row className={styles.row}>
         <Nav tabs>
-            {navItems.map((item) => {
-              return (
-                <NavItem>
-                  <NavLink
-                    className={item.id === activePage}
-                    onClick={() => setActivePage(item.id)}
-                  >
-                    {item.title} {item.count  && (<span className={styles.count}>{item.count}</span>)}
-                  </NavLink>
-                </NavItem>
-              );
-            })}
+          {navItems.map((item) => {
+            return (
+              <NavItem>
+                <NavLink
+                  className={item.id === activePage}
+                  onClick={() => setActivePage(item.id)}
+                >
+                  {item.title}{" "}
+                  {item.count !== 0 && (
+                    <span className={styles.count}>{item.count}</span>
+                  )}
+                </NavLink>
+              </NavItem>
+            );
+          })}
         </Nav>
         <TabContent activeTab={activePage}>
           {items.map((item) => {
-            return (
-              <TabPane tabId={item.id}>
-                { item.children }
-              </TabPane>
-            );
+            return <TabPane tabId={item.id}>{item.children}</TabPane>;
           })}
         </TabContent>
       </Row>

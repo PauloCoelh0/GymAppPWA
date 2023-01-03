@@ -16,22 +16,22 @@ const Users = () => {
   const addUser = (data) => {
     const newData = {
       ...data,
-      role: { name: 'Normal', scope: "normal" },
+      role: { name: "Normal", scope: "normal" },
     };
 
     addData(newData);
-  }
+  };
 
   useEffect(() => {
     setUsers(data.data);
-  },[data, setUsers]) 
+  }, [data, setUsers]);
 
-  if(isLoading) {
-    return <div>Is Loading</div>
+  if (isLoading) {
+    return <div>Is Loading</div>;
   }
 
-  if(isError) {
-    return <div>UPPSSSS</div>
+  if (isError) {
+    return <div>UPPSSSS</div>;
   }
 
   return (

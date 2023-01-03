@@ -9,9 +9,5 @@ export const TabProvider = ({ children }) => {
     [gamesCount]
   );
 
-  return (
-    <TabContext.Provider value={value}>
-      {children}
-    </TabContext.Provider>
-  );
+  return <TabContext.Provider value={value}>{children}</TabContext.Provider>;
 };
