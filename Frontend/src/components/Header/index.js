@@ -47,9 +47,9 @@ const Header = () => {
       <div className={styles.logo}>
         <img className={styles.img} src={logo} alt="Logo" />
       </div>
-      {countUsers !== 0 && (
+      {/* {countUsers !== 0 && (
         <div className={styles.counts}>Users: {countUsers}</div>
-      )}
+      )} */}
       <Navbar pills={true} container={false} className={styles.navBar}>
         {!isLoggedIn && (
           <>

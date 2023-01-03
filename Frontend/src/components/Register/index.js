@@ -6,6 +6,7 @@ import styles from "./styles.module.scss";
 import { useGetData } from "./hooks/useGetData";
 import { UsersContext } from "../../contexts/UsersProvider";
 import { usePostData } from "./hooks/usePostData";
+import "./registerForm.css";
 
 const Users = () => {
   const { register, handleSubmit } = useForm();

@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { Row } from "reactstrap";
 import styles from "./styles.module.scss";
-import { Navigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import _, { set } from "lodash";
 import { useGetPerfil } from "../../hooks/useGetPerfil";
@@ -65,34 +65,25 @@ const LoginForm = ({ title, role, data }) => {
 
   return (
     <Row align="middle" justify="center" data={data}>
-      <div className={styles.loginForm}>
-        <h2>{title}</h2>
+      <div>
+        <h2>Login</h2>
         <p></p>
-        <form className={styles.formLogin} onSubmit={handleSubmit(onSubmit)}>
-          <div className={styles.field}>
-            <label className={styles.label} for="email">
-              Email:
-            </label>
-            <input
-              id="email"
-              name="email"
-              required="required"
-              {...register("email")}
-            />
-          </div>
-          <p></p>
-          <div className={styles.field}>
-            <label className={styles.label} for="password">
-              Password:
-            </label>
-            <input
-              id="password"
-              name="password"
-              type="password"
-              required="required"
-              {...register("password")}
-            />
-          </div>
+        <form className={styles.loginForm} onSubmit={handleSubmit(onSubmit)}>
+          <input
+            placeholder="Insere o teu e-mail"
+            id="email"
+            name="email"
+            required="required"
+            {...register("email")}
+          />
+          <input
+            placeholder="Insere a tua palavra-passe"
+            id="password"
+            name="password"
+            type="password"
+            required="required"
+            {...register("password")}
+          />
           <div className={styles.qrContainer}>
             {showQRCode && <QrRead setDataLogin={setDataQrCode} />}
             {
@@ -101,9 +92,13 @@ const LoginForm = ({ title, role, data }) => {
               </button>
             }
           </div>
-          <p></p>
-          <input className="submit" type="submit" />
+          <input
+            style={{ backgroundColor: "black", color: "white", hover: "red" }}
+            type="submit"
+            value="Iniciar Sessão"
+          />
         </form>
+        <a href="/forgotPassword">Não sabes a tua palavra-passe?</a>
       </div>
     </Row>
   );
