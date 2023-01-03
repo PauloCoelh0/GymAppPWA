@@ -8,7 +8,9 @@ import {
   TabContent,
   TabPane,
 } from "reactstrap";
-import { Tickets } from "./components/Tickets";
+import { Marcacoes } from "./components/Marcacoes";
+import { Pagamentos } from "./components/Pagamentos";
+import { RegistosAcesso } from "./components/RegistosAcesso";
 import { Perfil } from "./components/Perfil";
 import { Member } from "./components/Member";
 import styles from "./styles.module.scss";
@@ -59,10 +61,18 @@ const UserPage = () => {
     },
     {
       id: "2",
-      title: "Tickets",
+      title: "Marcações",
     },
     {
       id: "3",
+      title: "Pagamentos",
+    },
+    {
+      id: "4",
+      title: "Registos de Acesso",
+    },
+    {
+      id: "5",
       title: "Member",
     },
   ];
@@ -74,10 +84,18 @@ const UserPage = () => {
     },
     {
       id: "2",
-      children: <Tickets />,
+      children: <Marcacoes />,
     },
     {
       id: "3",
+      children: <Pagamentos />,
+    },
+    {
+      id: "4",
+      children: <RegistosAcesso />,
+    },
+    {
+      id: "5",
       children: <Member user={user.data} />,
     },
   ];

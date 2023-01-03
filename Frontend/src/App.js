@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import styles from "./App.scss";
 import HomePage from "./components/HomePage";
+import GestaoAcessos from "./components/GestaoAcessos";
 import AdminPage from "./components/AdminPage";
 import Header from "./components/Header";
 import ProtectedRoute from "./components/ProtectRoute";
@@ -65,6 +66,7 @@ function App() {
       <Header />
       <Routes>
         <Route path="/">
+          <Route path="/gestaoAcessos" element={<GestaoAcessos />} />
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginForm />} />
           <Route path="/register" element={<Register />} />
