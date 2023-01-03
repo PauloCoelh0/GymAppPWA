@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
 export const usePostData = () => {
   const [isError, setError] = useState(false);
   const [isLoading, setLoading] = useState(false);
   const [data, setData] = useState({});
+  const navigate = useNavigate();
 
   const addData = (data) => {
     setLoading(true);
@@ -17,9 +18,9 @@ export const usePostData = () => {
     })
       .then((response) => {
         if (response) {
-            setData(response.json());
-          alert('Pedido de registo enviado com sucesso!!');
-          <Navigate to="/login" />;
+          setData(response.json());
+          alert("Pedido de registo enviado com sucesso!!");
+          navigate("/login");
         } else {
           alert("Error ao adicionar");
         }
