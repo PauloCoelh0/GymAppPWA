@@ -85,6 +85,11 @@ const LoginForm = ({ title, role, data }) => {
             required="required"
             {...register("password")}
           />
+          <input
+            style={{ backgroundColor: "black", color: "white", hover: "red" }}
+            type="submit"
+            value="Iniciar Sessão"
+          />
           <div className={styles.qrContainer}>
             {showQRCode && <QrRead setDataLogin={setDataQrCode} />}
             {
@@ -93,11 +98,6 @@ const LoginForm = ({ title, role, data }) => {
               </button>
             }
           </div>
-          <input
-            style={{ backgroundColor: "black", color: "white", hover: "red" }}
-            type="submit"
-            value="Iniciar Sessão"
-          />
         </form>
         <a href="/forgotPassword">Não sabes a tua palavra-passe?</a>
       </div>
