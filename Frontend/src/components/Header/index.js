@@ -46,7 +46,6 @@ const Header = () => {
     <div className={styles.header}>
       <div className={styles.logo}>
         <img className={styles.img} src={logo} alt="Logo" />
-        <h3>&nbsp;&nbsp;&nbsp;𝐄𝐒𝐓𝐆&nbsp;𝐆𝐲𝐦</h3>
       </div>
       {countUsers !== 0 && (
         <div className={styles.counts}>Users: {countUsers}</div>
@@ -67,7 +66,8 @@ const Header = () => {
           <Button
             onClick={() => {
               logout();
-            }}>
+            }}
+          >
             Logout
           </Button>
         )}

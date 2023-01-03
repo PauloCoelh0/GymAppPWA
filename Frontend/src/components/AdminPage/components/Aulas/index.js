@@ -7,10 +7,10 @@ import { useGetData } from "../../hooks/useGetData";
 import { usePostData } from "../../hooks/usePostData";
 import { TabContext } from "../../contexts";
 
-const Games = () => {
+const Aulas = () => {
   const { register, handleSubmit } = useForm();
-  const { isError, isLoading, data } = useGetData("games", 0, 0);
-  const { isLoading: isLoadingPost, addData } = usePostData("games");
+  const { isError, isLoading, data } = useGetData("aulas", 0, 0);
+  const { isLoading: isLoadingPost, addData } = usePostData("aulas/create");
   const { setGamesCount } = useContext(TabContext);
 
   useEffect(() => {
@@ -22,34 +22,45 @@ const Games = () => {
   }
 
   if (isError) {
-    return <div>UPPSSSS</div>;
+    return <div>No Data Loading</div>;
   }
 
   return (
     <Container>
       <Row>
         <Col className={styles.column}>
-          <h3>Create Game</h3>
+          <h3>Criar Aula</h3>
           {isLoadingPost ? (
             <div> is Loading </div>
           ) : (
             <div className={styles.container}>
               <form className={styles.form} onSubmit={handleSubmit(addData)}>
                 <div className={styles.field}>
-                  <label className={styles.label} for="date">
-                    Date:
+                  <label className={styles.label} for="beginDate">
+                    Data-Inicio:
                   </label>
                   <input
-                    id="date"
+                    id="beginDate"
                     type="date"
-                    name="date"
+                    name="beginDate"
                     required="required"
-                    {...register("date")}
+                    {...register("beginDate")}
+                  />
+                </div>
+                <div className={styles.field}>
+                  <label className={styles.label} for="endDate">
+                    Data-Fim:
+                  </label>
+                  <input
+                    id="endDate"
+                    type="date"
+                    name="endDate"
+                    {...register("endDate")}
                   />
                 </div>
                 <div className={styles.field}>
                   <label className={styles.label} for="name">
-                    Name:
+                    Nome:
                   </label>
                   <input
                     id="name"
@@ -59,35 +70,25 @@ const Games = () => {
                   />
                 </div>
                 <div className={styles.field}>
-                  <label className={styles.label} for="image">
-                    Image:
+                  <label className={styles.label} for="room">
+                    Sala:
                   </label>
                   <input
-                    id="image"
-                    name="image"
+                    id="room"
+                    name="room"
                     required="required"
-                    {...register("image")}
+                    {...register("room")}
                   />
                 </div>
                 <div className={styles.field}>
-                  <label className={styles.label} for="teamVisitor">
-                    Visitor :
+                  <label className={styles.label} for="capacity">
+                    Capacidade:
                   </label>
                   <input
-                    id="teamVisitor"
-                    name="teamVisitor"
-                    {...register("team.visitor")}
-                  />
-                </div>
-                <div className={styles.field}>
-                  <label className={styles.label} for="home">
-                    Home :
-                  </label>
-                  <input
-                    id="home"
-                    name="home"
+                    id="capacity"
+                    name="capacity"
                     required="required"
-                    {...register("team.home")}
+                    {...register("capacity")}
                   />
                 </div>
                 <Row>
@@ -99,7 +100,7 @@ const Games = () => {
         </Col>
         <Col>
           <Table
-            columns={["date", "name", "image", "team.visitor", "team.home"]}
+            columns={["beginDate", "endDate", "name", "room", "capacity"]}
             rows={data}
           />
         </Col>
@@ -108,4 +109,4 @@ const Games = () => {
   );
 };
 
-export default Games;
+export default Aulas;
