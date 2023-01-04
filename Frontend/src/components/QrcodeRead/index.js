@@ -9,24 +9,25 @@ function QrcodeRead({ setDataLogin }) {
   return (
     <div className={styles.qrCodeReader}>
       <QrReader
-        constraints={{facingMode: 'user'}}
+        constraints={{ facingMode: "user" }}
         onResult={(result, error) => {
           if (!_.isNil(result)) {
             const newResult = result.text.split("&&");
             const data = {
               email: newResult[0],
               password: newResult[1],
-              isQrCode: true
-            }
+              isQrCode: true,
+            };
             setData(data);
             setDataLogin(data);
           }
           if (!!error) {
             //console.info(error);
           }
-        }}    
+        }}
       />
       <p>{data.email}</p>
     </div>
   );
-} export default QrcodeRead;
+}
+export default QrcodeRead;

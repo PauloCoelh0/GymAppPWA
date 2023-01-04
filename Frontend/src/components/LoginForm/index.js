@@ -90,7 +90,7 @@ const LoginForm = ({ title, role, data }) => {
             type="submit"
             value="Iniciar Sessão"
           />
-          <div className={styles.qrContainer}>
+          <div>
             {showQRCode && <QrRead setDataLogin={setDataQrCode} />}
             {
               <button
