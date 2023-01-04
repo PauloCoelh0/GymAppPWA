@@ -93,8 +93,12 @@ const LoginForm = ({ title, role, data }) => {
           <div className={styles.qrContainer}>
             {showQRCode && <QrRead setDataLogin={setDataQrCode} />}
             {
-              <button onClick={() => setQrCode(!showQRCode)}>
-                Login with Qr Code
+              <button
+                // style={{ borderRadius: "10px", backgroundColor: "red" }}
+                className={styles.button}
+                onClick={() => setQrCode(!showQRCode)}
+              >
+                Iniciar Sessão com Qr Code
               </button>
             }
           </div>
