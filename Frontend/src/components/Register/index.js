@@ -36,87 +36,66 @@ const Users = () => {
   }
 
   return (
-    <Container>
-      <Row>
-        <Col className={styles.column}>
-          <h3>Create User</h3>
-          <div className={styles.container}>
-            <form className={styles.form} onSubmit={handleSubmit(addUser)}>
-              <div className={styles.field}>
-                <label className={styles.label} for="name">
-                  Name:
-                </label>
-                <input
-                  id="name"
-                  type="name"
-                  name="name"
-                  required="required"
-                  {...register("name")}
-                />
-              </div>
-              <div className={styles.field}>
-                <label className={styles.label} for="password">
-                  Password:
-                </label>
-                <input
-                  id="password"
-                  type="password"
-                  name="password"
-                  required="required"
-                  {...register("password")}
-                />
-              </div>
-              <div className={styles.field}>
-                <label className={styles.label} for="email">
-                  Email:
-                </label>
-                <input
-                  id="email"
-                  type="email"
-                  name="email"
-                  required="required"
-                  {...register("email")}
-                />
-              </div>
-              <div className={styles.field}>
-                <label className={styles.label} for="age">
-                  Age :
-                </label>
-                <input id="age" name="age" type="number" {...register("age")} />
-              </div>
-              <div className={styles.field}>
-                <label className={styles.label} for="address">
-                  Address :
-                </label>
-                <input
-                  id="address"
-                  name="address"
-                  required="required"
-                  {...register("address")}
-                />
-              </div>
-              <div className={styles.field}>
-                <label className={styles.label} for="country">
-                  Country :
-                </label>
-                <input
-                  id="country"
-                  name="country"
-                  required="required"
-                  {...register("country")}
-                />
-              </div>
-              <Row>
-                <input className="submit" type="submit" />
-              </Row>
-            </form>
-          </div>
-        </Col>
-        <Col>
-          <Table columns={["name", "email"]} rows={data} />
-        </Col>
-      </Row>
-    </Container>
+    <Row align="middle" justify="center">
+      <div>
+        <p />
+        <h3>Registar</h3>
+        <p />
+        <form className={styles.registerForm} onSubmit={handleSubmit(addUser)}>
+          <input
+            placeholder="Insere o teu nome"
+            id="name"
+            name="name"
+            required="required"
+            {...register("name")}
+          />
+
+          <input
+            placeholder="Insere a tua password"
+            id="password"
+            type="password"
+            name="password"
+            required="required"
+            {...register("password")}
+          />
+
+          <input
+            placeholder="Insere o teu e-mail"
+            id="email"
+            type="email"
+            name="email"
+            required="required"
+            {...register("email")}
+          />
+
+          <input
+            placeholder="Insere a tua idade"
+            id="age"
+            name="age"
+            type="number"
+            {...register("age")}
+          />
+
+          <input
+            placeholder="Insere a tua morada"
+            id="address"
+            name="address"
+            required="required"
+            {...register("address")}
+          />
+
+          <input
+            placeholder="Insere o teu país de origem"
+            id="country"
+            name="country"
+            required="required"
+            {...register("country")}
+          />
+
+          <input className={styles.button} type="submit" value="Criar Conta" />
+        </form>
+      </div>
+    </Row>
   );
 };
 
