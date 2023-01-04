@@ -67,7 +67,7 @@ const LoginForm = ({ title, role, data }) => {
     <Row align="middle" justify="center" data={data}>
       <div>
         <p></p>
-        <h2>Login</h2>
+        <h2>Entrar</h2>
         <p></p>
         <form className={styles.loginForm} onSubmit={handleSubmit(onSubmit)}>
           <input
@@ -86,7 +86,8 @@ const LoginForm = ({ title, role, data }) => {
             {...register("password")}
           />
           <input
-            style={{ backgroundColor: "black", color: "white", hover: "red" }}
+            // style={{ backgroundColor: "black", color: "white" }}
+            className={styles.button}
             type="submit"
             value="Iniciar Sessão"
           />

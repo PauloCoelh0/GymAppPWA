@@ -54,10 +54,10 @@ const Header = () => {
         {!isLoggedIn && (
           <>
             <NavbarBrand className={styles.link} href="/login">
-              Login
+              Entrar
             </NavbarBrand>
             <NavbarBrand className={styles.link} href="/register">
-              Register
+              Registar
             </NavbarBrand>
           </>
         )}
