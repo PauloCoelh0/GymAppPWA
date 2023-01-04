@@ -7,7 +7,7 @@ import _ from "lodash";
 
 const Logout = ({ title, role, data }) => {
   //   const { register, handleSubmit } = useForm();
-    
+
   //   const [isLogged, setLogged] = useState(false);
   const onSubmit = (data) => logout(data);
 
@@ -32,7 +32,7 @@ const Logout = ({ title, role, data }) => {
 
   return (
     <Row align="middle" justify="center">
-      <form className={styles.formLogin} onSubmit={(onSubmit)}>
+      <form className={styles.link} onSubmit={onSubmit}>
         <input className="submit" type="submit" />
       </form>
     </Row>

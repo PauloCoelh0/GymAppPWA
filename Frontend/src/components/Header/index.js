@@ -64,11 +64,12 @@ const Header = () => {
 
         {isLoggedIn && (
           <Button
+            className={styles.button}
             onClick={() => {
               logout();
             }}
           >
-            Logout
+            Terminar Sessão
           </Button>
         )}
       </Navbar>

@@ -44,3 +44,18 @@
 h3 {
   color: rgb(41, 41, 41);
 }
+
+.button{
+  font-size: 1.3rem;
+  font-weight: 400;
+  border-color: black;
+  display: flex;
+  justify-content: flex-end;
+  background-color: rgb(0, 0, 0);
+  --bs-btn-hover-bg: #00000000;
+  --bs-btn-hover-border-color: rgba(255, 0, 0, 0);
+  --bs-btn-hover-color: rgb(196, 196, 196);
+  --bs-btn-active-bg: #565e6400;
+  --bs-btn-active-border-color: #51585e00;
+  --bs-btn-active-color: rgb(196, 196, 196);
+}
