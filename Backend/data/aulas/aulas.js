@@ -12,6 +12,6 @@ let AulaSchema = new Schema({
   registrations: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
 });
 
-let = mongoose.model("Aula", AulaSchema);
+let Aula = mongoose.model("Aula", AulaSchema);
 
 module.exports = Aula;
