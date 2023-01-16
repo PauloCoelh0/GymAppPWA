@@ -49,52 +49,22 @@ const AulasRouter = (io) => {
 
   router
     .route("/create")
-    .post(Users.autorize([scopes.Gestor]), async (req, res, next) =>{
+    .post(Users.autorize([scopes.Gestor]), async (req, res, next) => {
       let body = req.body;
-    try {
-      if (req.body.beginDate> req.body.endDate)
-        throw new Error("INVALID DATE");
-    
-        await Aulas.find({ id: req.body.userId })
-      // .exec()
-      // .then((list) => {
-      //   list.forEach((x) => {
-      //     if (
-      //       (new Date(req.body.collectDate) >= x.collectDate &&
-      //         new Date(req.body.collectDate) <= x.returnDate) ||
-      //       (new Date(req.body.returnDate) >= x.collectDate &&
-      //         new Date(req.body.returnDate) <= x.returnDate)
-      //     )
-      //       throw new Error("CAR NOT AVAILABLE ON THIS DATE");
-      //   });
-      //   return;
-      // });
+      try {
+        if (req.body.beginDate > req.body.endDate)
+          throw new Error("INVALID DATE");
 
-
-      Aulas.create(body)
-        .then(() => {
-          console.log("Aula criada com sucesso!");
-          io.sockets.emit("gestor_notifications", {
-            message: "Add new aula",
-            key: "Aula",
-          });
-          res.status(200);
-          res.send(body);
-          next();
-        })
-        .catch((err) => {
-          console.log("Ocorreu um erro ao adicionar a aula!");
-          console.log(err.message);
-          err.status = err.status || 500;
-          res.status(401);
-          next();
-        });
+        if (
+          new Date(req.body.beginDate) < new Date() ||
+          new Date(req.body.endDate) < new Date()
+        )
+          throw new Error("JA PASSOU");
       } catch (err) {
-        console.log(err);
         res.status(500).json({ message: err.message });
       }
     });
-  
+
   router
     .route("/:aulaId")
     .get(
