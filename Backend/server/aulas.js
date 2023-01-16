@@ -5,6 +5,7 @@ const Users = require("../data/users");
 const scopes = require("../data/users/scopes");
 const VerifyToken = require("../middleware/Token");
 const cookieParser = require("cookie-parser");
+const Aula = require("../data/aulas/aulas");
 
 const AulasRouter = (io) => {
   let router = express();
@@ -63,6 +64,25 @@ const AulasRouter = (io) => {
         )
           throw new Error("JA PASSOU");
 
+          
+
+
+     await Aula.find({ room: req.body.room })
+      .exec()
+      .then((list) => {
+        list.forEach((x) => {
+          if (
+            (new Date(req.body.beginDate) >= x.beginDate &&
+              new Date(req.body.beginDate) <= x.endDate) ||
+            (new Date(req.body.endDate) >= x.beginDate &&
+              new Date(req.body.endDate) <= x.endDate)
+          )
+            throw new Error("ROOM ALREADY IN USE ON THIS DATE ");
+        });
+        return;
+      });
+
+      
       Aulas.create(body)
         .then(() => {
           console.log("Aula criada com sucesso!");
