@@ -142,8 +142,13 @@ const Users = () => {
 
       headerFilter: "input",
     },
-  ];
+    {
+      title: "role",
+      field: "role.name",
 
+      headerFilter: "input",
+    },
+  ];
   const options = {
     pagination: data.pagination,
     paginationSize: 8,

@@ -80,17 +80,17 @@ const Aulas = () => {
   };
 
   const columns = [
-    // {
-    //   title: "Car ID",
-    //   field: "carId",
-    //   headerFilter: "input",
-    //   formatter: "link",
-    //   formatterParams: {
-    //     url: (cell) => {
-    //       return "http://localhost:3000/caredit/" + cell.getValue();
-    //     },
-    //   },
-    // },
+    {
+      title: "Uer ID",
+      field: "_id",
+      headerFilter: "input",
+      formatter: "link",
+      // formatterParams: {
+      //   url: (cell) => {
+      //     return "http://localhost:3000/admin/" + cell.getValue();
+      //   },
+      // },
+    },
 
     {
       title: "name",
