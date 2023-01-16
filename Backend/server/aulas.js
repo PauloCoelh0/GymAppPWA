@@ -47,22 +47,49 @@ const AulasRouter = (io) => {
       }
     );
 
+  // TESTE NOVA ROTA NAO FUNCIONAL
+  // router
+  //   .route("/create")
+  //   .post(Users.autorize([scopes.Gestor]), async (req, res, next) => {
+  //     let body = req.body;
+  //     try {
+  //       if (req.body.beginDate > req.body.endDate)
+  //         throw new Error("INVALID DATE");
+
+  //       if (
+  //         new Date(req.body.beginDate) < new Date() ||
+  //         new Date(req.body.endDate) < new Date()
+  //       )
+  //         throw new Error("JA PASSOU");
+  //     } catch (err) {
+  //       res.status(500).json({ message: err.message });
+  //     }
+  //   });
+
+  //ROTA ANTIGA FUNCIONAL
   router
     .route("/create")
-    .post(Users.autorize([scopes.Gestor]), async (req, res, next) => {
+    .post(Users.autorize([scopes.Gestor]), function (req, res, next) {
       let body = req.body;
-      try {
-        if (req.body.beginDate > req.body.endDate)
-          throw new Error("INVALID DATE");
 
-        if (
-          new Date(req.body.beginDate) < new Date() ||
-          new Date(req.body.endDate) < new Date()
-        )
-          throw new Error("JA PASSOU");
-      } catch (err) {
-        res.status(500).json({ message: err.message });
-      }
+      Aulas.create(body)
+        .then(() => {
+          console.log("Aula criada com sucesso!");
+          io.sockets.emit("gestor_notifications", {
+            message: "Add new aula",
+            key: "Aula",
+          });
+          res.status(200);
+          res.send(body);
+          next();
+        })
+        .catch((err) => {
+          console.log("Ocorreu um erro ao adicionar a aula!");
+          console.log(err.message);
+          err.status = err.status || 500;
+          res.status(401);
+          next();
+        });
     });
 
   router
