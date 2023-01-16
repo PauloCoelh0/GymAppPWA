@@ -77,7 +77,7 @@ const AulasRouter = (io) => {
             (new Date(req.body.endDate) >= x.beginDate &&
               new Date(req.body.endDate) <= x.endDate)
           )
-            throw new Error("ROOM ALREADY IN USE ON THIS DATE ");
+            throw new Error("ROOM ALREADY IN USE ON THIS DATE");
         });
         return;
       });
@@ -99,6 +99,7 @@ const AulasRouter = (io) => {
       }
     });
 
+
   router
     .route("/:aulaId")
     .get(
@@ -118,22 +119,47 @@ const AulasRouter = (io) => {
           });
       }
     )
+
     .put(Users.autorize([scopes.Gestor]), function (req, res, next) {
       console.log("Update aula by id");
       let aulaId = req.params.aulaId;
       let body = req.body;
 
-      Aulas.update(aulaId, body)
-        .then((aula) => {
-          res.status(200);
-          res.send(aula);
-          next();
-        })
-        .catch((err) => {
-          res.status(404);
-          next();
-        });
+
+      Aula.findOneAndUpdate(
+        { _id: aulaId }, 
+        { $push: { registrations: req.body._id } },
+       function (error, success) {
+             if (error) {
+                 console.log(error);
+             } else {
+                 console.log(success);
+             }
+         });
+         res.status(200);
+         res.send("Ok");
     })
+  
+    //   Aulas.findAulaById(aulaId)
+    //   .then((aula) => {
+
+    //     Aulas.update(aulaId, body)
+    //     .then((aula) => {
+    //       res.status(200);
+    //       res.send(aula);
+    //       next();
+    //     })
+    //     .catch((err) => {
+    //       res.status(404);
+    //       next();
+    //     });
+    // })
+      
+
+    
+
+
+
     .delete(Users.autorize([scopes.Gestor]), function (req, res, next) {
       const id = req.params.aulaId;
       Aulas.removeById(id)

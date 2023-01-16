@@ -9,7 +9,7 @@ let AulaSchema = new Schema({
   image: { type: String, required: false },
   capacity: { type: Number, required: true },
   participants: { type: Number, default: 0, required: false },
-  registrations: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+  registrations: [{ type: String }],
 });
 
 let Aula = mongoose.model("Aula", AulaSchema);
