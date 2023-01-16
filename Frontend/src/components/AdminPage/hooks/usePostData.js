@@ -15,9 +15,10 @@ export const usePostData = (url = "") => {
       body: JSON.stringify(data),
     })
       .then((response) => {
+        console.log(response);
         if (response.ok) {
-            setData(response.json());
-            alert('Pedido Efetuado com sucesso');
+          setData(response.json());
+          alert("Pedido Efetuado com sucesso");
         } else {
           alert("Error ao adicionar");
         }

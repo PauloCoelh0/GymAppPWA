@@ -57,7 +57,7 @@ const Aulas = () => {
     border: "2px solid #000",
     boxShadow: 24,
     p: 4,
-    height: 510,
+    height: 350,
   };
 
   const addcar = {
@@ -75,7 +75,7 @@ const Aulas = () => {
     transform: "translate(-50%, -50%)",
     boxShadow: 14,
     position: "absolute",
-    top: "25%",
+    top: "30%",
     left: "50%",
   };
 
@@ -95,6 +95,7 @@ const Aulas = () => {
     {
       title: "name",
       field: "name",
+      editor: true,
 
       headerFilter: "input",
     },
@@ -153,12 +154,12 @@ const Aulas = () => {
                 method="post"
                 className={styles.formCars1}
                 enctype="multipart/formdata"
-                // onSubmit={handleSubmit(onSubmit)}
+                onSubmit={handleSubmit(addData)}
               >
                 {isLoadingPost ? (
                   <div> is Loading </div>
                 ) : (
-                  <div>
+                  <div className={styles.formCars1}>
                     <div className={styles.field1}>
                       <label>Nome: </label>
                       <input
