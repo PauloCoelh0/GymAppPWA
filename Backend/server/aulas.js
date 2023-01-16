@@ -48,7 +48,6 @@ const AulasRouter = (io) => {
       }
     );
 
-
   //ROTA ANTIGA FUNCIONAL
   router
     .route("/create")
@@ -64,27 +63,22 @@ const AulasRouter = (io) => {
         )
           throw new Error("JA PASSOU");
 
-          
+        await Aula.find({ room: req.body.room })
+          .exec()
+          .then((list) => {
+            list.forEach((x) => {
+              if (
+                (new Date(req.body.beginDate) >= x.beginDate &&
+                  new Date(req.body.beginDate) <= x.endDate) ||
+                (new Date(req.body.endDate) >= x.beginDate &&
+                  new Date(req.body.endDate) <= x.endDate)
+              )
+                throw new Error("ROOM ALREADY IN USE ON THIS DATE");
+            });
+            return;
+          });
 
-
-     await Aula.find({ room: req.body.room })
-      .exec()
-      .then((list) => {
-        list.forEach((x) => {
-          if (
-            (new Date(req.body.beginDate) >= x.beginDate &&
-              new Date(req.body.beginDate) <= x.endDate) ||
-            (new Date(req.body.endDate) >= x.beginDate &&
-              new Date(req.body.endDate) <= x.endDate)
-          )
-            throw new Error("ROOM ALREADY IN USE ON THIS DATE");
-        });
-        return;
-      });
-
-      
-      Aulas.create(body)
-        .then(() => {
+        Aulas.create(body).then(() => {
           console.log("Aula criada com sucesso!");
           io.sockets.emit("gestor_notifications", {
             message: "Add new aula",
@@ -93,12 +87,11 @@ const AulasRouter = (io) => {
           res.status(200);
           res.send(body);
           next();
-        })
+        });
       } catch (err) {
         res.status(500).json({ message: err.message });
       }
     });
-
 
   router
     .route("/:aulaId")
@@ -120,26 +113,40 @@ const AulasRouter = (io) => {
       }
     )
 
-    .put(Users.autorize([scopes.Gestor]), function (req, res, next) {
+    .put(Users.autorize([scopes.Gestor]), async function (req, res, next) {
       console.log("Update aula by id");
       let aulaId = req.params.aulaId;
       let body = req.body;
 
+      try {
+        const aulaEncontrada = await Aula.findOne({ _id: aulaId });
+        aulaEncontrada.registrations.push(req.body._id);
+        aulaEncontrada.participants = aulaEncontrada.participants + 1;
+        await aulaEncontrada.save();
+        res.status(200);
+        res.send("Aula guardada com sucesso");
+      } catch (err) {
+        res.status(500);
+        res.send(err.message);
+      }
 
-      Aula.findOneAndUpdate(
-        { _id: aulaId }, 
-        { $push: { registrations: req.body._id } },
-       function (error, success) {
-             if (error) {
-                 console.log(error);
-             } else {
-                 console.log(success);
-             }
-         });
-         res.status(200);
-         res.send("Ok");
+      // Aula.findOneAndUpdate(
+      //   { _id: aulaId },
+      //   { $addToSet: { registrations: req.body._id } },
+      //   { $inc: { participants: 1 }},
+      //  function (error, success) {
+      //        if (error) {
+      //            console.log(error);
+      //            res.status(500);
+      //            res.send("Merda")
+      //        } else {
+      //            console.log(success);
+      //            res.status(200);
+      //           res.send("Ok");
+      //        }
+      //    });
     })
-  
+
     //   Aulas.findAulaById(aulaId)
     //   .then((aula) => {
 
@@ -154,11 +161,6 @@ const AulasRouter = (io) => {
     //       next();
     //     });
     // })
-      
-
-    
-
-
 
     .delete(Users.autorize([scopes.Gestor]), function (req, res, next) {
       const id = req.params.aulaId;
