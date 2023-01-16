@@ -55,10 +55,7 @@ const AulasRouter = (io) => {
       if (req.body.beginDate> req.body.endDate)
         throw new Error("INVALID DATE");
     
-
-
-
-      //   await Rent.find({ car: req.body.carId })
+        await Aulas.find({ id: req.body.userId })
       // .exec()
       // .then((list) => {
       //   list.forEach((x) => {
