@@ -7,14 +7,71 @@ import { useGetData } from "../../hooks/useGetData";
 import { UsersContext } from "../../../../contexts/UsersProvider";
 import { usePostData } from "../../hooks/usePostData";
 import { ReactTabulator } from "react-tabulator";
+
+// import * as React from "react";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import Modal from "@mui/material/Modal";
+
+// import Collapse from "@mui/material/Collapse";
+// import Alert from "@mui/material/Alert";
+// import AlertTitle from "@mui/material/AlertTitle";
+
+//TABULATOR
+import "react-tabulator/lib/styles.css";
+import "tabulator-tables/dist/css/tabulator.min.css";
 import "react-tabulator/lib/styles.css"; // default theme
 import "react-tabulator/css/bootstrap/tabulator_bootstrap.min.css"; // use Theme(s)
+
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+/>;
 
 const Users = () => {
   const { register, handleSubmit } = useForm();
   const { setUsers } = useContext(UsersContext);
   const { isError, isLoading, data } = useGetData("users", 0, 0);
   const { isLoading: isLoadingPost, addData } = usePostData("users");
+
+  const style = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 500,
+    bgcolor: "background.paper",
+    border: "2px solid #000",
+    boxShadow: 24,
+    p: 4,
+    height: 510,
+  };
+
+  const addcar = {
+    width: 300,
+    bgcolor: "#FFF",
+    color: "black",
+    bgcolor: "#FFF",
+    "&:hover": {
+      background: "#FECC01",
+      color: "white",
+    },
+    fontWeight: "600",
+    size: "300px",
+    border: "2px solid #000",
+    transform: "translate(-50%, -50%)",
+    boxShadow: 14,
+    position: "absolute",
+    top: "25%",
+    left: "50%",
+  };
+
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  // const [users, setUseers] = UseState([]);
 
   const addUser = (data) => {
     const newData = {
@@ -27,7 +84,12 @@ const Users = () => {
 
   useEffect(() => {
     setUsers(data.data);
+    // setUseers(data.data);
   }, [data, setUsers]);
+
+  // const useers = data.data;
+
+  console.log(data);
 
   if (isLoading) {
     return <div>Is Loading</div>;
@@ -49,6 +111,7 @@ const Users = () => {
     //     },
     //   },
     // },
+
     {
       title: "name",
       field: "name",
@@ -61,46 +124,171 @@ const Users = () => {
 
       headerFilter: "input",
     },
-    // {
-    //   title: "Idade",
-    //   field: "age",
+    {
+      title: "Idade",
+      field: "age",
 
-    //   headerFilter: "input",
-    // },
-    // {
-    //   title: "Morada",
-    //   field: "address",
+      headerFilter: "input",
+    },
+    {
+      title: "Morada",
+      field: "address",
 
-    //   headerFilter: "input",
-    // },
-    // {
-    //   title: "País de Origem",
-    //   field: "country",
+      headerFilter: "input",
+    },
+    {
+      title: "País de Origem",
+      field: "country",
 
-    //   headerFilter: "input",
-    // },
+      headerFilter: "input",
+    },
   ];
 
   const options = {
-    pagination: "local",
+    pagination: data.pagination,
     paginationSize: 8,
     movableColumns: true,
     paginationCounter: "rows",
     paginationSizeSelector: [3, 6, 8, 10],
   };
 
-  console.log(data);
-
   return (
-    <div className={styles.customTable}>
-      <ReactTabulator
-        columns={columns}
-        layout={"fitColumns"}
-        // data={data}
-        options={options}
-        placeholder={"No Data Set"}
-      />
-    </div>
+    <Container>
+      {/* <div>
+        <Button sx={addcar} onClick={handleOpen}>
+          ADD CAR
+        </Button>
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              ADD NEW
+            </Typography>
+            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+              <form
+                method="post"
+                className="form-Cars1"
+                enctype="multipart/formdata"
+                // onSubmit={handleSubmit(onSubmit)}
+              >
+                <div className="field8">
+                  <label className="l8">Type: </label>
+                  <select
+                    itemType="text"
+                    className="s8"
+                    name="carType"
+                    {...register("carType")}
+                  >
+                    <option itemType="text" defaultValue="Car">
+                      Car
+                    </option>
+                    <option itemType="text" defaultValue="Comercial">
+                      Comercial
+                    </option>
+                    <option itemType="text" defaultValue="Prestige">
+                      Pregiste
+                    </option>
+                  </select>
+                </div>
+                <div className="field1">
+                  <label>Brand: </label>
+                  <input
+                    type="text"
+                    name="brand"
+                    {...register("brand")}
+                    required
+                  />
+                </div>
+                <div className="field1">
+                  <label>Model: </label>
+                  <input
+                    type="text"
+                    name="model"
+                    {...register("model")}
+                    required
+                  />
+                </div>
+                <div className="field1">
+                  <label>Seating Capacity: </label>
+                  <input
+                    type="text"
+                    name="seatingCapacity"
+                    {...register("seatingCapacity")}
+                    required
+                  />
+                </div>
+                <div className="field1">
+                  <label>Doors: </label>
+                  <input
+                    type="text"
+                    name="numDoors"
+                    {...register("numDoors")}
+                    required
+                  />
+                </div>
+                <div className="field1">
+                  <label>Plate: </label>
+                  <input
+                    type="text"
+                    name="plate"
+                    {...register("plate")}
+                    required
+                  />
+                </div>
+                <div className="field1">
+                  <label>Rent Price Per Day: </label>
+                  <input
+                    type="text"
+                    name="rentPricePerDay"
+                    {...register("rentPricePerDay")}
+                    required
+                  />
+                </div>
+                <div className="field2">
+                  <label className="l1">Transmission: </label>
+                  <select
+                    itemType="text"
+                    className="s1"
+                    name="transmisson"
+                    {...register("transmisson")}
+                  >
+                    <option itemType="text" value="Manual">
+                      Manual
+                    </option>
+                    <option itemType="text" value="Automatic">
+                      Automatic
+                    </option>
+                  </select>
+                </div>
+                {/* <div>
+                  <input
+                    type="file"
+                    name="carImage"
+                    {...register("carImage")}
+                    required
+                  />
+                </div> 
+                <br />
+                <input className="submit1" type="submit" value="ADD CAR" />
+              </form>
+            </Typography>
+          </Box>
+        </Modal>
+      </div> */}
+      <div className={styles.customTable}>
+        <ReactTabulator
+          columns={columns}
+          layout={"fitColumns"}
+          data={data.data}
+          options={options}
+          placeholder={"No Data Set"}
+        />
+      </div>
+    </Container>
 
     // <Container>
     //   <Row>
