@@ -49,8 +49,30 @@ const AulasRouter = (io) => {
 
   router
     .route("/create")
-    .post(Users.autorize([scopes.Gestor]), function (req, res, next) {
+    .post(Users.autorize([scopes.Gestor]), async (req, res, next) =>{
       let body = req.body;
+    try {
+      if (req.body.beginDate> req.body.endDate)
+        throw new Error("INVALID DATE");
+    
+
+
+
+      //   await Rent.find({ car: req.body.carId })
+      // .exec()
+      // .then((list) => {
+      //   list.forEach((x) => {
+      //     if (
+      //       (new Date(req.body.collectDate) >= x.collectDate &&
+      //         new Date(req.body.collectDate) <= x.returnDate) ||
+      //       (new Date(req.body.returnDate) >= x.collectDate &&
+      //         new Date(req.body.returnDate) <= x.returnDate)
+      //     )
+      //       throw new Error("CAR NOT AVAILABLE ON THIS DATE");
+      //   });
+      //   return;
+      // });
+
 
       Aulas.create(body)
         .then(() => {
@@ -70,8 +92,12 @@ const AulasRouter = (io) => {
           res.status(401);
           next();
         });
+      } catch (err) {
+        console.log(err);
+        res.status(500).json({ message: err.message });
+      }
     });
-
+  
   router
     .route("/:aulaId")
     .get(
