@@ -61,7 +61,7 @@ const UserPage = () => {
     },
     {
       id: "2",
-      title: "Marcações",
+      title: "Marcacoes",
     },
     {
       id: "3",

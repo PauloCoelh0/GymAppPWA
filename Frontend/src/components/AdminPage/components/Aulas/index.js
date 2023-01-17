@@ -201,7 +201,10 @@ const Aulas = () => {
               "Content-Type": "application/json",
             },
           };
-          fetch(url, requestOptions).then(() => cell.getRow().replaceData());
+          fetch(url, requestOptions).then(
+            () => cell.getRow().update(),
+            console.log("fez update")
+          );
         }
       },
     },
