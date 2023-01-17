@@ -6,6 +6,10 @@ import styles from "./styles.module.scss";
 import { useGetData } from "../../hooks/useGetData";
 import { usePostData } from "../../hooks/usePostData";
 import { TabContext } from "../../contexts";
+import moment from "moment";
+
+import trash from "./details.png";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 //TABULATOR
 import { ReactTabulator } from "react-tabulator";
@@ -20,6 +24,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
+import { red } from "@mui/material/colors";
 <link
   rel="stylesheet"
   href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
@@ -75,8 +80,33 @@ const Aulas = () => {
     transform: "translate(-50%, -50%)",
     boxShadow: 14,
     position: "absolute",
-    top: "30%",
+    top: "250px",
     left: "50%",
+  };
+
+  // var infoIcon = function (value, data, cell, row, options) {
+  //   var html = <img class={styles.infoImage} src="./details.png" />;
+  //   return html;
+  // };
+
+  //custom date formatter
+  var dateFormatter = function (cell, formatterParams) {
+    var value = cell.getValue();
+
+    if (value) {
+      value = moment(value, "YYYY/MM/DD HH:mm").format("lll");
+    }
+
+    return value;
+  };
+
+  var deleteButton = function (e, cell) {
+    var html = "Delete";
+    return html;
+  };
+  var updateButton = function (e, cell) {
+    var html = "Update";
+    return html;
   };
 
   const columns = [
@@ -114,14 +144,66 @@ const Aulas = () => {
     {
       title: "Data de Início",
       field: "beginDate",
-
+      formatter: dateFormatter,
       headerFilter: "input",
     },
     {
       title: "Data de Fim",
       field: "endDate",
-
+      formatter: dateFormatter,
       headerFilter: "input",
+    },
+    // {
+    //   title: "Example",
+    //   field: "example",
+    //   formatter: "image",
+    //   formatterParams: {
+    //     height: "50px",
+    //
+    //     urlPrefix: "http://website.com/images/",
+    //     urlSuffix: ".png",
+    //   },
+    // },
+    {
+      formatter: deleteButton,
+      hozAlign: "center",
+      align: "right",
+      headerSort: false,
+      cellClick: function (e, cell) {
+        if (window.confirm("Tem certeza que pretende eliminar esta aula?")) {
+          const linha = cell.getData();
+
+          const url = `http://localhost:3000/aulas/${linha._id}`;
+          const requestOptions = {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          };
+          fetch(url, requestOptions).then(() => cell.getRow().delete());
+        }
+      },
+    },
+    {
+      formatter: updateButton,
+      hozAlign: "center",
+      align: "right",
+      headerSort: false,
+      cellClick: function (e, cell) {
+        if (window.confirm("Tem certeza que pretende alterar esta aula?")) {
+          const linha = cell.getData();
+          console.log(linha);
+          const url = `http://localhost:3000/aulas/${linha._id}`;
+          const requestOptions = {
+            method: "PUT",
+            body: JSON.stringify(linha),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          };
+          fetch(url, requestOptions).then(() => cell.getRow().replaceData());
+        }
+      },
     },
   ];
 
@@ -190,7 +272,7 @@ const Aulas = () => {
                     <div className={styles.field1}>
                       <label>Data de Início: </label>
                       <input
-                        type="date"
+                        type="datetime-local"
                         name="beginDate"
                         {...register("beginDate")}
                         required
@@ -199,7 +281,7 @@ const Aulas = () => {
                     <div className={styles.field1}>
                       <label className={styles.l1}>Data de Fim: </label>
                       <input
-                        type="date"
+                        type="datetime-local"
                         name="endDate"
                         {...register("endDate")}
                         required
