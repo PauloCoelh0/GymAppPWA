@@ -3,6 +3,7 @@ let AuthAPI = require("./server/auth");
 let UsersAPI = require("./server/users");
 let AulasAPI = require("./server/aulas");
 let AcessosAPI = require("./server/acessos");
+let ImagesAPI = require("./server/images");
 
 function init(io) {
   let api = express();
@@ -11,6 +12,7 @@ function init(io) {
   api.use("/users", UsersAPI(io));
   api.use("/aulas", AulasAPI(io));
   api.use("/acessos", AcessosAPI(io));
+  api.use("/images", ImagesAPI(io));
 
   return api;
 }
