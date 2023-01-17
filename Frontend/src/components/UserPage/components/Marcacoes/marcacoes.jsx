@@ -8,7 +8,7 @@ const Car = (props) => {
 
   return (
     <Card style={{ width: "18rem" }}>
-      <Card.Img variant="top" src={props.carImage} />
+      <Card.Img variant="top" src={props.aulaImage} />
       <Card.Body>
         <Card.Title style={{ fontWeight: "700", marginTop: "40px" }}>
           {props.name}

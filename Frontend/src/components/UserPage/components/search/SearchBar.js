@@ -56,9 +56,7 @@ function SearchBar({ placeholder, data }) {
                 onClick={() => navigate(`/aulas/${value._id}`)}
                 target="_blank"
               >
-                <p>
-                  {value.brand} ({value.model})
-                </p>
+                <p>{value.name}</p>
               </a>
             );
           })}
