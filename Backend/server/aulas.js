@@ -134,48 +134,22 @@ const AulasRouter = (io) => {
         aulaEncontrada.participants = aulaEncontrada.participants + 1;
         await aulaEncontrada.save();
         res.status(200);
-        res.send("User Registado com sucesso");
+        res.send("User Registado na Aula com Sucesso");
       } catch (err) {
         res.status(500);
         res.send(err.message);
       }
-
-      // Aula.findOneAndUpdate(
-      //   { _id: aulaId },
-      //   { $addToSet: { registrations: req.body._id } },
-      //   { $inc: { participants: 1 }},
-      //  function (error, success) {
-      //        if (error) {
-      //            console.log(error);
-      //            res.status(500);
-      //            res.send("Merda")
-      //        } else {
-      //            console.log(success);
-      //            res.status(200);
-      //           res.send("Ok");
-      //        }
-      //    });
     })
 
-    //   Aulas.findAulaById(aulaId)
-    //   .then((aula) => {
+    .delete(Users.autorize([scopes.Gestor]), async function (req, res, next) {
+      let aulaId = req.params.aulaId;
 
-    //     Aulas.update(aulaId, body)
-    //     .then((aula) => {
-    //       res.status(200);
-    //       res.send(aula);
-    //       next();
-    //     })
-    //     .catch((err) => {
-    //       res.status(404);
-    //       next();
-    //     });
-    // })
+      try {
+        const aulaEncontrada = await Aula.findOne({ _id: aulaId });
+        if (aulaEncontrada.registrations.length != 0)
+          throw new Error("Nao pode apagar, aula ja contem utilizadores");
 
-    .delete(Users.autorize([scopes.Gestor]), function (req, res, next) {
-      const id = req.params.aulaId;
-      Aulas.removeById(id)
-        .then((result) => {
+        Aulas.removeById(aulaId).then((result) => {
           res.status(200).json({
             mesage: "CLASS SUCCESSFULLY DELETED",
             request: {
@@ -184,13 +158,12 @@ const AulasRouter = (io) => {
               url: "http://localhost:5000/aulas",
             },
           });
-        })
-        .catch((err) => {
-          console.log(err);
-          res.status(500).json({
-            error: err,
-          });
         });
+      } catch (err) {
+        res.status(500);
+        res.send(err.message);
+        console.log(err.message);
+      }
     });
 
   return router;
