@@ -120,11 +120,21 @@ const AulasRouter = (io) => {
 
       try {
         const aulaEncontrada = await Aula.findOne({ _id: aulaId });
+
+        aulaEncontrada.registrations.forEach((x) => {
+          console.log(x);
+          if (x === req.body._id) throw new Error("Aluno ja registado");
+        });
+
         aulaEncontrada.registrations.push(req.body._id);
+
+        if (aulaEncontrada.participants >= aulaEncontrada.capacity)
+          throw new Error("Capacidadade maxima atingida");
+
         aulaEncontrada.participants = aulaEncontrada.participants + 1;
         await aulaEncontrada.save();
         res.status(200);
-        res.send("Aula guardada com sucesso");
+        res.send("User Registado com sucesso");
       } catch (err) {
         res.status(500);
         res.send(err.message);
