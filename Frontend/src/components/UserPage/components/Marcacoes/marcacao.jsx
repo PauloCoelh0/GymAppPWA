@@ -3,7 +3,7 @@ import axios from "axios";
 import "./Cars.css";
 import config from "../../../../config";
 import Car from "./marcacoes";
-// import SearchBar from "../searchBar/SearchBar";
+import SearchBar from "../search/SearchBar";
 import { useNavigate } from "react-router-dom";
 
 export default function Cars() {
@@ -18,7 +18,6 @@ export default function Cars() {
         const response = await axios.get(url, {
           headers: {
             Accept: "application/json",
-            // Authorization: "Baerer " + config.token,
           },
         });
         setCars(response.data.data);
@@ -35,7 +34,7 @@ export default function Cars() {
 
   return (
     <div className="cars">
-      {/* <SearchBar placeholder="Search " data={cars} /> */}
+      <SearchBar placeholder="Search " data={cars} />
       {cars?.map((car) => (
         <Car key={car._id} {...car} />
       ))}
