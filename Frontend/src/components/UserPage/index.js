@@ -58,11 +58,11 @@ const UserPage = () => {
   const navItems = [
     {
       id: "1",
-      title: "Perfil",
+      title: "Marcações",
     },
     {
       id: "2",
-      title: "Marcacoes",
+      title: "Perfil",
     },
     {
       id: "3",
@@ -80,11 +80,11 @@ const UserPage = () => {
 
   const items = [
     {
-      id: "1",
+      id: "2",
       children: <Perfil user={user.data} />,
     },
     {
-      id: "2",
+      id: "1",
       children: <Cars />,
     },
     {
