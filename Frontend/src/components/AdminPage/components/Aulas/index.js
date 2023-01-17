@@ -8,7 +8,6 @@ import { usePostData } from "../../hooks/usePostData";
 import { TabContext } from "../../contexts";
 import moment from "moment";
 
-import trash from "./details.png";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 //TABULATOR
@@ -111,15 +110,15 @@ const Aulas = () => {
 
   const columns = [
     {
-      title: "Uer ID",
+      title: "User ID",
       field: "_id",
       headerFilter: "input",
       formatter: "link",
-      // formatterParams: {
-      //   url: (cell) => {
-      //     return "http://localhost:3000/admin/" + cell.getValue();
-      //   },
-      // },
+      formatterParams: {
+        url: (cell) => {
+          return "http://localhost:3000/aulas/" + cell.getValue();
+        },
+      },
     },
 
     {

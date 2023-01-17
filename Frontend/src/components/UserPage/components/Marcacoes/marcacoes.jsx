@@ -24,7 +24,7 @@ const Car = (props) => {
         <Button
           className="carBtn"
           variant="secondary"
-          onClick={() => navigate(`/carDetails/${props.carId}`)}
+          onClick={() => navigate(`/carDetails/${props._id}`)}
         >
           Inscrever
         </Button>

@@ -25,14 +25,15 @@ const AdminPage = () => {
   const navItems = [
     {
       id: "1",
-      title: "Users",
-      count: countUsers,
-    },
-    {
-      id: "2",
       title: "Aulas",
       count: countGames,
     },
+    {
+      id: "2",
+      title: "Users",
+      count: countUsers,
+    },
+
     // {
     //   id: "3",
     //   title: "Games",
@@ -47,12 +48,13 @@ const AdminPage = () => {
   const items = [
     {
       id: "1",
-      children: <Users />,
+      children: <Aulas />,
     },
     {
       id: "2",
-      children: <Aulas />,
+      children: <Users />,
     },
+
     // {
     //   id: "3",
     //   children: <Games />,
