@@ -132,25 +132,36 @@ const Aulas = () => {
     {
       title: "Capacidade",
       field: "capacity",
-
+      width: 124,
+      hozAlign: "center",
       headerFilter: "input",
     },
     {
       title: "Sala",
       field: "room",
-
+      width: 72,
       headerFilter: "input",
+      hozAlign: "center",
     },
     {
       title: "Data de Início",
       field: "beginDate",
       formatter: dateFormatter,
       headerFilter: "input",
+      width: 155,
     },
     {
       title: "Data de Fim",
       field: "endDate",
       formatter: dateFormatter,
+      headerFilter: "input",
+      width: 155,
+    },
+    {
+      title: "Participantes",
+      field: "participants",
+      width: 128,
+      hozAlign: "center",
       headerFilter: "input",
     },
     // {

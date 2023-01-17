@@ -86,6 +86,9 @@ export const Marcacoes = () => {
 
   const props = data;
 
+  console.log(data.data[1].name);
+  console.log("aquiii");
+
   //custom date formatter
   var dateFormatter = function (cell, formatterParams) {
     var value = cell.getValue();
@@ -184,26 +187,26 @@ export const Marcacoes = () => {
         {/* <Card.Img variant="top" src={dat.carImage} /> */}
         <Card.Body>
           <Card.Title style={{ fontWeight: "700", marginTop: "40px" }}>
-            {}
+            {data.data[0].name}
             <span style={{ fontWeight: "lighter", color: "grey" }}>
-              ({props.model})
+              ({data.data[0].participants})
             </span>
           </Card.Title>
           <Card.Text>
-            {/* <p className="carDetails">Seats: {props.seatingCapacity}</p>
-          <p className="carDetails">Doors: {props.numDoors}</p>
-          <p className="carDetails">Transmisson: {props.transmisson}</p> */}
+            <p className="carDetails">Seats: {props.seatingCapacity}</p>
+            <p className="carDetails">Doors: {props.numDoors}</p>
+            <p className="carDetails">Transmisson: {props.transmisson}</p>
             <p className="carDetails">
-              Rent Price Per Day: <b>{props.data.name} €</b>
+              Rent Price Per Day: <b>{} €</b>
             </p>
           </Card.Text>
-          {/* <Button
+          <Button
             className="carBtn"
             variant="secondary"
-            onClick={() => navigate(`/carDetails/${props.carId}`)}
+            // onClick={() => navigate(`/carDetails/${props.carId}`)}
           >
             See More
-          </Button> */}
+          </Button>
         </Card.Body>
       </Card>
     </Container>

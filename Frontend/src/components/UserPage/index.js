@@ -9,6 +9,7 @@ import {
   TabPane,
 } from "reactstrap";
 import { Marcacoes } from "./components/Marcacoes";
+import Cars from "./components/Marcacoes/marcacao";
 import { Pagamentos } from "./components/Pagamentos";
 import { RegistosAcesso } from "./components/RegistosAcesso";
 import { Perfil } from "./components/Perfil";
@@ -84,7 +85,7 @@ const UserPage = () => {
     },
     {
       id: "2",
-      children: <Marcacoes />,
+      children: <Cars />,
     },
     {
       id: "3",
