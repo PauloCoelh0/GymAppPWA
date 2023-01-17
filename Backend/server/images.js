@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const express = require("express");
 const Acessos = require("../data/acessos");
 const Users = require("../data/users");
+const Images = require("../data/images");
 const scopes = require("../data/users/scopes");
 const VerifyToken = require("../middleware/Token");
 const cookieParser = require("cookie-parser");
@@ -44,7 +45,7 @@ const ImagesRouter = () => {
           skip: pageSkip,
         };
 
-        Image.findAll(req.pagination)
+        Images.findAll(req.pagination)
           .then((images) => {
             const response = {
               auth: true,
@@ -67,11 +68,13 @@ const ImagesRouter = () => {
       Users.autorize([scopes.Gestor]),
       upload.single("aulaImage"),
       function (req, res) {
-        Aula.findById(req.body._id)
+        const id = req.body.aula;
+        Aula.findById(id)
           .then(() => {
+            console.log("id:" + id);
             const image = new Image({
               _id: mongoose.Types.ObjectId(),
-              aula: req.body._id,
+              aula: id,
               aulaImage: req.file.path,
             });
             return image.save();
