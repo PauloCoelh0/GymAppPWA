@@ -6,6 +6,7 @@ const scopes = require("../data/users/scopes");
 const VerifyToken = require("../middleware/Token");
 const cookieParser = require("cookie-parser");
 const Aula = require("../data/aulas/aulas");
+const User = require("../data/users/users");
 
 const AulasRouter = (io) => {
   let router = express();
@@ -121,8 +122,13 @@ const AulasRouter = (io) => {
       try {
         const aulaEncontrada = await Aula.findOne({ _id: aulaId });
 
+        // const alunoEncontrado = await User.find({ _id: body });
+        // // alunoEncontrado.forEach((z) => {
+        // //   console.log(z);
+
+        // if (!alunoEncontrado) throw new Error("User nao existe");
+
         aulaEncontrada.registrations.forEach((x) => {
-          console.log(x);
           if (x === req.body._id) throw new Error("Aluno ja registado");
         });
 
