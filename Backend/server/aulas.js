@@ -22,7 +22,7 @@ const AulasRouter = (io) => {
     .get(
       Users.autorize([scopes.Gestor, scopes.Normal, scopes.Vip]),
       function (req, res, next) {
-        const pageLimit = req.query.limit ? parseInt(req.query.limit) : 5;
+        const pageLimit = req.query.limit ? parseInt(req.query.limit) : 20;
         const pageSkip = req.query.skip
           ? pageLimit * parseInt(req.query.skip)
           : 0;
