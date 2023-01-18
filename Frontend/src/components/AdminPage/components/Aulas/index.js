@@ -101,13 +101,9 @@ const Aulas = () => {
 
   //custom date formatter
   var dateFormatter = function (cell, formatterParams) {
-    var value = cell.getValue();
-
-    if (value) {
-      value = moment(value, "YYYY/MM/DD HH:mm").format("lll");
-    }
-
-    return value;
+    const sCellValue = cell.getValue();
+    if (!sCellValue) return "";
+    return moment(sCellValue).format("YYYY-MM-DD HH:mm");
   };
 
   var deleteButton = function (e, cell) {
@@ -117,6 +113,50 @@ const Aulas = () => {
   var updateButton = function (e, cell) {
     var html = "Update";
     return html;
+  };
+
+  //custom date editor
+
+  var dateEditor = function (cell, onRendered, success, cancel, editorParams) {
+    //cell - the cell component for the editable cell
+    //onRendered - function to call when the editor has been rendered
+    //success - function to call to pass thesuccessfully updated value to Tabulator
+    //cancel - function to call to abort the edit and return to a normal cell
+    //editorParams - params object passed into the editorParams column definition property
+
+    //create and style editor
+    var editor = document.createElement("input");
+
+    editor.setAttribute("type", "datetime-local");
+
+    //create and style input
+    editor.style.padding = "3px";
+    editor.style.width = "100%";
+    editor.style.boxSizing = "border-box";
+
+    //Set value of editor to the current value of the cell
+    editor.value = moment(cell.getValue()).format("DD-MM-YYYY HH:mm");
+
+    //set focus on the select box when the editor is selected (timeout allows for editor to be added to DOM)
+    onRendered(function () {
+      editor.focus();
+      editor.style.css = "100%";
+    });
+
+    //when the value has been set, trigger the cell to update
+    function successFunc() {
+      success(
+        moment(editor.value, "DD-MM-YYYY HH:mm").formatformat(
+          "DD-MM-YYYY HH:mm"
+        )
+      );
+    }
+
+    editor.addEventListener("change", successFunc);
+    editor.addEventListener("blur", successFunc);
+
+    //return the editor element
+    return editor;
   };
 
   const columns = [
