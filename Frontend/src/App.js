@@ -18,6 +18,7 @@ import UserPage from "./components/UserPage";
 import { UsersProvider } from "./contexts/UsersProvider";
 import { TabProvider } from "./components/AdminPage/contexts";
 import { Notifications } from "react-push-notification";
+import AulaDetails from "./components/UserPage/components/aulaDetails/index";
 
 function App() {
   // const router = createBrowserRouter([
@@ -66,6 +67,7 @@ function App() {
       <Header />
       <Routes>
         <Route>
+          <Route path="/aulaDetails/:aulaId" element={<AulaDetails />} />
           <Route path="/gestaoAcessos" element={<GestaoAcessos />} />
           <Route path="/home" element={<HomePage />} />
           <Route path="/login" element={<LoginForm />} />

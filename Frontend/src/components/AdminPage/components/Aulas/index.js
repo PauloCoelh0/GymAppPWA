@@ -217,6 +217,7 @@ const Aulas = () => {
     {
       title: "Participantes",
       field: "participants",
+      editor: true,
       width: 150,
       hozAlign: "center",
       headerFilter: "input",
