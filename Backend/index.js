@@ -17,6 +17,20 @@ let router = require("./router");
 
 var app = express();
 
+app.use(function (req, res, next) {
+  //Enabling CORS
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Methods",
+    "GET,HEAD,OPTIONS,POST,PUT,DELETE"
+  );
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept, x-client-key, x-client-token, x-client-secret, Authorization"
+  );
+  next();
+});
+
 const server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
@@ -32,7 +46,7 @@ io.on("connection", (socket) => {
     socket.disconnect();
   });
 });
-
+app.use("/uploads", express.static("uploads"));
 app.use(router.init(io));
 app.use("/images", express.static(path.join(__dirname, "images")));
 
