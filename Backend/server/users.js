@@ -48,29 +48,29 @@ const UsersRouter = (io) => {
     });
 
   // Get perfil do user logado
-  router
-    .route("/perfil")
-    .get(
-      Users.autorize([scopes.Gestor, scopes.Normal, scopes.Vip]),
-      function (req, res, next) {
-        console.log("get the perfil of user");
-        // the id is get when the token has decoded
-        let userId = req.id;
-        Users.findUserById(userId)
-          .then((user) => {
-            res.status(200);
-            res.send({
-              data: user,
-            });
-            next();
-          })
-          .catch((err) => {
-            console.log("Perfil", err);
-            res.status(404);
-            next();
-          });
-      }
-    );
+  // router
+  //   .route("/perfil")
+  //   .get(
+  //     Users.autorize([scopes.Gestor, scopes.Normal, scopes.Vip]),
+  //     function (req, res, next) {
+  //       console.log("get the perfil of user");
+  //       // the id is get when the token has decoded
+  //       let userId = req.id;
+  //       Users.findUserById(userId)
+  //         .then((user) => {
+  //           res.status(200);
+  //           res.send({
+  //             data: user,
+  //           });
+  //           next();
+  //         })
+  //         .catch((err) => {
+  //           console.log("Perfil", err);
+  //           res.status(404);
+  //           next();
+  //         });
+  //     }
+  //   );
 
   router
     .route("/:userId")
