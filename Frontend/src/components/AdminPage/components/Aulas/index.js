@@ -25,6 +25,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { red } from "@mui/material/colors";
+import AulasForm from "./addAulaForm";
 <link
   rel="stylesheet"
   href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
@@ -292,87 +293,7 @@ const Aulas = () => {
   return (
     <Container>
       <div>
-        <Button sx={addcar} onClick={handleOpen}>
-          ADD AULA
-        </Button>
-        <Modal
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <Box sx={style}>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-              ADD AULA
-            </Typography>
-            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-              <form
-                method="post"
-                className={styles.formCars1}
-                enctype="multipart/formdata"
-                onSubmit={handleSubmit(addData)}
-              >
-                {isLoadingPost ? (
-                  <div> is Loading </div>
-                ) : (
-                  <div className={styles.formCars1}>
-                    <div className={styles.field1}>
-                      <label>Nome: </label>
-                      <input
-                        type="text"
-                        name="name"
-                        {...register("name")}
-                        required
-                      />
-                    </div>
-                    <div className={styles.field1}>
-                      <label>Capacidade: </label>
-                      <input
-                        type="text"
-                        name="capacity"
-                        {...register("capacity")}
-                        required
-                      />
-                    </div>
-                    <div className={styles.field1}>
-                      <label>Sala: </label>
-                      <input
-                        type="text"
-                        name="room"
-                        {...register("room")}
-                        required
-                      />
-                    </div>
-                    <div className={styles.field1}>
-                      <label>Data de Início: </label>
-                      <input
-                        type="datetime-local"
-                        name="beginDate"
-                        {...register("beginDate")}
-                        required
-                      />
-                    </div>
-                    <div className={styles.field1}>
-                      <label className={styles.l1}>Data de Fim: </label>
-                      <input
-                        type="datetime-local"
-                        name="endDate"
-                        {...register("endDate")}
-                        required
-                      />
-                    </div>
-                    <br />
-                    <input
-                      className={styles.submit1}
-                      type="submit"
-                      value="ADD AULA"
-                    />
-                  </div>
-                )}
-              </form>
-            </Typography>
-          </Box>
-        </Modal>
+        <AulasForm />
       </div>
       <div className={styles.customTable}>
         <ReactTabulator

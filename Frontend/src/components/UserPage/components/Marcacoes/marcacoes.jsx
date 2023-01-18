@@ -4,6 +4,7 @@ import { Card, Button } from "react-bootstrap";
 import React from "react";
 
 const Car = (props) => {
+  console.log(props.aulaImage);
   const navigate = useNavigate();
 
   return (

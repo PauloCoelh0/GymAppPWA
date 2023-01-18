@@ -81,7 +81,7 @@ const AulasRouter = (io) => {
         try {
           if (req.body.beginDate > req.body.endDate)
             throw new Error("INVALID DATE");
-          console.log(req.body);
+          console.log(aula);
           if (
             new Date(req.body.beginDate) < new Date() ||
             new Date(req.body.endDate) < new Date()

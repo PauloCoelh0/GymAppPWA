@@ -65,9 +65,9 @@ function App() {
     <BrowserRouter>
       <Header />
       <Routes>
-        <Route path="/">
+        <Route>
           <Route path="/gestaoAcessos" element={<GestaoAcessos />} />
-          <Route path="/" element={<HomePage />} />
+          <Route path="/home" element={<HomePage />} />
           <Route path="/login" element={<LoginForm />} />
           <Route path="/register" element={<Register />} />
           <Route
