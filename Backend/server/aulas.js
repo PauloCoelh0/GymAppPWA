@@ -7,6 +7,17 @@ const VerifyToken = require("../middleware/Token");
 const cookieParser = require("cookie-parser");
 const Aula = require("../data/aulas/aulas");
 const User = require("../data/users/users");
+const multer = require("multer");
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "./uploads/");
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + file.originalname);
+  },
+});
+const upload = multer({ storage: storage });
 
 const AulasRouter = (io) => {
   let router = express();
@@ -52,47 +63,61 @@ const AulasRouter = (io) => {
   //ROTA ANTIGA FUNCIONAL
   router
     .route("/create")
-    .post(Users.autorize([scopes.Gestor]), async (req, res, next) => {
-      let body = req.body;
-      try {
-        if (req.body.beginDate > req.body.endDate)
-          throw new Error("INVALID DATE");
-        console.log(req.body);
-        if (
-          new Date(req.body.beginDate) < new Date() ||
-          new Date(req.body.endDate) < new Date()
-        )
-          throw new Error("JA PASSOU");
-
-        await Aula.find({ room: req.body.room })
-          .exec()
-          .then((list) => {
-            list.forEach((x) => {
-              if (
-                (new Date(req.body.beginDate) >= x.beginDate &&
-                  new Date(req.body.beginDate) <= x.endDate) ||
-                (new Date(req.body.endDate) >= x.beginDate &&
-                  new Date(req.body.endDate) <= x.endDate)
-              )
-                throw new Error("ROOM ALREADY IN USE ON THIS DATE");
-            });
-            return;
-          });
-
-        Aulas.create(body).then(() => {
-          console.log("Aula criada com sucesso!");
-          io.sockets.emit("gestor_notifications", {
-            message: "Add new aula",
-            key: "Aula",
-          });
-          res.status(200);
-          res.send(body);
-          next();
+    .post(
+      Users.autorize([scopes.Gestor]),
+      upload.single("aulaImage"),
+      async (req, res, next) => {
+        let body = req.body;
+        const aula = new Aula({
+          name: req.body.name,
+          room: req.body.room,
+          beginDate: req.body.beginDate,
+          endDate: req.body.endDate,
+          capacity: req.body.capacity,
+          participants: req.body.participants,
+          registrations: req.body.registrations,
+          aulaImage: req.file.path,
         });
-      } catch (err) {
-        res.status(500).json({ message: err.message });
+        try {
+          if (req.body.beginDate > req.body.endDate)
+            throw new Error("INVALID DATE");
+          console.log(req.body);
+          if (
+            new Date(req.body.beginDate) < new Date() ||
+            new Date(req.body.endDate) < new Date()
+          )
+            throw new Error("JA PASSOU");
+
+          await Aula.find({ room: req.body.room })
+            .exec()
+            .then((list) => {
+              list.forEach((x) => {
+                if (
+                  (new Date(req.body.beginDate) >= x.beginDate &&
+                    new Date(req.body.beginDate) <= x.endDate) ||
+                  (new Date(req.body.endDate) >= x.beginDate &&
+                    new Date(req.body.endDate) <= x.endDate)
+                )
+                  throw new Error("ROOM ALREADY IN USE ON THIS DATE");
+              });
+              return;
+            });
+
+          Aulas.create(aula).then(() => {
+            console.log("Aula criada com sucesso!");
+            io.sockets.emit("gestor_notifications", {
+              message: "Add new aula",
+              key: "Aula",
+            });
+            res.status(200);
+            res.send(aula);
+            next();
+          });
+        } catch (err) {
+          res.status(500).json({ message: err.message });
+        }
       }
-    });
+    );
 
   router
     .route("/:aulaId")

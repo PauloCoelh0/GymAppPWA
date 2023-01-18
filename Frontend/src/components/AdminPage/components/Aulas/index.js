@@ -160,23 +160,23 @@ const Aulas = () => {
   };
 
   const columns = [
-    {
-      title: "User ID",
-      field: "_id",
-      headerFilter: "input",
-      formatter: "link",
-      formatterParams: {
-        url: (cell) => {
-          return "http://localhost:3000/aulas/" + cell.getValue();
-        },
-      },
-    },
+    // {
+    //   title: "User ID",
+    //   field: "_id",
+    //   headerFilter: "input",
+    //   formatter: "link",
+    //   formatterParams: {
+    //     url: (cell) => {
+    //       return "http://localhost:3000/aulas/" + cell.getValue();
+    //     },
+    //   },
+    // },
 
     {
       title: "name",
       field: "name",
       editor: true,
-
+      width: 230,
       headerFilter: "input",
     },
     {
@@ -197,24 +197,26 @@ const Aulas = () => {
     },
     {
       title: "Data de Início",
+      hozAlign: "center",
       field: "beginDate",
       editor: "input",
       formatter: dateFormatter,
       headerFilter: "input",
-      width: 155,
+      width: 175,
     },
     {
       title: "Data de Fim",
+      hozAlign: "center",
       field: "endDate",
       editor: "input",
       formatter: dateFormatter,
       headerFilter: "input",
-      width: 155,
+      width: 175,
     },
     {
       title: "Participantes",
       field: "participants",
-      width: 128,
+      width: 150,
       hozAlign: "center",
       headerFilter: "input",
     },
@@ -231,7 +233,7 @@ const Aulas = () => {
     // },
     {
       title: "GUARDAR",
-      width: 85,
+      width: 100,
       formatter: updateIcon,
       hozAlign: "center",
       align: "right",
@@ -257,7 +259,7 @@ const Aulas = () => {
     },
     {
       title: "ELIMINAR",
-      width: 84,
+      width: 100,
       formatter: delIcon,
       hozAlign: "center",
       align: "right",
