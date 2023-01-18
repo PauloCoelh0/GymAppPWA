@@ -57,7 +57,7 @@ const AulasRouter = (io) => {
       try {
         if (req.body.beginDate > req.body.endDate)
           throw new Error("INVALID DATE");
-
+        console.log(req.body);
         if (
           new Date(req.body.beginDate) < new Date() ||
           new Date(req.body.endDate) < new Date()
@@ -170,6 +170,26 @@ const AulasRouter = (io) => {
         res.send(err.message);
         console.log(err.message);
       }
+    });
+
+  router
+    .route("/update/:aulaId")
+    .put(Users.autorize([scopes.Gestor]), function (req, res, next) {
+      console.log("Update aula by id");
+      let aulaId = req.params.aulaId;
+      let body = req.body;
+      Aulas.update(aulaId, body)
+        .then((aula) => {
+          console.log("fixe");
+          res.status(200);
+          res.send(aula);
+          next();
+        })
+        .catch((err) => {
+          console.log("nao ta a dar");
+          res.status(404);
+          next();
+        });
     });
 
   return router;

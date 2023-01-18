@@ -7,6 +7,7 @@ import { useGetData } from "../../hooks/useGetData";
 import { usePostData } from "../../hooks/usePostData";
 import { TabContext } from "../../contexts";
 import moment from "moment";
+import "font-awesome/css/font-awesome.min.css";
 
 import DeleteIcon from "@mui/icons-material/Delete";
 
@@ -88,6 +89,16 @@ const Aulas = () => {
   //   return html;
   // };
 
+  var delIcon = function (value, data, cell, row, options) {
+    //plain text value
+    return '<span><i class="fa fa-trash"></i></span>';
+  };
+
+  var updateIcon = function (value, data, cell, row, options) {
+    //plain text value
+    return '<span><i class="fa fa-floppy-o"></i></span>';
+  };
+
   //custom date formatter
   var dateFormatter = function (cell, formatterParams) {
     var value = cell.getValue();
@@ -131,6 +142,7 @@ const Aulas = () => {
     {
       title: "Capacidade",
       field: "capacity",
+      editor: true,
       width: 124,
       hozAlign: "center",
       headerFilter: "input",
@@ -138,6 +150,7 @@ const Aulas = () => {
     {
       title: "Sala",
       field: "room",
+      editor: true,
       width: 72,
       headerFilter: "input",
       hozAlign: "center",
@@ -145,6 +158,7 @@ const Aulas = () => {
     {
       title: "Data de Início",
       field: "beginDate",
+      editor: true,
       formatter: dateFormatter,
       headerFilter: "input",
       width: 155,
@@ -152,6 +166,7 @@ const Aulas = () => {
     {
       title: "Data de Fim",
       field: "endDate",
+      editor: true,
       formatter: dateFormatter,
       headerFilter: "input",
       width: 155,
@@ -175,7 +190,35 @@ const Aulas = () => {
     //   },
     // },
     {
-      formatter: deleteButton,
+      title: "GUARDAR",
+      width: 85,
+      formatter: updateIcon,
+      hozAlign: "center",
+      align: "right",
+      headerSort: false,
+      cellClick: function (e, cell) {
+        if (window.confirm("Tem certeza que pretende alterar esta aula?")) {
+          const linha = cell.getData();
+          console.log(linha);
+          const url = `http://localhost:3000/aulas/update/${linha._id}`;
+          const requestOptions = {
+            method: "PUT",
+            body: JSON.stringify(linha),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          };
+          fetch(url, requestOptions).then(
+            () => cell.getRow().update(),
+            console.log("fez update")
+          );
+        }
+      },
+    },
+    {
+      title: "ELIMINAR",
+      width: 84,
+      formatter: delIcon,
       hozAlign: "center",
       align: "right",
       headerSort: false,
@@ -191,30 +234,6 @@ const Aulas = () => {
             },
           };
           fetch(url, requestOptions).then(() => cell.getRow().delete());
-        }
-      },
-    },
-    {
-      formatter: updateButton,
-      hozAlign: "center",
-      align: "right",
-      headerSort: false,
-      cellClick: function (e, cell) {
-        if (window.confirm("Tem certeza que pretende alterar esta aula?")) {
-          const linha = cell.getData();
-          console.log(linha);
-          const url = `http://localhost:3000/aulas/${linha._id}`;
-          const requestOptions = {
-            method: "PUT",
-            body: JSON.stringify(linha),
-            headers: {
-              "Content-Type": "application/json",
-            },
-          };
-          fetch(url, requestOptions).then(
-            () => cell.getRow().update(),
-            console.log("fez update")
-          );
         }
       },
     },
