@@ -158,7 +158,7 @@ const Aulas = () => {
     {
       title: "Data de Início",
       field: "beginDate",
-      editor: true,
+      editor: "input",
       formatter: dateFormatter,
       headerFilter: "input",
       width: 155,
@@ -166,7 +166,7 @@ const Aulas = () => {
     {
       title: "Data de Fim",
       field: "endDate",
-      editor: true,
+      editor: "input",
       formatter: dateFormatter,
       headerFilter: "input",
       width: 155,
