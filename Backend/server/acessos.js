@@ -57,7 +57,7 @@ const AcessosRouter = (io) => {
         console.log(local);
 
         const rolesLocations = {
-          normal: ["entrada", "jacuzzi", "banhoturco"],
+          normal: ["entrada"],
           Vip: ["entrada", "jacuzzi", "banhoturco"],
           gestor: ["entrada", "jacuzzi", "banhoturco"],
         };
