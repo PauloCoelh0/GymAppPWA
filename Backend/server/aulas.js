@@ -162,7 +162,7 @@ const AulasRouter = (io) => {
           if (aulaEncontrada.participants >= aulaEncontrada.capacity)
             throw new Error("Capacidadade maxima atingida");
 
-          aulaEncontrada.participants = aulaEncontrada.participants + 1;
+          aulaEncontrada.participants = aulaEncontrada.registrations.length;
           await aulaEncontrada.save();
           res.status(200);
           res.send("User Registado na Aula com Sucesso");
@@ -233,7 +233,7 @@ const AulasRouter = (io) => {
 
           aulaEncontrada.registrations.pull(req.body._id);
 
-          aulaEncontrada.participants = aulaEncontrada.participants - 1;
+          aulaEncontrada.participants = aulaEncontrada.length;
           await aulaEncontrada.save();
           res.status(200);
           res.send("User removido da Aula com Sucesso");
@@ -241,6 +241,32 @@ const AulasRouter = (io) => {
           res.status(500);
           res.send(err.message);
         }
+      }
+    );
+  router
+    .route("/:aulaId/subscription")
+    .get(
+      Users.authorize([scopes.Gestor, scopes.Vip, scopes.Normal]),
+      function (req, res, next) {
+        const userId = req.headers.userid;
+        const aulaId = req.params.aulaId;
+
+        // Find the class by its id
+        Aula.findById(aulaId, (err, foundClass) => {
+          if (err) {
+            return res.status(500).json({ error: "Error finding class" });
+          }
+          if (!foundClass) {
+            return res.status(404).json({ error: "Class not found" });
+          }
+
+          // Check if the user is already subscribed to the class
+          if (foundClass.registrations.includes(userId)) {
+            return res.json({ subscribed: true });
+          } else {
+            return res.json({ subscribed: false });
+          }
+        });
       }
     );
 
