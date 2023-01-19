@@ -4,17 +4,11 @@ import styles from "./styles.module.scss";
 import { Navigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import _, { set } from "lodash";
-import { useGetPerfil } from "../../../hooks/useGetPerfil";
 import QrRead from "../../QrcodeRead";
 
 const Entrada = () => {
   const [showQRCode, setQrCode] = useState(false);
   const [dataQrCode, setDataQrCode] = useState({});
-  const { register, handleSubmit } = useForm();
-  const [isLogged, setLogged] = useState(false);
-  const [roleName, setRoleName] = useState();
-  const onSubmit = (data) => entryRegister(data);
-  const { user } = useGetPerfil("users");
 
   const entryRegister = (data) => {
     fetch("/acessos/create", {
@@ -24,6 +18,7 @@ const Entrada = () => {
     })
       .then((r) => r.json())
       .then((response) => {
+        console.log(response);
         if (response) {
           alert("A sua entrada foi permitida");
         } else {
@@ -58,7 +53,7 @@ const Entrada = () => {
                   className={styles.formbtn}
                   onClick={() => setQrCode(!showQRCode)}
                 >
-                  QR CODE READER
+                  Passar QrCode
                 </button>
               }
             </div>

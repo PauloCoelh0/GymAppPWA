@@ -10,11 +10,6 @@ import QrRead from "../../QrcodeRead";
 const BanhoTurco = () => {
   const [showQRCode, setQrCode] = useState(false);
   const [dataQrCode, setDataQrCode] = useState({});
-  const { register, handleSubmit } = useForm();
-  const [isLogged, setLogged] = useState(false);
-  const [roleName, setRoleName] = useState();
-  const onSubmit = (data) => entryRegister(data);
-  const { user } = useGetPerfil("users");
 
   const entryRegister = (data) => {
     fetch("/acessos/create", {

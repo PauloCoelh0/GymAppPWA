@@ -31,7 +31,11 @@ function AcessosService(AcessoModel) {
 
     const acessoEncontrada = await AcessoModel.findOne({
       user: mongoose.Types.ObjectId(acesso._id),
-      $and: [{ entryHour: { $ne: null } }, { exitHour: { $eq: null } }],
+      $and: [
+        { entryHour: { $ne: null } },
+        { exitHour: { $eq: null } },
+        { local: acesso.local },
+      ],
     });
 
     if (!!acessoEncontrada) {
@@ -51,6 +55,7 @@ function AcessosService(AcessoModel) {
         inIn: true,
         user: acesso.user,
         local: acesso.local,
+        entryHour: acesso.entryHour,
       };
       console.log(result);
 

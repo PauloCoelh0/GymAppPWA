@@ -46,6 +46,7 @@ const AcessosRouter = (io) => {
           });
       }
     );
+
   router.route("/create").post(function (req, res, next) {
     const { _id, entryHour, local } = req.body;
 
@@ -55,68 +56,67 @@ const AcessosRouter = (io) => {
         console.log(role);
         console.log(local);
 
+        const rolesLocations = {
+          normal: ["entrada", "jacuzzi", "banhoturco"],
+          Vip: ["entrada", "jacuzzi", "banhoturco"],
+          gestor: ["entrada", "jacuzzi", "banhoturco"],
+        };
+
         switch (role) {
           case "normal":
-            if (local === "entrada") {
+            if (rolesLocations.normal.includes(local)) {
               Acessos.create({ _id, entryHour, local })
                 .then((response) => {
                   console.log("Access granted to " + local + "!");
-                  res.status(200);
-                  res.send(response);
+                  res.status(200).send({ message: "Access granted" });
                 })
                 .catch((err) => {
-                  res.status(500);
-                  res.send(err);
-                  next();
+                  res
+                    .status(500)
+                    .send({ message: "Error creating access", error: err });
                 });
             } else {
               console.log("Access denied to " + local);
+              res.status(401).send({ message: "Access denied" });
             }
             break;
           case "Vip":
-            if (
-              local === "entrada" ||
-              local === "jacuzzi" ||
-              local === "banhoturco"
-            ) {
+            if (rolesLocations.Vip.includes(local)) {
               Acessos.create({ _id, entryHour, local })
                 .then((response) => {
                   console.log("Access granted to " + local + "!");
-                  res.status(200);
-                  res.send(response);
+                  res.status(200).send({ message: "Access granted" });
                 })
                 .catch((err) => {
-                  res.status(500);
-                  res.send(err);
-                  next();
+                  res
+                    .status(500)
+                    .send({ message: "Error creating access", error: err });
                 });
             } else {
               console.log("Access denied to " + local);
+              res.status(401).send({ message: "Access denied" });
             }
             break;
           case "gestor":
-            if (
-              local === "entrada" ||
-              local === "jacuzzi" ||
-              local === "banhoturco"
-            ) {
+            if (rolesLocations.gestor.includes(local)) {
               Acessos.create({ _id, entryHour, local })
                 .then((response) => {
                   console.log("Access granted to " + local + "!");
-                  res.status(200);
-                  res.send(response);
+                  res.status(200).send({ message: "Access granted" });
                 })
                 .catch((err) => {
-                  res.status(500);
-                  res.send(err);
-                  next();
+                  res
+                    .status(500)
+                    .send({ message: "Error creating access", error: err });
                 });
             } else {
               console.log("Access denied to " + local);
+              res.status(401).send({ message: "Access denied" });
             }
             break;
           default:
             console.log("Invalid local");
+            res.status(400).send({ message: "Invalid location" });
             break;
         }
       })
