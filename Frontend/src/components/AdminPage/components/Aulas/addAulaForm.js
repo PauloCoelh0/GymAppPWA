@@ -53,7 +53,7 @@ const AulasForm = () => {
     transform: "translate(-50%, -50%)",
     boxShadow: 14,
     position: "absolute",
-    top: "250px",
+    top: "300px",
     left: "50%",
   };
 

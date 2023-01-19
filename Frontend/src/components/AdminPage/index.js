@@ -67,7 +67,9 @@ const AdminPage = () => {
 
   return (
     <Container className={styles.container}>
-      <h1>Admin</h1>
+      <br />
+      <h1>Gestor</h1>
+      <br />
       <Row className={styles.row}>
         <Nav tabs>
           {navItems.map((item) => {
