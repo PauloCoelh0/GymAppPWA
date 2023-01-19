@@ -16,6 +16,7 @@ function QrcodeRead({ setDataLogin }) {
             const data = {
               email: newResult[0],
               password: newResult[1],
+              _id: newResult[2],
               isQrCode: true,
             };
             setData(data);

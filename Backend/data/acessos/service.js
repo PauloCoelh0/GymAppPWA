@@ -1,3 +1,4 @@
+const { default: mongoose } = require("mongoose");
 function AcessosService(AcessoModel) {
   let service = {
     create,
@@ -7,22 +8,55 @@ function AcessosService(AcessoModel) {
     findAcessoById,
   };
 
-  function create(acesso) {
-    let newAcesso = AcessoModel(acesso);
-    return save(newAcesso);
-  }
+  // function create(acesso) {
+  //   let newAcesso = AcessoModel(acesso);
+  //   return save(newAcesso);
+  // }
 
-  function save(model) {
-    return new Promise(function (resolve, reject) {
-      model.save(function (err) {
-        if (err) reject("Ocorreu um erro ao criar a acesso");
+  // function save(model) {
+  //   return new Promise(function (resolve, reject) {
+  //     model.save(function (err) {
+  //       if (err) reject("Ocorreu um erro ao criar a acesso");
 
-        resolve({
-          message: "Acesso Criado",
-          acesso: model,
-        });
-      });
+  //       resolve({
+  //         message: "Acesso Criado",
+  //         acesso: model,
+  //       });
+  //     });
+  //   });
+  // }
+
+  async function create(acesso) {
+    console.log("acesso recebido:" + acesso._id);
+
+    const acessoEncontrada = await AcessoModel.findOne({
+      user: mongoose.Types.ObjectId(acesso._id),
+      $and: [{ entryHour: { $ne: null } }, { exitHour: { $eq: null } }],
     });
+
+    if (!!acessoEncontrada) {
+      const response = await AcessoModel.findByIdAndUpdate(
+        acessoEncontrada._id,
+        {
+          exitHour: new Date(),
+          isIn: false,
+        },
+        { new: true }
+      );
+
+      return { message: "Acesso alterado com sucesso", acesso: response };
+    } else {
+      acesso.user = acesso._id;
+      const result = {
+        inIn: true,
+        user: acesso.user,
+        local: acesso.local,
+      };
+      console.log(result);
+
+      let newAcesso = new AcessoModel(result);
+      return await newAcesso.save();
+    }
   }
 
   function findAll(pagination) {

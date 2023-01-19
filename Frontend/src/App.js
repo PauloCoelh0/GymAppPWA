@@ -18,6 +18,9 @@ import UserPage from "./components/UserPage";
 import { UsersProvider } from "./contexts/UsersProvider";
 import { TabProvider } from "./components/AdminPage/contexts";
 import { Notifications } from "react-push-notification";
+import Entrada from "./components/Acessos/Entrada";
+import BanhoTurco from "./components/Acessos/BanhoTurco";
+import Jacuzzi from "./components/Acessos/Jacuzzi";
 
 function App() {
   // const router = createBrowserRouter([
@@ -91,6 +94,9 @@ function App() {
             }
           />
         </Route>
+        <Route path="/acessos/entrada" element={<Entrada />} />
+        <Route path="acessos/banhoturco" element={<BanhoTurco />} />
+        <Route path="acessos/jacuzzi" element={<Jacuzzi />} />
       </Routes>
     </BrowserRouter>
     // <div className={styles.App}>
