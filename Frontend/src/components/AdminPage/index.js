@@ -76,7 +76,7 @@ const AdminPage = () => {
             return (
               <NavItem>
                 <NavLink
-                  style={{ color: "black" }}
+                  style={{ color: "rgb(131, 6, 6)" }}
                   className={item.id === activePage}
                   onClick={() => setActivePage(item.id)}
                 >

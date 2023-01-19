@@ -44,7 +44,7 @@ const AulasForm = () => {
     color: "black",
     bgcolor: "#FFF",
     "&:hover": {
-      background: "#FECC01",
+      background: "rgb(131, 6, 6)",
       color: "white",
     },
     fontWeight: "600",

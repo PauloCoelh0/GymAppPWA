@@ -3,6 +3,7 @@ import { Card, Button } from "react-bootstrap";
 import React, { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import axios from "axios";
+import { format } from "date-fns";
 
 function Aula(props) {
   const [isSubscribed, setIsSubscribed] = useState(false);
@@ -20,8 +21,9 @@ function Aula(props) {
   }, []); // pass an empty array as the second argument to only run the effect on mount
 
   const handleUpdate = () => {
-    const userId = Cookies.get("userID");
-    const data = { _id: userId };
+    const cookieValue = Cookies.get("userID");
+    const valueWithoutJ = cookieValue.substring(3, cookieValue.length - 1);
+    const data = { _id: valueWithoutJ };
     if (!isSubscribed) {
       axios
         .put(`http://localhost:3000/aulas/${props._id}`, data)
@@ -55,14 +57,22 @@ function Aula(props) {
           {props.name}
         </Card.Title>
         <Card.Text>
-          <p className="aulaDetails">Início: {props.beginDate}</p>
-          <p className="aulaDetails">Fim: {props.endDate}</p>
+          <p className="aulaDetails">
+            Início: {format(new Date(props.beginDate), "dd/MM/yyyy HH:mm")}
+          </p>
+          <p className="aulaDetails">
+            Fim: {format(new Date(props.endDate), "dd/MM/yyyy HH:mm")}
+          </p>
           <p className="aulaDetails">Capacidade: {props.capacity}</p>
           <p className="aulaDetails">
             Inscritos: <b>{participants}</b>
           </p>
         </Card.Text>
-        <Button className="aulaBtn" variant="secondary" onClick={handleUpdate}>
+        <Button
+          className={`aulaBtn ${isSubscribed ? "red-button" : ""}`}
+          variant="secondary"
+          onClick={handleUpdate}
+        >
           {isSubscribed ? "Desinscrever" : "Inscrever"}
         </Button>
       </Card.Body>
