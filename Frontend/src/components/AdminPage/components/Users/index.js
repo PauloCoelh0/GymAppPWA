@@ -89,7 +89,7 @@ const Users = () => {
 
   // const useers = data.data;
 
-  console.log(data);
+  console.log(data.data);
 
   if (isLoading) {
     return <div>Is Loading</div>;
@@ -98,29 +98,20 @@ const Users = () => {
   if (isError) {
     return <div>UPPSSSS</div>;
   }
+  var updateIcon = function (value, data, cell, row, options) {
+    return '<span><i class="fa fa-floppy-o"></i></span>';
+  };
 
   const columns = [
-    // {
-    //   title: "Car ID",
-    //   field: "carId",
-    //   headerFilter: "input",
-    //   formatter: "link",
-    //   formatterParams: {
-    //     url: (cell) => {
-    //       return "http://localhost:3000/caredit/" + cell.getValue();
-    //     },
-    //   },
-    // },
-
     {
-      title: "name",
-      field: "name",
+      title: "Email",
+      field: "email",
 
       headerFilter: "input",
     },
     {
-      title: "email",
-      field: "email",
+      title: "Nome",
+      field: "name",
 
       headerFilter: "input",
     },
@@ -143,10 +134,38 @@ const Users = () => {
       headerFilter: "input",
     },
     {
-      title: "role",
-      field: "role.name",
-
+      title: "Cargo",
+      editor: "select",
+      editorParams: ["normal", "vip", "gestor"],
+      field: "role.scope",
       headerFilter: "input",
+    },
+    {
+      title: "GUARDAR",
+      width: 100,
+      formatter: updateIcon,
+      hozAlign: "center",
+      align: "right",
+      headerSort: false,
+      cellClick: function (e, cell) {
+        if (window.confirm("Tem certeza que pretende alterar este cargo?")) {
+          const linha = cell.getData();
+          console.log(linha);
+          linha.role.name = linha.role.scope;
+          const url = `http://localhost:3000/users/${linha._id}`;
+          const requestOptions = {
+            method: "PUT",
+            body: JSON.stringify(linha),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          };
+          fetch(url, requestOptions).then(
+            () => cell.getRow().update(),
+            console.log("fez update")
+          );
+        }
+      },
     },
   ];
   const options = {
@@ -159,131 +178,6 @@ const Users = () => {
 
   return (
     <Container>
-      {/* <div>
-        <Button sx={addcar} onClick={handleOpen}>
-          ADD CAR
-        </Button>
-        <Modal
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <Box sx={style}>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-              ADD NEW
-            </Typography>
-            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-              <form
-                method="post"
-                className="form-Cars1"
-                enctype="multipart/formdata"
-                // onSubmit={handleSubmit(onSubmit)}
-              >
-                <div className="field8">
-                  <label className="l8">Type: </label>
-                  <select
-                    itemType="text"
-                    className="s8"
-                    name="carType"
-                    {...register("carType")}
-                  >
-                    <option itemType="text" defaultValue="Car">
-                      Car
-                    </option>
-                    <option itemType="text" defaultValue="Comercial">
-                      Comercial
-                    </option>
-                    <option itemType="text" defaultValue="Prestige">
-                      Pregiste
-                    </option>
-                  </select>
-                </div>
-                <div className="field1">
-                  <label>Brand: </label>
-                  <input
-                    type="text"
-                    name="brand"
-                    {...register("brand")}
-                    required
-                  />
-                </div>
-                <div className="field1">
-                  <label>Model: </label>
-                  <input
-                    type="text"
-                    name="model"
-                    {...register("model")}
-                    required
-                  />
-                </div>
-                <div className="field1">
-                  <label>Seating Capacity: </label>
-                  <input
-                    type="text"
-                    name="seatingCapacity"
-                    {...register("seatingCapacity")}
-                    required
-                  />
-                </div>
-                <div className="field1">
-                  <label>Doors: </label>
-                  <input
-                    type="text"
-                    name="numDoors"
-                    {...register("numDoors")}
-                    required
-                  />
-                </div>
-                <div className="field1">
-                  <label>Plate: </label>
-                  <input
-                    type="text"
-                    name="plate"
-                    {...register("plate")}
-                    required
-                  />
-                </div>
-                <div className="field1">
-                  <label>Rent Price Per Day: </label>
-                  <input
-                    type="text"
-                    name="rentPricePerDay"
-                    {...register("rentPricePerDay")}
-                    required
-                  />
-                </div>
-                <div className="field2">
-                  <label className="l1">Transmission: </label>
-                  <select
-                    itemType="text"
-                    className="s1"
-                    name="transmisson"
-                    {...register("transmisson")}
-                  >
-                    <option itemType="text" value="Manual">
-                      Manual
-                    </option>
-                    <option itemType="text" value="Automatic">
-                      Automatic
-                    </option>
-                  </select>
-                </div>
-                {/* <div>
-                  <input
-                    type="file"
-                    name="carImage"
-                    {...register("carImage")}
-                    required
-                  />
-                </div> 
-                <br />
-                <input className="submit1" type="submit" value="ADD CAR" />
-              </form>
-            </Typography>
-          </Box>
-        </Modal>
-      </div> */}
       <div className={styles.customTable}>
         <ReactTabulator
           columns={columns}
@@ -294,86 +188,6 @@ const Users = () => {
         />
       </div>
     </Container>
-
-    // <Container>
-    //   <Row>
-    //     <Col className={styles.column}>
-    //       <h3>Create User</h3>
-    //       <div className={styles.container}>
-    //         <form className={styles.form} onSubmit={handleSubmit(addUser)}>
-    //           <div className={styles.field}>
-    //             <label className={styles.label} for="name">
-    //               Name:
-    //             </label>
-    //             <input
-    //               id="name"
-    //               type="name"
-    //               name="name"
-    //               required="required"
-    //               {...register("name")}
-    //             />
-    //           </div>
-    //           <div className={styles.field}>
-    //             <label className={styles.label} for="password">
-    //               Password:
-    //             </label>
-    //             <input
-    //               id="password"
-    //               type="password"
-    //               name="password"
-    //               required="required"
-    //               {...register("password")}
-    //             />
-    //           </div>
-    //           <div className={styles.field}>
-    //             <label className={styles.label} for="email">
-    //               Email:
-    //             </label>
-    //             <input
-    //               id="email"
-    //               type="email"
-    //               name="email"
-    //               required="required"
-    //               {...register("email")}
-    //             />
-    //           </div>
-    //           <div className={styles.field}>
-    //             <label className={styles.label} for="age">
-    //               Age :
-    //             </label>
-    //             <input id="age" name="age" type="number" {...register("age")} />
-    //           </div>
-    //           <div className={styles.field}>
-    //             <label className={styles.label} for="address">
-    //               Address :
-    //             </label>
-    //             <input
-    //               id="address"
-    //               name="address"
-    //               required="required"
-    //               {...register("address")}
-    //             />
-    //           </div>
-    //           <div className={styles.field}>
-    //             <label className={styles.label} for="country">
-    //               Country :
-    //             </label>
-    //             <input
-    //               id="country"
-    //               name="country"
-    //               required="required"
-    //               {...register("country")}
-    //             />
-    //           </div>
-    //           <Row>
-    //             <input className="submit" type="submit" />
-    //           </Row>
-    //         </form>
-    //       </div>
-    //     </Col>
-    //     <Col></Col>
-    //   </Row>
-    // </Container>
   );
 };
 

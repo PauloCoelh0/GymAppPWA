@@ -34,7 +34,7 @@ import AulasForm from "./addAulaForm";
 const Aulas = () => {
   const { register, handleSubmit } = useForm();
   const { isError, isLoading, data } = useGetData("aulas", 0, 0);
-  const { isLoading: isLoadingPost, addData } = usePostData("aulas/create");
+  // const { isLoading: isLoadingPost, addData } = usePostData("aulas/create");
   const { setGamesCount } = useContext(TabContext);
 
   const [open, setOpen] = React.useState(false);
@@ -119,31 +119,19 @@ const Aulas = () => {
   //custom date editor
 
   var dateEditor = function (cell, onRendered, success, cancel, editorParams) {
-    //cell - the cell component for the editable cell
-    //onRendered - function to call when the editor has been rendered
-    //success - function to call to pass thesuccessfully updated value to Tabulator
-    //cancel - function to call to abort the edit and return to a normal cell
-    //editorParams - params object passed into the editorParams column definition property
-
-    //create and style editor
     var editor = document.createElement("input");
-
     editor.setAttribute("type", "datetime-local");
-
     //create and style input
     editor.style.padding = "3px";
     editor.style.width = "100%";
     editor.style.boxSizing = "border-box";
-
     //Set value of editor to the current value of the cell
     editor.value = moment(cell.getValue()).format("DD-MM-YYYY HH:mm");
-
     //set focus on the select box when the editor is selected (timeout allows for editor to be added to DOM)
     onRendered(function () {
       editor.focus();
       editor.style.css = "100%";
     });
-
     //when the value has been set, trigger the cell to update
     function successFunc() {
       success(
@@ -174,7 +162,7 @@ const Aulas = () => {
     // },
 
     {
-      title: "name",
+      title: "Aula",
       field: "name",
       editor: true,
       width: 230,
@@ -183,7 +171,8 @@ const Aulas = () => {
     {
       title: "Capacidade",
       field: "capacity",
-      editor: true,
+      editor: "select",
+      editorParams: ["5", "10", "15", "20", "25", "30"],
       width: 124,
       hozAlign: "center",
       headerFilter: "input",
@@ -302,7 +291,7 @@ const Aulas = () => {
           layout={"fitColumns"}
           data={data.data}
           options={options}
-          placeholder={"No Data Set"}
+          placeholder={"Sem Dados"}
         />
       </div>
     </Container>

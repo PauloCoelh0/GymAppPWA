@@ -28,6 +28,7 @@ const LoginForm = ({ title, role, data }) => {
           localStorage.setItem("token", response.token);
           console.log(response);
           setLogged(response.auth);
+          console.log(response.userRole);
           setRoleName(response.userRole);
         } else {
           alert("Login failed");

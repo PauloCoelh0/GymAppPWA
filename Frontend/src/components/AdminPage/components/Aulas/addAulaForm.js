@@ -134,6 +134,16 @@ const AulasForm = () => {
       </div>
     );
   }
+
+  const options = [];
+  for (let i = 5; i <= 30; i = i + 5) {
+    options.push(
+      <option key={i} value={i}>
+        {i}
+      </option>
+    );
+  }
+
   return (
     <>
       <div>
@@ -167,15 +177,16 @@ const AulasForm = () => {
                     required
                   />
                 </div>
-
-                <div className="field1">
-                  <label>Capacidade: </label>
-                  <input
-                    type="number"
+                <div className="field8">
+                  <label className="l8">Capacidadade: </label>
+                  <select
+                    itemType="text"
+                    className="s8"
                     name="capacity"
                     {...register("capacity")}
-                    required
-                  />
+                  >
+                    {options}
+                  </select>
                 </div>
                 <div className="field1">
                   <label>Sala: </label>
