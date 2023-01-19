@@ -260,13 +260,13 @@ const AulasRouter = (io) => {
             // Get current number of participants
             const participants = foundClass.registrations.length;
 
-            res.json({
+            res.send({
               isSubscribed: isSubscribed,
               participants: participants,
             });
           })
           .catch((err) => {
-            res.status(500).json({ error: err });
+            res.status(500).send({ error: err });
           });
       }
     );
