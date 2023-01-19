@@ -243,30 +243,31 @@ const AulasRouter = (io) => {
         }
       }
     );
+
   router
-    .route("/:aulaId/subscription")
+    .route("/subscription/:classId/:userId")
     .get(
       Users.authorize([scopes.Gestor, scopes.Vip, scopes.Normal]),
       function (req, res, next) {
-        const userId = req.headers.userid;
-        const aulaId = req.params.aulaId;
+        const classId = req.params.classId;
+        const userId = req.params.userId;
 
-        // Find the class by its id
-        Aula.findById(aulaId, (err, foundClass) => {
-          if (err) {
-            return res.status(500).json({ error: "Error finding class" });
-          }
-          if (!foundClass) {
-            return res.status(404).json({ error: "Class not found" });
-          }
+        Aula.findById(classId)
+          .then((foundClass) => {
+            // Check if user is already subscribed
+            const isSubscribed = foundClass.registrations.includes(userId);
 
-          // Check if the user is already subscribed to the class
-          if (foundClass.registrations.includes(userId)) {
-            return res.json({ subscribed: true });
-          } else {
-            return res.json({ subscribed: false });
-          }
-        });
+            // Get current number of participants
+            const participants = foundClass.registrations.length;
+
+            res.json({
+              isSubscribed: isSubscribed,
+              participants: participants,
+            });
+          })
+          .catch((err) => {
+            res.status(500).json({ error: err });
+          });
       }
     );
 
