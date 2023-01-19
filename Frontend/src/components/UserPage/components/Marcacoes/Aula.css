@@ -44,11 +44,21 @@ height: 20px;}
 }
 
 .aulaBtn{
+    border-color: #3d3d3d00;
     width: 100%;
     margin-bottom: -40px;
     height: 50px;
 }
+.aulaBtn:hover{
+    border-color: #3d3d3d00;
+    background-color: darkgrey;
+}
 
+.aulaBtn:active {
+    border-color: #3d3d3d00;
+    background-color: darkgrey;
+    transform: scale(0.9);
+}
 .cardetails2{
     margin-top: 30px;
     margin-bottom: 30px;
@@ -66,4 +76,18 @@ height: 20px;}
     padding-top: 50px;
     margin: auto;
     margin-bottom: 60px;
+}
+.red-button {
+    border-color: #3d3d3d00;
+    background-color: rgb(131, 6, 6);
+}
+
+.red-button:hover {
+    border-color: #3d3d3d00;
+    background-color: rgb(164, 59, 59);
+}
+.red-button:active {
+    border-color: #3d3d3d00;
+    background-color: rgb(164, 59, 59);
+    transform: scale(0.9);
 }
