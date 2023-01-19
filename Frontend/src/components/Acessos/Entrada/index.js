@@ -24,7 +24,6 @@ const Entrada = () => {
     })
       .then((r) => r.json())
       .then((response) => {
-        // console.log(response);
         if (response) {
           alert("A sua entrada foi permitida");
         } else {
@@ -40,7 +39,7 @@ const Entrada = () => {
     if (!_.isEmpty(dataQrCode)) {
       let data = {
         _id: dataQrCode._id,
-        horaEntrada: new Date().toISOString(),
+        entryHour: new Date().toISOString(),
         local: "entrada",
       };
       entryRegister(data);
@@ -59,7 +58,7 @@ const Entrada = () => {
                   className={styles.formbtn}
                   onClick={() => setQrCode(!showQRCode)}
                 >
-                  Passar QrCode
+                  QR CODE READER
                 </button>
               }
             </div>

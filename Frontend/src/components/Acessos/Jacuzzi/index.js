@@ -10,11 +10,6 @@ import QrRead from "../../QrcodeRead";
 const Jacuzzi = () => {
   const [showQRCode, setQrCode] = useState(false);
   const [dataQrCode, setDataQrCode] = useState({});
-  const { register, handleSubmit } = useForm();
-  const [isLogged, setLogged] = useState(false);
-  const [roleName, setRoleName] = useState();
-  const onSubmit = (data) => entryRegister(data);
-  const { user } = useGetPerfil("users");
 
   const entryRegister = (data) => {
     fetch("/acessos/create", {
@@ -24,7 +19,7 @@ const Jacuzzi = () => {
     })
       .then((r) => r.json())
       .then((response) => {
-        // console.log(response);
+        console.log(response);
         if (response) {
           alert("A sua entrada foi permitida");
         } else {
@@ -41,7 +36,7 @@ const Jacuzzi = () => {
       let data = {
         _id: dataQrCode._id,
         entryHour: new Date().toISOString(),
-        local: "jazuzzi",
+        local: "jacuzzi",
       };
       entryRegister(data);
     }

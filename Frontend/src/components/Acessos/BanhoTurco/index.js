@@ -40,7 +40,7 @@ const BanhoTurco = () => {
     if (!_.isEmpty(dataQrCode)) {
       let data = {
         _id: dataQrCode._id,
-        horaEntrada: new Date().toISOString(),
+        entryHour: new Date().toISOString(),
         local: "banhoturco",
       };
       entryRegister(data);

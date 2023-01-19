@@ -13,7 +13,7 @@ const AcessosRouter = (io) => {
   router.use(bodyParser.urlencoded({ limit: "100mb", extended: true }));
 
   router.use(cookieParser());
-  router.use(VerifyToken);
+  // router.use(VerifyToken);
 
   router
     .route("")
@@ -53,6 +53,8 @@ const AcessosRouter = (io) => {
       .then((user) => {
         const role = user.role.name;
         console.log(role);
+        console.log(local);
+
         switch (role) {
           case "normal":
             if (local === "entrada") {
@@ -71,7 +73,7 @@ const AcessosRouter = (io) => {
               console.log("Access denied to " + local);
             }
             break;
-          case "vip":
+          case "Vip":
             if (
               local === "entrada" ||
               local === "jacuzzi" ||
@@ -98,7 +100,6 @@ const AcessosRouter = (io) => {
               local === "jacuzzi" ||
               local === "banhoturco"
             ) {
-              console.log("aquicrl");
               Acessos.create({ _id, entryHour, local })
                 .then((response) => {
                   console.log("Access granted to " + local + "!");
