@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import "./CarsForm.css";
+import "./AulasForm.css";
 // import config from "../../../config";
 import axios from "axios";
 import { useState } from "react";
@@ -23,7 +23,7 @@ const AulasForm = () => {
   const [carCreatedSuccess, setCarCreatedSuccess] = useState(null);
 
   const { register, handleSubmit } = useForm();
-  const onSubmit = (data) => postCar(data);
+  const onSubmit = (data) => postAula(data);
 
   const style = {
     position: "absolute",
@@ -35,10 +35,10 @@ const AulasForm = () => {
     border: "2px solid #000",
     boxShadow: 24,
     p: 4,
-    height: 510,
+    height: 440,
   };
 
-  const addcar = {
+  const addaula = {
     width: 300,
     bgcolor: "#FFF",
     color: "black",
@@ -53,7 +53,7 @@ const AulasForm = () => {
     transform: "translate(-50%, -50%)",
     boxShadow: 14,
     position: "absolute",
-    top: "25%",
+    top: "250px",
     left: "50%",
   };
 
@@ -61,17 +61,17 @@ const AulasForm = () => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const postCar = async (data) => {
-    const carData = new FormData();
-    carData.append("name", data.name);
-    carData.append("beginDate", data.beginDate);
-    carData.append("endDate", data.endDate);
-    carData.append("capacity", data.capacity);
-    carData.append("room", data.room);
-    carData.append("aulaImage", data.aulaImage[0]);
+  const postAula = async (data) => {
+    const aulaData = new FormData();
+    aulaData.append("name", data.name);
+    aulaData.append("beginDate", data.beginDate);
+    aulaData.append("endDate", data.endDate);
+    aulaData.append("capacity", data.capacity);
+    aulaData.append("room", data.room);
+    aulaData.append("aulaImage", data.aulaImage[0]);
 
     try {
-      const response = await axios.post(url, carData, {
+      const response = await axios.post(url, aulaData, {
         headers: {},
       });
       console.log(response);
@@ -93,10 +93,11 @@ const AulasForm = () => {
       <div className="wrapper">
         <Collapse in={opeen}>
           <Alert
+            top="500px"
             id="slide"
             variant="filled"
             severity="success"
-            color="warning"
+            color="success"
             onClose={() => {
               setOpeen(false);
               setTimeout(function () {
@@ -136,8 +137,8 @@ const AulasForm = () => {
   return (
     <>
       <div>
-        <Button sx={addcar} onClick={handleOpen}>
-          ADD CAR
+        <Button sx={addaula} onClick={handleOpen}>
+          ADD AULA
         </Button>
         <Modal
           open={open}
@@ -147,7 +148,7 @@ const AulasForm = () => {
         >
           <Box sx={style}>
             <Typography id="modal-modal-title" variant="h6" component="h2">
-              ADD NEW CAR
+              ADD NOVA AULA
             </Typography>
             <Typography id="modal-modal-description" sx={{ mt: 2 }}>
               <form
@@ -156,6 +157,7 @@ const AulasForm = () => {
                 enctype="multipart/formdata"
                 onSubmit={handleSubmit(onSubmit)}
               >
+                <br />
                 <div className="field1">
                   <label>Nome: </label>
                   <input
@@ -165,28 +167,11 @@ const AulasForm = () => {
                     required
                   />
                 </div>
-                <div className="field1">
-                  <label>Data Inicio: </label>
-                  <input
-                    type="datetime-local"
-                    name="beginDate"
-                    {...register("beginDate")}
-                    required
-                  />
-                </div>
-                <div className="field1">
-                  <label>Data Fim: </label>
-                  <input
-                    type="datetime-local"
-                    name="endDate"
-                    {...register("endDate")}
-                    required
-                  />
-                </div>
+
                 <div className="field1">
                   <label>Capacidade: </label>
                   <input
-                    type="text"
+                    type="number"
                     name="capacity"
                     {...register("capacity")}
                     required
@@ -201,6 +186,25 @@ const AulasForm = () => {
                     required
                   />
                 </div>
+                <div className="field3">
+                  <label>Data Inicio: </label>
+                  <input
+                    type="datetime-local"
+                    name="beginDate"
+                    {...register("beginDate")}
+                    required
+                  />
+                </div>
+                <div className="field3">
+                  <label>Data Fim: </label>
+                  <input
+                    type="datetime-local"
+                    name="endDate"
+                    {...register("endDate")}
+                    required
+                  />
+                </div>
+                <br />
                 <div>
                   <input
                     type="file"
@@ -210,7 +214,7 @@ const AulasForm = () => {
                   />
                 </div>
                 <br />
-                <input className="submit1" type="submit" value="ADD CAR" />
+                <input className="submit1" type="submit" value="ADD AULA" />
               </form>
             </Typography>
           </Box>

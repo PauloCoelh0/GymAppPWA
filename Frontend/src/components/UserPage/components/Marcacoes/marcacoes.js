@@ -38,15 +38,15 @@ class Aula extends React.Component {
             {this.props.name}
           </Card.Title>
           <Card.Text>
-            <p className="carDetails">Início: {this.props.beginDate}</p>
-            <p className="carDetails">Fim: {this.props.endDate}</p>
-            <p className="carDetails">Capacidade: {this.props.capacity}</p>
-            <p className="carDetails">
-              Incristos: <b>{this.state.participants}</b>
+            <p className="aulaDetails">Início: {this.props.beginDate}</p>
+            <p className="aulaDetails">Fim: {this.props.endDate}</p>
+            <p className="aulaDetails">Capacidade: {this.props.capacity}</p>
+            <p className="aulaDetails">
+              Inscritos: <b>{this.state.participants}</b>
             </p>
           </Card.Text>
           <Button
-            className="carBtn"
+            className="aulaBtn"
             variant="secondary"
             onClick={this.handleUpdate}
           >
