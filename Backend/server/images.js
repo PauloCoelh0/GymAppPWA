@@ -33,7 +33,7 @@ const ImagesRouter = () => {
   router
     .route("")
     .get(
-      Users.autorize([scopes.Gestor, scopes.Normal, scopes.Vip]),
+      Users.authorize([scopes.Gestor, scopes.Normal, scopes.Vip]),
       function (req, res, next) {
         const pageLimit = req.query.limit ? parseInt(req.query.limit) : 5;
         const pageSkip = req.query.skip
@@ -65,7 +65,7 @@ const ImagesRouter = () => {
   router
     .route("/create")
     .post(
-      Users.autorize([scopes.Gestor]),
+      Users.authorize([scopes.Gestor]),
       upload.single("aulaImage"),
       function (req, res) {
         const id = req.body.aula;
@@ -105,7 +105,7 @@ const ImagesRouter = () => {
   router
     .route("/:acessoId")
     .get(
-      Users.autorize([scopes.Gestor, scopes.Vip]),
+      Users.authorize([scopes.Gestor, scopes.Vip]),
       function (req, res, next) {
         console.log("get acesso by id");
         let acessoId = req.params.acessoId;
@@ -121,7 +121,7 @@ const ImagesRouter = () => {
           });
       }
     )
-    .put(Users.autorize([scopes.Gestor]), function (req, res, next) {
+    .put(Users.authorize([scopes.Gestor]), function (req, res, next) {
       console.log("Update acesso by id");
       let acessoId = req.params.acessoId;
       let body = req.body;
@@ -137,7 +137,7 @@ const ImagesRouter = () => {
           next();
         });
     })
-    .delete(Users.autorize([scopes.Gestor]), function (req, res) {
+    .delete(Users.authorize([scopes.Gestor]), function (req, res) {
       const id = req.params.acessoId;
       Acessos.removeById(id)
         .then(() => {

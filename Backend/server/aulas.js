@@ -31,7 +31,7 @@ const AulasRouter = (io) => {
   router
     .route("")
     .get(
-      Users.autorize([scopes.Gestor, scopes.Normal, scopes.Vip]),
+      Users.authorize([scopes.Gestor, scopes.Normal, scopes.Vip]),
       function (req, res, next) {
         const pageLimit = req.query.limit ? parseInt(req.query.limit) : 20;
         const pageSkip = req.query.skip
@@ -64,7 +64,7 @@ const AulasRouter = (io) => {
   router
     .route("/create")
     .post(
-      Users.autorize([scopes.Gestor]),
+      Users.authorize([scopes.Gestor]),
       upload.single("aulaImage"),
       async (req, res, next) => {
         let body = req.body;
@@ -122,7 +122,7 @@ const AulasRouter = (io) => {
   router
     .route("/:aulaId")
     .get(
-      Users.autorize([scopes.Gestor, scopes.Vip]),
+      Users.authorize([scopes.Gestor, scopes.Vip]),
       function (req, res, next) {
         console.log("get aula by id");
         let aulaId = req.params.aulaId;
@@ -140,11 +140,9 @@ const AulasRouter = (io) => {
     )
 
     .put(
-      Users.autorize([scopes.Gestor, scopes.Vip, scopes.Normal]),
+      Users.authorize([scopes.Gestor, scopes.Vip, scopes.Normal]),
       async function (req, res, next) {
-        console.log("Update aula by id");
         let aulaId = req.params.aulaId;
-        let body = req.body;
 
         try {
           const aulaEncontrada = await Aula.findOne({ _id: aulaId });
@@ -175,7 +173,7 @@ const AulasRouter = (io) => {
       }
     )
 
-    .delete(Users.autorize([scopes.Gestor]), async function (req, res, next) {
+    .delete(Users.authorize([scopes.Gestor]), async function (req, res, next) {
       let aulaId = req.params.aulaId;
 
       try {
@@ -202,23 +200,49 @@ const AulasRouter = (io) => {
 
   router
     .route("/update/:aulaId")
-    .put(Users.autorize([scopes.Gestor]), function (req, res, next) {
-      console.log("Update aula by id");
-      let aulaId = req.params.aulaId;
-      let body = req.body;
-      Aulas.update(aulaId, body)
-        .then((aula) => {
-          console.log("fixe");
+    .put(
+      Users.authorize([scopes.Gestor, scopes.Vip, scopes.Normal]),
+      function (req, res, next) {
+        console.log("Update aula by id");
+        let aulaId = req.params.aulaId;
+        let body = req.body;
+        Aulas.update(aulaId, body)
+          .then((aula) => {
+            console.log("fixe");
+            res.status(200);
+            res.send(aula);
+            next();
+          })
+          .catch((err) => {
+            console.log("nao ta a dar");
+            res.status(404);
+            next();
+          });
+      }
+    );
+
+  router
+    .route("/remove/:aulaId")
+    .put(
+      Users.authorize([scopes.Gestor, scopes.Vip, scopes.Normal]),
+      async function (req, res, next) {
+        let aulaId = req.params.aulaId;
+
+        try {
+          const aulaEncontrada = await Aula.findOne({ _id: aulaId });
+
+          aulaEncontrada.registrations.pull(req.body._id);
+
+          aulaEncontrada.participants = aulaEncontrada.participants - 1;
+          await aulaEncontrada.save();
           res.status(200);
-          res.send(aula);
-          next();
-        })
-        .catch((err) => {
-          console.log("nao ta a dar");
-          res.status(404);
-          next();
-        });
-    });
+          res.send("User removido da Aula com Sucesso");
+        } catch (err) {
+          res.status(500);
+          res.send(err.message);
+        }
+      }
+    );
 
   return router;
 };

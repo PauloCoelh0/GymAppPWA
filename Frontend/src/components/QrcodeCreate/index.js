@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import QRCode from "react-qr-code";
 import styles from "./styles.module.scss";
 
-function Qrcode({ user = { email: "", password: "" } }) {
+function Qrcode({ user = { email: "", password: "", _id: "" } }) {
   const [value, setValue] = useState("");
 
   useEffect(() => {
-    const newWord = encodeURI(`${user.email}&&${user.password}`);
+    const newWord = encodeURI(`${user.email}&&${user.password}&&${user._id}`);
     setValue(newWord);
   }, [user]);
 

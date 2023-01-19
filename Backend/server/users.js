@@ -19,7 +19,7 @@ const UsersRouter = (io) => {
   //Get All Users (só gestores)
   router
     .route("")
-    .get(Users.autorize([scopes.Gestor]), function (req, res, next) {
+    .get(Users.authorize([scopes.Gestor]), function (req, res, next) {
       console.log("get all users");
 
       const pageLimit = req.query.limit ? parseInt(req.query.limit) : 5;
@@ -51,7 +51,7 @@ const UsersRouter = (io) => {
   router
     .route("/perfil")
     .get(
-      Users.autorize([scopes.Gestor, scopes.Normal, scopes.Vip]),
+      Users.authorize([scopes.Gestor, scopes.Normal, scopes.Vip]),
       function (req, res, next) {
         console.log("get the perfil of user");
         // the id is get when the token has decoded
@@ -74,7 +74,7 @@ const UsersRouter = (io) => {
 
   router
     .route("/:userId")
-    .put(Users.autorize([scopes.Gestor]), function (req, res, next) {
+    .put(Users.authorize([scopes.Gestor]), function (req, res, next) {
       console.log("update a member by id");
       let userId = req.params.userId;
       let body = req.body;
@@ -90,7 +90,7 @@ const UsersRouter = (io) => {
           next();
         });
     })
-    .get(Users.autorize([scopes.Gestor]), function (req, res, next) {
+    .get(Users.authorize([scopes.Gestor]), function (req, res, next) {
       console.log("get user by id");
       let userId = req.params.userId;
       Users.findUserById(userId)
@@ -105,7 +105,7 @@ const UsersRouter = (io) => {
         });
     })
 
-    .delete(Users.autorize([scopes.Gestor]), function (req, res, next) {
+    .delete(Users.authorize([scopes.Gestor]), function (req, res, next) {
       const id = req.params.userId;
       User.findByIdAndRemove(id)
         .exec()

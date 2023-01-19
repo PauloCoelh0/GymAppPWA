@@ -18,7 +18,7 @@ const AcessosRouter = (io) => {
   router
     .route("")
     .get(
-      Users.autorize([scopes.Gestor, scopes.Normal, scopes.Vip]),
+      Users.authorize([scopes.Gestor, scopes.Normal, scopes.Vip]),
       function (req, res, next) {
         const pageLimit = req.query.limit ? parseInt(req.query.limit) : 5;
         const pageSkip = req.query.skip
@@ -46,36 +46,154 @@ const AcessosRouter = (io) => {
           });
       }
     );
+  router.route("/create").post(function (req, res, next) {
+    const { _id, entryHour, local } = req.body;
 
-  router
-    .route("/create")
-    .post(Users.autorize([scopes.Gestor]), function (req, res, next) {
-      let body = req.body;
+    Users.findUserById(_id)
+      .then((user) => {
+        const role = user.role.name;
+        console.log(role);
+        switch (role) {
+          case "normal":
+            if (local === "entrada") {
+              Acessos.create({ _id, entryHour, local })
+                .then((response) => {
+                  console.log("Access granted to " + local + "!");
+                  res.status(200);
+                  res.send(response);
+                })
+                .catch((err) => {
+                  res.status(500);
+                  res.send(err);
+                  next();
+                });
+            } else {
+              console.log("Access denied to " + local);
+            }
+            break;
+          case "vip":
+            if (
+              local === "entrada" ||
+              local === "jacuzzi" ||
+              local === "banhoturco"
+            ) {
+              Acessos.create({ _id, entryHour, local })
+                .then((response) => {
+                  console.log("Access granted to " + local + "!");
+                  res.status(200);
+                  res.send(response);
+                })
+                .catch((err) => {
+                  res.status(500);
+                  res.send(err);
+                  next();
+                });
+            } else {
+              console.log("Access denied to " + local);
+            }
+            break;
+          case "gestor":
+            if (
+              local === "entrada" ||
+              local === "jacuzzi" ||
+              local === "banhoturco"
+            ) {
+              console.log("aquicrl");
+              Acessos.create({ _id, entryHour, local })
+                .then((response) => {
+                  console.log("Access granted to " + local + "!");
+                  res.status(200);
+                  res.send(response);
+                })
+                .catch((err) => {
+                  res.status(500);
+                  res.send(err);
+                  next();
+                });
+            } else {
+              console.log("Access denied to " + local);
+            }
+            break;
+          default:
+            console.log("Invalid local");
+            break;
+        }
+      })
+      .catch((err) => {
+        res.status(404);
+        res.send(err.message);
+        next();
+      });
+  });
 
-      Acessos.create(body)
-        .then(() => {
-          console.log("Acesso criada com sucesso!");
-          io.sockets.emit("gestor_notifications", {
-            message: "Add new acesso",
-            key: "Acesso",
-          });
-          res.status(200);
-          res.send(body);
-          next();
-        })
-        .catch((err) => {
-          console.log("Ocorreu um erro ao adicionar a acesso!");
-          console.log(err.message);
-          err.status = err.status || 500;
-          res.status(401);
-          next();
-        });
-    });
+  // router
+  //   .route("/create")
+  //   .post(Users.authorize([scopes.Gestor]), function (req, res, next) {
+  //     const { _id, entryHour, local } = req.body;
+
+  //     Users.findUserById(_id)
+  //       .then((user) => {
+  //         const role = user.role.name;
+
+  //         switch (role) {
+  //           case "normal":
+  //             if (local === "Entrada") {
+  //               console.log("Access granted to Entrada");
+  //             } else {
+  //               console.log("Access denied to " + local);
+  //             }
+  //             break;
+  //           case "vip":
+  //             if (
+  //               local === "Entrada" ||
+  //               local === "Jacuzzi" ||
+  //               local === "BanhoTurco"
+  //             ) {
+  //               console.log("Access granted to " + local);
+  //             } else {
+  //               console.log("Access denied to " + local);
+  //             }
+  //             break;
+  //           case "gestor":
+  //             if (
+  //               local === "Entrada" ||
+  //               local === "Jacuzzi" ||
+  //               local === "BanhoTurco"
+  //             ) {
+  //               console.log("Access granted to " + local);
+  //             } else {
+  //               console.log("Access denied to " + local);
+  //             }
+  //             break;
+  //           default:
+  //             console.log("Access denied to " + local);
+  //         }
+  //       })
+  //       .catch((err) => {
+  //         res.status(404);
+  //         next();
+  //       });
+
+  //     Acessos.create(body)
+  //       .then(() => {
+  //         console.log("Acesso criada com sucesso!");
+  //         res.status(200);
+  //         res.send(body);
+  //         next();
+  //       })
+  //       .catch((err) => {
+  //         console.log("Ocorreu um erro ao adicionar a acesso!");
+  //         console.log(err.message);
+  //         err.status = err.status || 500;
+  //         res.status(401);
+  //         next();
+  //       });
+  //   });
 
   router
     .route("/:acessoId")
     .get(
-      Users.autorize([scopes.Gestor, scopes.Vip]),
+      Users.authorize([scopes.Gestor, scopes.Vip]),
       function (req, res, next) {
         console.log("get acesso by id");
         let acessoId = req.params.acessoId;
@@ -91,7 +209,7 @@ const AcessosRouter = (io) => {
           });
       }
     )
-    .put(Users.autorize([scopes.Gestor]), function (req, res, next) {
+    .put(Users.authorize([scopes.Gestor]), function (req, res, next) {
       console.log("Update acesso by id");
       let acessoId = req.params.acessoId;
       let body = req.body;
@@ -107,7 +225,7 @@ const AcessosRouter = (io) => {
           next();
         });
     })
-    .delete(Users.autorize([scopes.Gestor]), function (req, res, next) {
+    .delete(Users.authorize([scopes.Gestor]), function (req, res, next) {
       const id = req.params.acessoId;
       Acessos.removeById(id)
         .then((result) => {
