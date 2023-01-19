@@ -11,7 +11,7 @@ function Aula(props) {
   useEffect(() => {
     const userId = Cookies.get("userID");
     axios
-      .get(`http://localhost:3000/aulas/${props._id}/subscription/${userId}`)
+      .get(`http://localhost:3000/aulas/subscription/${props._id}/${userId}`)
       .then((res) => {
         setIsSubscribed(res.data.isSubscribed);
         setParticipants(res.data.participants);
