@@ -1,11 +1,11 @@
-import "./Car.css";
+import "./Aula.css";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { Card, Button } from "react-bootstrap";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-const Car = (props) => {
+const Aula = (props) => {
   console.log(props.aulaImage);
   const navigate = useNavigate();
 
@@ -55,4 +55,4 @@ const Car = (props) => {
   );
 };
 
-export default Car;
+export default Aula;

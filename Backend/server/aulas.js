@@ -139,38 +139,41 @@ const AulasRouter = (io) => {
       }
     )
 
-    .put(Users.autorize([scopes.Gestor]), async function (req, res, next) {
-      console.log("Update aula by id");
-      let aulaId = req.params.aulaId;
-      let body = req.body;
+    .put(
+      Users.autorize([scopes.Gestor, scopes.Vip, scopes.Normal]),
+      async function (req, res, next) {
+        console.log("Update aula by id");
+        let aulaId = req.params.aulaId;
+        let body = req.body;
 
-      try {
-        const aulaEncontrada = await Aula.findOne({ _id: aulaId });
+        try {
+          const aulaEncontrada = await Aula.findOne({ _id: aulaId });
 
-        // const alunoEncontrado = await User.find({ _id: body });
-        // // alunoEncontrado.forEach((z) => {
-        // //   console.log(z);
+          // const alunoEncontrado = await User.find({ _id: body });
+          // // alunoEncontrado.forEach((z) => {
+          // //   console.log(z);
 
-        // if (!alunoEncontrado) throw new Error("User nao existe");
+          // if (!alunoEncontrado) throw new Error("User nao existe");
 
-        aulaEncontrada.registrations.forEach((x) => {
-          if (x === req.body._id) throw new Error("Aluno ja registado");
-        });
+          aulaEncontrada.registrations.forEach((x) => {
+            if (x === req.body._id) throw new Error("Aluno ja registado");
+          });
 
-        aulaEncontrada.registrations.push(req.body._id);
+          aulaEncontrada.registrations.push(req.body._id);
 
-        if (aulaEncontrada.participants >= aulaEncontrada.capacity)
-          throw new Error("Capacidadade maxima atingida");
+          if (aulaEncontrada.participants >= aulaEncontrada.capacity)
+            throw new Error("Capacidadade maxima atingida");
 
-        aulaEncontrada.participants = aulaEncontrada.participants + 1;
-        await aulaEncontrada.save();
-        res.status(200);
-        res.send("User Registado na Aula com Sucesso");
-      } catch (err) {
-        res.status(500);
-        res.send(err.message);
+          aulaEncontrada.participants = aulaEncontrada.participants + 1;
+          await aulaEncontrada.save();
+          res.status(200);
+          res.send("User Registado na Aula com Sucesso");
+        } catch (err) {
+          res.status(500);
+          res.send(err.message);
+        }
       }
-    })
+    )
 
     .delete(Users.autorize([scopes.Gestor]), async function (req, res, next) {
       let aulaId = req.params.aulaId;

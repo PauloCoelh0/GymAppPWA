@@ -8,7 +8,6 @@ import {
   TabContent,
   TabPane,
 } from "reactstrap";
-import { Marcacoes } from "./components/Marcacoes";
 import Cars from "./components/Marcacoes/marcacao";
 import { Pagamentos } from "./components/Pagamentos";
 import { RegistosAcesso } from "./components/RegistosAcesso";

@@ -1,26 +1,25 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import "./Cars.css";
-import config from "../../../../config";
-import Car from "./marcacoes";
+import "./Aula.css";
+import Aula from "./marcacoes";
 import SearchBar from "../search/SearchBar";
 import { useNavigate } from "react-router-dom";
 
-export default function Cars() {
-  const [cars, setCars] = useState([]);
+export default function Aulas() {
+  const [aulas, setAulas] = useState([]);
   const navigate = useNavigate();
 
   const url = "http://localhost:3000/aulas";
 
   useEffect(() => {
-    const getCars = async () => {
+    const getAulas = async () => {
       try {
         const response = await axios.get(url, {
           headers: {
             Accept: "application/json",
           },
         });
-        setCars(response.data.data);
+        setAulas(response.data.data);
         console.log("aqui");
         console.log(response.data.data);
       } catch (err) {
@@ -29,14 +28,14 @@ export default function Cars() {
       }
     };
 
-    getCars();
+    getAulas();
   }, []);
 
   return (
-    <div className="cars">
-      <SearchBar placeholder="Search " data={cars} />
-      {cars?.map((car) => (
-        <Car key={car._id} {...car} />
+    <div className="aulas">
+      <SearchBar placeholder="Search " data={aulas} />
+      {aulas?.map((aula) => (
+        <Aula key={aula._id} {...aula} />
       ))}
     </div>
   );
