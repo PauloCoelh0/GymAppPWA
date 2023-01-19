@@ -69,6 +69,7 @@ function App() {
       <Header />
       <Routes>
         <Route>
+          <Route path="/aulaDetails/:aulaId" element={<AulaDetails />} />
           <Route path="/gestaoAcessos" element={<GestaoAcessos />} />
           <Route path="/home" element={<HomePage />} />
           <Route path="/login" element={<LoginForm />} />
