@@ -1,6 +1,6 @@
 .search{
     background-color:white ;
-    width: 300px;
+    width: 400px;
     margin-left: 0.6%;
     margin-bottom: 2%;
     box-shadow: 0 0 10px #3d3d3d;
@@ -9,6 +9,7 @@
   
   .searchInputs {
     margin-top: 20px;
+    margin-left: 13px;
     display: flex;
     border-radius: 10px;
   }
@@ -85,10 +86,12 @@
     cursor: pointer;
   }
   
-  /* .search-icon {
+  .search-icon {
+    margin-top: 20px;
+    margin-left: 5px;
+    position: absolute;
     transform: translateY(-50%);
     color: gray;
-    font-size: 1.2rem;
-
+    font-size: 1.1rem;
   }
-   */
+  

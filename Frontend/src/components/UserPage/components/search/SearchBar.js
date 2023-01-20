@@ -17,14 +17,11 @@ function SearchBar({ placeholder, handleFilterAulas, data }) {
 
   return (
     <div className="search">
+      <FontAwesomeIcon icon={faSearch} className="search-icon" />
       <div className="searchInputs">
         <input
           type="text"
-          placeholder={
-            <span>
-              Search <FontAwesomeIcon icon={faSearch} className="search-icon" />
-            </span>
-          }
+          placeholder={placeholder}
           value={wordEntered}
           onChange={handleFilter}
         />
