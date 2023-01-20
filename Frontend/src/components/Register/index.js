@@ -28,11 +28,11 @@ const Users = () => {
   }, [data, setUsers]);
 
   if (isLoading) {
-    return <div>Is Loading</div>;
+    return <div>Loading...</div>;
   }
 
   if (isError) {
-    return <div>UPPSSSS</div>;
+    return <div>BASE DE DADOS EM BAIXO</div>;
   }
 
   return (
