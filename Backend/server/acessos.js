@@ -44,8 +44,11 @@ const AcessosRouter = (io) => {
 
   // Acessos apenas do user que estiver em parametro.
   //http://localhost:5000/acessos?user=63b45a502f462751e1b55b94 (EXEMPLO PEDIDO POST)
-  router.route("/do").get(function (req, res, next) {
-    const userId = req.query.user;
+  router.route("/:userId").get(function (req, res, next) {
+    const userId = req.params.userId;
+    console.log(userId);
+    console.log(req.params.userId);
+
     Acesso.find({ user: userId })
       .then((acessos) => {
         const response = {

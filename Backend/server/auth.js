@@ -38,13 +38,14 @@ function AuthRouter() {
     return Users.findUser(body)
       .then((user) => {
         const token = Users.createToken(user);
-        const response = { ...token, userRole: user.role.name };
+        const response = { ...token, userRole: user.role.name, user: user._id };
         return response;
       })
       .then((response) => {
         console.log("response", response);
         // The httpOnly: true setting means that the cookie can’t be read using JavaScript but can still be sent back to the server in HTTP requests
         res.cookie("token", response.token);
+        res.cookie("userID", response.user);
         res.status(200);
         res.send(response);
       })
