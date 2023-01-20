@@ -3,7 +3,7 @@ let Schema = mongoose.Schema;
 
 let AulaSchema = new Schema({
   name: { type: String, required: true },
-  room: { type: Number, required: true },
+  room: { type: String, required: true },
   beginDate: { type: Date, required: true },
   endDate: { type: Date, required: true },
   capacity: { type: Number, required: true },

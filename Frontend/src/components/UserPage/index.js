@@ -9,7 +9,7 @@ import {
   TabPane,
 } from "reactstrap";
 import Aulas from "./components/Marcacoes/marcacao";
-import { Pagamentos } from "./components/Pagamentos";
+import { AulasMarcadas } from "./components/AulasMarcadas";
 import { RegistosAcesso } from "./components/RegistosAcesso";
 import { Perfil } from "./components/Perfil";
 import { Member } from "./components/Member";
@@ -70,7 +70,7 @@ const UserPage = () => {
     },
     {
       id: "3",
-      title: "Pagamentos",
+      title: "AulasMarcadas",
     },
     {
       id: "4",
@@ -93,7 +93,7 @@ const UserPage = () => {
     },
     {
       id: "3",
-      children: <Pagamentos />,
+      children: <AulasMarcadas />,
     },
     {
       id: "4",
