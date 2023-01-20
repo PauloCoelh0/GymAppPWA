@@ -9,7 +9,7 @@ import {
   TabPane,
 } from "reactstrap";
 import Aulas from "./components/Marcacoes/marcacao";
-import { AulasMarcadas } from "./components/AulasMarcadas";
+import { Inscricao } from "./components/Inscricoes/inscricao";
 import { RegistosAcesso } from "./components/RegistosAcesso";
 import { Perfil } from "./components/Perfil";
 import { Member } from "./components/Member";
@@ -21,13 +21,13 @@ import {
   initSocket,
 } from "../../socket/socket";
 import addNotification from "react-push-notification";
-import { TabContext } from "../AdminPage/contexts";
+import { InscricoesContext, TabContext } from "../AdminPage/contexts";
 
 const UserPage = () => {
   const [activePage, setActivePage] = useState("1");
   const { isError, isLoading, user } = useGetPerfil("users");
   const { countAulas } = useContext(TabContext);
-
+  const { countAulasInscritas } = useContext(InscricoesContext);
   console.log(countAulas);
 
   const newNotifiction = (data) => {
@@ -70,7 +70,8 @@ const UserPage = () => {
     },
     {
       id: "3",
-      title: "AulasMarcadas",
+      title: "Inscrições",
+      count: countAulasInscritas,
     },
     {
       id: "4",
@@ -93,7 +94,7 @@ const UserPage = () => {
     },
     {
       id: "3",
-      children: <AulasMarcadas />,
+      children: <Inscricao />,
     },
     {
       id: "4",

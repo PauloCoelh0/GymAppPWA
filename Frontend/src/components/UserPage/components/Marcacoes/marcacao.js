@@ -3,18 +3,16 @@ import axios from "axios";
 import "./Aula.css";
 import Aula from "./marcacoes";
 import SearchBar from "../search/SearchBar";
-import { useNavigate } from "react-router-dom";
 import { TabContext } from "../../../AdminPage/contexts";
 import handleFilter from "./marcacoes";
 
 export default function Aulas() {
   const [aulas, setAulas] = useState([]);
-  const navigate = useNavigate();
   const { setAulasCount } = useContext(TabContext);
   const [filteredAulas, setFilteredAulas] = useState(aulas);
 
-  console.log("Estou aqui");
-  console.log(filteredAulas);
+  // console.log("Estou aqui");
+  // console.log(filteredAulas);
 
   const url = "http://localhost:3000/aulas";
   useEffect(() => {
@@ -28,11 +26,10 @@ export default function Aulas() {
         setAulas(response.data.data);
         setAulasCount(response.data.data.length);
         setFilteredAulas(response.data.data);
-        console.log("aqui");
-        console.log(response.data.data);
+        // console.log("aqui");
+        // console.log(response.data.data);
       } catch (err) {
         console.log(err);
-        return navigate("/login");
       }
     };
 
