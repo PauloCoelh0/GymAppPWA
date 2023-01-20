@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Container, Row, Col } from "reactstrap";
 import { useForm } from "react-hook-form";
 import styles from "./styles.module.scss";
@@ -8,6 +8,7 @@ import { usePostData } from "../../../AdminPage/hooks/usePostData";
 import { ReactTabulator } from "react-tabulator";
 import Cookies from "js-cookie";
 import moment from "moment";
+import axios from "axios";
 
 //TABULATOR
 import "react-tabulator/lib/styles.css";
@@ -23,8 +24,25 @@ import "react-tabulator/css/bootstrap/tabulator_bootstrap.min.css"; // use Theme
 export const RegistosAcesso = () => {
   const cookieValue = Cookies.get("userID");
   const valueWithoutJ = cookieValue.substring(3, cookieValue.length - 1);
-  const userId = { _id: valueWithoutJ };
+  const userId = valueWithoutJ;
   console.log(userId);
+
+  const [data, setData] = useState([]);
+
+  const dataArray = Object.values(data);
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:3000/acessos/${userId}`)
+      .then((response) => {
+        setData(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
+  console.log(data);
 
   //custom date formatter
   var dateFormatter = function (cell, formatterParams) {
@@ -34,11 +52,6 @@ export const RegistosAcesso = () => {
   };
 
   const columns = [
-    {
-      title: "ID",
-      field: "user",
-      headerFilter: "input",
-    },
     {
       title: "Local",
       field: "local",
@@ -61,7 +74,7 @@ export const RegistosAcesso = () => {
     },
   ];
   const options = {
-    pagination: data.pagination,
+    pagination: dataArray,
     paginationSize: 8,
     movableColumns: true,
     paginationCounter: "rows",
@@ -70,11 +83,12 @@ export const RegistosAcesso = () => {
 
   return (
     <Container>
+      <h2 className={styles.title}>Registo De Acessos</h2>
       <div className={styles.customTable}>
         <ReactTabulator
           columns={columns}
           layout={"fitColumns"}
-          data={data}
+          data={dataArray}
           options={options}
           placeholder={"No Data Set"}
         />
