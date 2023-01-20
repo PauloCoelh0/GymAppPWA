@@ -1,6 +1,6 @@
 import "./Aula.css";
 import { Card, Button } from "react-bootstrap";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import Cookies from "js-cookie";
 import axios from "axios";
 import { format } from "date-fns";

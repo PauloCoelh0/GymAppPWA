@@ -25,7 +25,7 @@ export const RegistosAcesso = () => {
   const cookieValue = Cookies.get("userID");
   const valueWithoutJ = cookieValue.substring(3, cookieValue.length - 1);
   const userId = valueWithoutJ;
-  console.log(userId);
+  // console.log(userId);
 
   const [data, setData] = useState([]);
 
@@ -42,7 +42,7 @@ export const RegistosAcesso = () => {
       });
   }, []);
 
-  console.log(data);
+  // console.log(data);
 
   //custom date formatter
   var dateFormatter = function (cell, formatterParams) {

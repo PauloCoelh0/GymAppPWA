@@ -28,6 +28,8 @@ const UserPage = () => {
   const { isError, isLoading, user } = useGetPerfil("users");
   const { countAulas } = useContext(TabContext);
 
+  console.log(countAulas);
+
   const newNotifiction = (data) => {
     if (data.key === "Game") {
       addNotification({
