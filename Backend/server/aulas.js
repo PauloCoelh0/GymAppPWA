@@ -271,6 +271,23 @@ const AulasRouter = (io) => {
       }
     );
 
+  router
+    .route("/subscription/:userId")
+    .get(
+      Users.authorize([scopes.Gestor, scopes.Vip, scopes.Normal]),
+      function (req, res, next) {
+        const userId = req.params.userId;
+
+        Aula.find({ registrations: userId })
+          .then((foundClasses) => {
+            res.send(foundClasses);
+          })
+          .catch((err) => {
+            res.status(500).send({ error: err });
+          });
+      }
+    );
+
   return router;
 };
 
