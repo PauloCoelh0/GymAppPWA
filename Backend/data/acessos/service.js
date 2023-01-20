@@ -8,24 +8,6 @@ function AcessosService(AcessoModel) {
     findAcessoById,
   };
 
-  // function create(acesso) {
-  //   let newAcesso = AcessoModel(acesso);
-  //   return save(newAcesso);
-  // }
-
-  // function save(model) {
-  //   return new Promise(function (resolve, reject) {
-  //     model.save(function (err) {
-  //       if (err) reject("Ocorreu um erro ao criar a acesso");
-
-  //       resolve({
-  //         message: "Acesso Criado",
-  //         acesso: model,
-  //       });
-  //     });
-  //   });
-  // }
-
   async function create(acesso) {
     console.log("acesso recebido:" + acesso._id);
 
