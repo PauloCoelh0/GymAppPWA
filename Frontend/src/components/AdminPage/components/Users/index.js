@@ -30,66 +30,12 @@ import "react-tabulator/css/bootstrap/tabulator_bootstrap.min.css"; // use Theme
 />;
 
 const Users = () => {
-  const { register, handleSubmit } = useForm();
   const { setUsers } = useContext(UsersContext);
   const { isError, isLoading, data } = useGetData("users", 0, 0);
-  const { isLoading: isLoadingPost, addData } = usePostData("users");
-
-  const style = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: 500,
-    bgcolor: "background.paper",
-    border: "2px solid #000",
-    boxShadow: 24,
-    p: 4,
-    height: 510,
-  };
-
-  const addcar = {
-    width: 300,
-    bgcolor: "#FFF",
-    color: "black",
-    bgcolor: "#FFF",
-    "&:hover": {
-      background: "#FECC01",
-      color: "white",
-    },
-    fontWeight: "600",
-    size: "300px",
-    border: "2px solid #000",
-    transform: "translate(-50%, -50%)",
-    boxShadow: 14,
-    position: "absolute",
-    top: "25%",
-    left: "50%",
-  };
-
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-
-  // const [users, setUseers] = UseState([]);
-
-  const addUser = (data) => {
-    const newData = {
-      ...data,
-      role: { name: "Normal", scope: "normal" },
-    };
-
-    addData(newData);
-  };
 
   useEffect(() => {
     setUsers(data.data);
-    // setUseers(data.data);
   }, [data, setUsers]);
-
-  // const useers = data.data;
-
-  console.log(data.data);
 
   if (isLoading) {
     return <div>Is Loading</div>;
@@ -178,6 +124,7 @@ const Users = () => {
 
   return (
     <Container>
+      <h2 className={styles.title}>Users</h2>
       <div className={styles.customTable}>
         <ReactTabulator
           columns={columns}

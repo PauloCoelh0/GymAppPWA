@@ -35,15 +35,15 @@ const Aulas = () => {
   const { register, handleSubmit } = useForm();
   const { isError, isLoading, data } = useGetData("aulas", 0, 0);
   // const { isLoading: isLoadingPost, addData } = usePostData("aulas/create");
-  const { setGamesCount } = useContext(TabContext);
+  const { setAulasCount } = useContext(TabContext);
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   useEffect(() => {
-    setGamesCount(data.data.length);
-  }, [data, setGamesCount]);
+    setAulasCount(data.data.length);
+  }, [data, setAulasCount]);
 
   if (isLoading) {
     return <div>Is Loading</div>;

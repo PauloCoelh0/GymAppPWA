@@ -1,14 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Container, Row, Col } from "reactstrap";
-import { useForm } from "react-hook-form";
 import styles from "./styles.module.scss";
-import { useGetData } from "../../../AdminPage/hooks/useGetData";
-import { UsersContext } from "../../../../contexts/UsersProvider";
-import { usePostData } from "../../../AdminPage/hooks/usePostData";
 import { ReactTabulator } from "react-tabulator";
-import Cookies from "js-cookie";
 import moment from "moment";
 import axios from "axios";
+import { AcessosContext } from "../../contexts";
 
 //TABULATOR
 import "react-tabulator/lib/styles.css";
@@ -22,25 +18,32 @@ import "react-tabulator/css/bootstrap/tabulator_bootstrap.min.css"; // use Theme
 />;
 
 export const RegistosAcesso = () => {
-  const cookieValue = Cookies.get("userID");
-  const valueWithoutJ = cookieValue.substring(3, cookieValue.length - 1);
-  const userId = valueWithoutJ;
-  console.log(userId);
-
   const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const { setAcessosCount } = useContext(AcessosContext);
 
-  const dataArray = Object.values(data);
+  const Loading = () => {
+    return <div className="loading-spinner"></div>;
+  };
 
   useEffect(() => {
+    setIsLoading(true);
     axios
-      .get(`http://localhost:3000/acessos/${userId}`)
+      .get(`http://localhost:3000/acessos`)
       .then((response) => {
         setData(response.data);
+        setAcessosCount(data.data.length);
+        setIsLoading(false);
       })
       .catch((error) => {
         console.log(error);
+        setIsLoading(false);
       });
   }, []);
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   console.log(data);
 
@@ -52,6 +55,12 @@ export const RegistosAcesso = () => {
   };
 
   const columns = [
+    {
+      title: "User ID",
+      field: "user",
+      hozAlign: "center",
+      headerFilter: "input",
+    },
     {
       title: "Local",
       field: "local",
@@ -74,7 +83,7 @@ export const RegistosAcesso = () => {
     },
   ];
   const options = {
-    pagination: dataArray,
+    pagination: data.data,
     paginationSize: 8,
     movableColumns: true,
     paginationCounter: "rows",
@@ -88,7 +97,7 @@ export const RegistosAcesso = () => {
         <ReactTabulator
           columns={columns}
           layout={"fitColumns"}
-          data={dataArray}
+          data={data.data}
           options={options}
           placeholder={"Sem Dados"}
         />

@@ -17,6 +17,7 @@ import LoginForm from "./components/LoginForm";
 import UserPage from "./components/UserPage";
 import { UsersProvider } from "./contexts/UsersProvider";
 import { TabProvider } from "./components/AdminPage/contexts";
+import { AcessosProvider } from "./components/AdminPage/contexts";
 import { Notifications } from "react-push-notification";
 import Entrada from "./components/Acessos/Entrada";
 import BanhoTurco from "./components/Acessos/BanhoTurco";
@@ -79,7 +80,9 @@ function App() {
               <ProtectedRoute>
                 <UsersProvider>
                   <TabProvider>
-                    <AdminPage />
+                    <AcessosProvider>
+                      <AdminPage />
+                    </AcessosProvider>
                   </TabProvider>
                 </UsersProvider>
               </ProtectedRoute>

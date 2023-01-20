@@ -1,8 +1,8 @@
-import React from 'react';
+import React from "react";
 
 const context = {
-  setGamesCount: () => {},
-  countGames: 0
+  setAulasCount: () => {},
+  countAulas: 0,
 };
 
 export const TabContext = React.createContext(context);

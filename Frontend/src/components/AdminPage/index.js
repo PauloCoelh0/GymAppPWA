@@ -16,22 +16,30 @@ import Users from "./components/Users";
 import Tickets from "./components/Tickets";
 import { TabContext } from "./contexts";
 import { UsersContext } from "../../contexts/UsersProvider";
+import { RegistosAcesso } from "./components/RegistoAcessos";
+import { AcessosContext } from "./contexts";
 
 const AdminPage = () => {
   const [activePage, setActivePage] = useState("1");
-  const { countGames } = useContext(TabContext);
+  const { countAulas } = useContext(TabContext);
   const { countUsers } = useContext(UsersContext);
+  const { countAcessos } = useContext(AcessosContext);
 
   const navItems = [
     {
       id: "1",
       title: "Aulas",
-      count: countGames,
+      count: countAulas,
     },
     {
       id: "2",
       title: "Users",
       count: countUsers,
+    },
+    {
+      id: "3",
+      title: "Registos de Acesso",
+      count: countAcessos,
     },
 
     // {
@@ -53,6 +61,10 @@ const AdminPage = () => {
     {
       id: "2",
       children: <Users />,
+    },
+    {
+      id: "3",
+      children: <RegistosAcesso />,
     },
 
     // {
