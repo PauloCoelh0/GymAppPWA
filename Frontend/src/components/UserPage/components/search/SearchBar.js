@@ -1,33 +1,18 @@
 import React, { useState } from "react";
 import "./SearchBar.css";
-import SearchIcon from "@material-ui/icons/Search";
-import CloseIcon from "@material-ui/icons/Close";
-import { useNavigate } from "react-router-dom";
-// import "./../../../../App.scss";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
-function SearchBar({ placeholder, data }) {
-  const [filteredData, setFilteredData] = useState([]);
+function SearchBar({ placeholder, handleFilterAulas, data }) {
   const [wordEntered, setWordEntered] = useState("");
-  const navigate = useNavigate();
 
   const handleFilter = (event) => {
     const searchWord = event.target.value;
     setWordEntered(searchWord);
-    console.log(searchWord);
     const newFilter = data.filter((value) => {
       return value.name.toLowerCase().includes(searchWord.toLowerCase());
     });
-
-    if (searchWord === "") {
-      setFilteredData([]);
-    } else {
-      setFilteredData(newFilter);
-    }
-  };
-
-  const clearInput = () => {
-    setFilteredData([]);
-    setWordEntered("");
+    handleFilterAulas(newFilter);
   };
 
   return (
@@ -35,33 +20,15 @@ function SearchBar({ placeholder, data }) {
       <div className="searchInputs">
         <input
           type="text"
-          placeholder={placeholder}
+          placeholder={
+            <span>
+              Search <FontAwesomeIcon icon={faSearch} className="search-icon" />
+            </span>
+          }
           value={wordEntered}
           onChange={handleFilter}
         />
-        <div className="searchIcon">
-          {filteredData.length === 0 ? (
-            <SearchIcon />
-          ) : (
-            <CloseIcon id="clearBtn" onClick={clearInput} />
-          )}
-        </div>
       </div>
-      {filteredData.length != 0 && (
-        <div className="dataResult">
-          {filteredData.slice(0, 15).map((value, key) => {
-            return (
-              <a
-                className="dataItem"
-                onClick={() => navigate(`/aulas/${value._id}`)}
-                target="_blank"
-              >
-                <p>{value.name}</p>
-              </a>
-            );
-          })}
-        </div>
-      )}
     </div>
   );
 }

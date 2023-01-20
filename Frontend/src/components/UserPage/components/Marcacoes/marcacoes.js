@@ -1,6 +1,6 @@
 import "./Aula.css";
 import { Card, Button } from "react-bootstrap";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import Cookies from "js-cookie";
 import axios from "axios";
 import { format } from "date-fns";
@@ -10,7 +10,9 @@ function Aula(props) {
   const [participants, setParticipants] = useState(props.participants);
 
   useEffect(() => {
-    const userId = Cookies.get("userID");
+    const cookieValue2 = Cookies.get("userID");
+    const valueWithoutJ = cookieValue2.substring(3, cookieValue2.length - 1);
+    const userId = valueWithoutJ;
     axios
       .get(`http://localhost:3000/aulas/subscription/${props._id}/${userId}`)
       .then((res) => {

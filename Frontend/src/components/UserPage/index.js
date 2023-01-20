@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import {
   Row,
   Container,
@@ -8,7 +8,7 @@ import {
   TabContent,
   TabPane,
 } from "reactstrap";
-import Cars from "./components/Marcacoes/marcacao";
+import Aulas from "./components/Marcacoes/marcacao";
 import { Pagamentos } from "./components/Pagamentos";
 import { RegistosAcesso } from "./components/RegistosAcesso";
 import { Perfil } from "./components/Perfil";
@@ -21,10 +21,14 @@ import {
   initSocket,
 } from "../../socket/socket";
 import addNotification from "react-push-notification";
+import { TabContext } from "../AdminPage/contexts";
 
 const UserPage = () => {
   const [activePage, setActivePage] = useState("1");
   const { isError, isLoading, user } = useGetPerfil("users");
+  const { countAulas } = useContext(TabContext);
+
+  console.log(countAulas);
 
   const newNotifiction = (data) => {
     if (data.key === "Game") {
@@ -57,7 +61,8 @@ const UserPage = () => {
   const navItems = [
     {
       id: "1",
-      title: "Marcações",
+      title: "Aulas",
+      count: countAulas,
     },
     {
       id: "2",
@@ -84,7 +89,7 @@ const UserPage = () => {
     },
     {
       id: "1",
-      children: <Cars />,
+      children: <Aulas />,
     },
     {
       id: "3",

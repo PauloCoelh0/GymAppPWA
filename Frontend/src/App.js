@@ -92,7 +92,9 @@ function App() {
             path="/user"
             element={
               <ProtectedRoute>
-                <UserPage />
+                <TabProvider>
+                  <UserPage />
+                </TabProvider>
               </ProtectedRoute>
             }
           />

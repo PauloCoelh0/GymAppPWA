@@ -32,14 +32,11 @@ import AulasForm from "./addAulaForm";
 />;
 
 const Aulas = () => {
-  const { register, handleSubmit } = useForm();
   const { isError, isLoading, data } = useGetData("aulas", 0, 0);
   // const { isLoading: isLoadingPost, addData } = usePostData("aulas/create");
   const { setAulasCount } = useContext(TabContext);
 
   const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
 
   useEffect(() => {
     setAulasCount(data.data.length);
@@ -52,43 +49,6 @@ const Aulas = () => {
   if (isError) {
     return <div>No Data Loading</div>;
   }
-
-  const style = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: 500,
-    bgcolor: "background.paper",
-    border: "2px solid #000",
-    boxShadow: 24,
-    p: 4,
-    height: 350,
-  };
-
-  const addcar = {
-    width: 300,
-    bgcolor: "#FFF",
-    color: "black",
-    bgcolor: "#FFF",
-    "&:hover": {
-      background: "#FECC01",
-      color: "white",
-    },
-    fontWeight: "600",
-    size: "300px",
-    border: "2px solid #000",
-    transform: "translate(-50%, -50%)",
-    boxShadow: 14,
-    position: "absolute",
-    top: "250px",
-    left: "50%",
-  };
-
-  // var infoIcon = function (value, data, cell, row, options) {
-  //   var html = <img class={styles.infoImage} src="./details.png" />;
-  //   return html;
-  // };
 
   var delIcon = function (value, data, cell, row, options) {
     //plain text value
@@ -105,15 +65,6 @@ const Aulas = () => {
     const sCellValue = cell.getValue();
     if (!sCellValue) return "";
     return moment(sCellValue).format("YYYY-MM-DD HH:mm");
-  };
-
-  var deleteButton = function (e, cell) {
-    var html = "Delete";
-    return html;
-  };
-  var updateButton = function (e, cell) {
-    var html = "Update";
-    return html;
   };
 
   //custom date editor
