@@ -32,7 +32,8 @@ export const RegistosAcesso = () => {
       .get(`http://localhost:3000/acessos`)
       .then((response) => {
         setData(response.data);
-        setAcessosCount(data.data.length);
+        setAcessosCount(response.data.data.length);
+        console.log(setAcessosCount);
         setIsLoading(false);
       })
       .catch((error) => {
