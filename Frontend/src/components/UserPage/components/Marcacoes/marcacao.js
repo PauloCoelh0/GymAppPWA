@@ -42,7 +42,7 @@ export default function Aulas() {
   return (
     <div className="aulas">
       <SearchBar
-        placeholder="Search "
+        placeholder="Search"
         data={aulas}
         handleFilterAulas={(filteredData) => setFilteredAulas(filteredData)}
       />
