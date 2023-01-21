@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from "react";
-import { InscricoesContext } from "./InscricoesContext";
+import { InscricoesContext } from "./TabContInsc";
 
 export const InscricoesProvider = ({ children }) => {
   const [aulasInscritasCount, setAulasInscritasCount] = useState(0);
