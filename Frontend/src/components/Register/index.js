@@ -8,12 +8,14 @@ import { UsersContext } from "../../contexts/UsersProvider";
 import { usePostData } from "./hooks/usePostData";
 import "./registerForm.css";
 import axios from "axios";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const url = "http://localhost:3000/auth/register";
 
 const Users = () => {
   const { register, handleSubmit } = useForm();
   const onSubmit = (data) => postUser(data);
+  const navigate = useNavigate();
 
   const postUser = async (data) => {
     const userData = new FormData();
@@ -31,8 +33,11 @@ const Users = () => {
       });
       console.log(response);
       if (response.status === 200) {
+        alert("Pedido de registo enviado com sucesso!!");
+        navigate("/login");
         return response.data.data;
       } else {
+        alert("Error ao adicionar");
       }
     } catch (e) {
       console.log(e);
