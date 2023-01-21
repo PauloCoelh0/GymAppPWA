@@ -3,6 +3,18 @@ const express = require("express");
 const Users = require("../data/users");
 const cookieParser = require("cookie-parser");
 const VerifyToken = require("../middleware/Token");
+const multer = require("multer");
+const User = require("../data/users/users");
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "./uploads/");
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + file.originalname);
+  },
+});
+const upload = multer({ storage: storage });
 
 function AuthRouter() {
   let router = express();
@@ -12,21 +24,42 @@ function AuthRouter() {
 
   //Registar utilizador
 
-  router.route("/register").post(function (req, res, next) {
-    const body = req.body;
-
-    Users.create(body)
-      .then(() => Users.createToken(body))
-      .then((response) => {
+  router
+    .route("/register")
+    .post(upload.single("picture"), async function (req, res, next) {
+      const user = new User({
+        name: req.body.name,
+        email: req.body.email,
+        password: req.body.password,
+        age: req.body.age,
+        address: req.body.address,
+        country: req.body.country,
+        // role: {
+        //   name: req.body.role.name,
+        //   scope: [req.body["role.role"].scope],
+        // },
+        picture: req.file.path,
+      });
+      try {
+        const usertmp = await Users.create(user);
+        const responsetmp = Users.createToken(usertmp.user);
+        // .then((user) => Users.createToken(user))
+        // .then((response) => {
         res.status(200);
-        res.send(response);
-      })
-      .catch((err) => {
+        res.send(responsetmp);
+        // })
+        // .catch((err) => {
+        //   res.status(500);
+        //   res.send(err);
+        //   next();
+        // });
+      } catch (err) {
+        console.log(err);
         res.status(500);
         res.send(err);
         next();
-      });
-  });
+      }
+    });
 
   //Login
 

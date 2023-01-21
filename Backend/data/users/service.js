@@ -15,20 +15,18 @@ function UserService(UserModel) {
     update,
   };
 
-  function create(user) {
-    return createPassword(user).then((hashPassword, err) => {
-      if (err) {
-        return Promise.reject("");
-      }
-
-      let newUserWithPassword = {
-        ...user,
-        password: hashPassword,
-      };
-
-      let newUser = UserModel(newUserWithPassword);
-      return save(newUser);
-    });
+  async function create(user) {
+    const hashPassword = await createPassword(user);
+    // if (err) {
+    //   return Promise.reject("");
+    // }
+    // let newUserWithPassword = {
+    //   ...user,
+    //   password: hashPassword,
+    // };
+    user.password = hashPassword;
+    let newUser = UserModel(user);
+    return await save(newUser);
   }
 
   function createToken(user) {
