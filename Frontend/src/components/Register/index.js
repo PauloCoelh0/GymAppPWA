@@ -28,11 +28,11 @@ const Users = () => {
   }, [data, setUsers]);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div>Is Loading</div>;
   }
 
   if (isError) {
-    return <div>BASE DE DADOS EM BAIXO</div>;
+    return <div>UPPSSSS</div>;
   }
 
   return (
@@ -90,6 +90,12 @@ const Users = () => {
             name="country"
             required="required"
             {...register("country")}
+          />
+          <input
+            type="file"
+            id="picture"
+            name="picture"
+            {...register("picture")}
           />
 
           <input className={styles.button} type="submit" value="Criar Conta" />
