@@ -1,0 +1,249 @@
+{
+  "swagger": "2.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "ESTG Gym",
+    "description": "Rest API for ESTG Gym"
+  },
+  "host": "localhost:5000",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "Ginasio",
+      "description": "Rest API for ESTG Gym"
+    }
+  ],
+  "schemes": ["http"],
+  "consumes": ["application/json", "multipart/form-data"],
+  "produces": ["application/json"],
+  "paths": {
+    "/auth/register": {
+      "post": {
+        "tags": ["Users"],
+        "description": "Register of User",
+        "parameters": [
+          {
+            "name": "body",
+            "type": "string",
+            "in": "body",
+            "required": true,
+            "description": "To register yourself, you need to fill all the fields required",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "master"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "master@gmail.com"
+                },
+                "password": {
+                  "type": "string",
+                  "example": "master"
+                },
+                "role": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "example": "normal"
+                    },
+                    "scope": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "example": "normal"
+                      }
+                    }
+                  }
+                },
+                "address": {
+                  "type": "string",
+                  "example": "Rua das campainhas"
+                },
+                "country": {
+                  "type": "string",
+                  "example": "Portugal"
+                }
+              }
+            }
+          }
+        ],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Register Correct",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "auth": {
+                  "type": "boolean"
+                },
+                "token": {
+                  "type": "string"
+                },
+                "userRole": {
+                  "type": "string",
+                  "example": "gestor"
+                },
+                "user": {
+                  "type": "string",
+                  "example": "w32432423d"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "tags": ["Users"],
+        "description": "Login of User",
+        "parameters": [
+          {
+            "name": "body",
+            "type": "string",
+            "in": "body",
+            "required": true,
+            "description": "Email and password to login",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string",
+                  "example": "master@gmail.com"
+                },
+                "password": {
+                  "type": "string",
+                  "example": "master"
+                }
+              }
+            }
+          }
+        ],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Login Correct",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "auth": {
+                  "type": "boolean"
+                },
+                "token": {
+                  "type": "string"
+                },
+                "userRole": {
+                  "type": "string",
+                  "example": "gestor"
+                },
+                "user": {
+                  "type": "string",
+                  "example": "w32432423d"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/aulas/create": {
+      "post": {
+        "tags": ["Aulas"],
+        "description": "Creating classes",
+        "parameters": [
+          {
+            "name": "body",
+            "type": "string",
+            "in": "body",
+            "required": true,
+            "description": "Please fill all the fields to create a new gym class",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "Yoga"
+                },
+                "room": {
+                  "type": "string",
+                  "example": "1"
+                },
+                "beginDate": {
+                  "type": "string",
+                  "format": "date-time",
+                  "example": "2024-03-20 10:30:30"
+                },
+                "endDate": {
+                  "type": "string",
+                  "format": "date-time",
+                  "example": "2024-03-20 12:30:30"
+                },
+                "capacity": {
+                  "type": "integer",
+                  "example": "10"
+                },
+                "participants": {
+                  "type": "integer",
+                  "example": "2",
+                  "required": false
+                }
+              }
+            }
+          }
+        ],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Class created sucessfully",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "Yoga"
+                },
+                "room": {
+                  "type": "string",
+                  "example": "1"
+                },
+                "beginDate": {
+                  "type": "string",
+                  "format": "date-time",
+                  "example": "2024-03-20 10:30:30"
+                },
+                "endDate": {
+                  "type": "string",
+                  "format": "date-time",
+                  "example": "2024-03-20 10:30:30"
+                },
+                "capacity": {
+                  "type": "integer",
+                  "example": "10"
+                },
+                "participants": {
+                  "type": "integer",
+                  "example": "2"
+                },
+                "registration": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "example": "63b457ca683c26ec4c15e309"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
