@@ -31,6 +31,7 @@
     "react-big-calendar": "^1.5.2",
     "react-bootstrap": "^2.7.0",
     "react-calendar": "^4.0.0",
+    "react-camera-media-stream": "^0.1.17",
     "react-confirm": "^0.2.3",
     "react-confirm-alert": "^3.0.6",
     "react-cookie": "^4.1.1",
