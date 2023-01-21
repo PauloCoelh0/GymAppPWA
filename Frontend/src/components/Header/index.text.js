@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen } from "testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { UsersContext } from "../../contexts/UsersProvider";
+import { UsersContext } from "../../contexts/UsersProvider/UsersProvider";
 import Header from ".";
 
 describe("Header", () => {

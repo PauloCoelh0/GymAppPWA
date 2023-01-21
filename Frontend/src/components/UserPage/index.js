@@ -23,6 +23,7 @@ import {
 } from "../../socket/socket";
 import addNotification from "react-push-notification";
 import { InscricoesContext, TabContext } from "../AdminPage/contexts";
+import { MensagensContext } from "../../contexts";
 import Cookies from "js-cookie";
 
 const UserPage = () => {
@@ -30,39 +31,8 @@ const UserPage = () => {
   const { isError, isLoading, user } = useGetPerfil("users");
   const { countAulas } = useContext(TabContext);
   const { countAulasInscritas } = useContext(InscricoesContext);
-  // const [userRole, setUserRole] = useState("");
+  const { countMensagens } = useContext(MensagensContext);
   console.log(countAulas);
-
-  // const newNotifiction = (data) => {
-  //   // if (data.key === "Aula") {
-  //   addNotification({
-  //     title: "Warning",
-  //     subtitle: "Aula",
-  //     message: data.message,
-  //     theme: "darkblue",
-  //     native: false,
-  //   });
-  //   // console.log("sa");
-  //   // alert("fixe");
-  //   // } else {
-  //   // addNotification({
-  //   //   title: "New Notification",
-  //   //   subtitle: "User",
-  //   //   message: data.message,
-  //   //   theme: "red",
-  //   //   native: false,
-  //   // });
-  //   // }
-  // };
-
-  // useEffect(() => {
-  //   initSocket();
-  //   console.log("Entrei aqui");
-  //   // setUserRole(user.data.role.name);
-  //   socketAddListener("gestor_notifications", newNotifiction);
-
-  //   return () => socketRemoveListener("gestor_notifications", newNotifiction);
-  // }, []);
 
   const userRole = Cookies.get("userRole");
   console.log(userRole);
@@ -83,7 +53,7 @@ const UserPage = () => {
       id: "3",
       title: "Inscrições",
       count: countAulasInscritas,
-      show: userRole === "vip" || "normal",
+      show: userRole === "vip",
     },
     {
       id: "4",
@@ -93,6 +63,7 @@ const UserPage = () => {
     {
       id: "5",
       title: "Mensagens",
+      count: countMensagens,
       show: userRole === "vip" || "normal",
     },
     {
@@ -145,9 +116,10 @@ const UserPage = () => {
                   onClick={() => setActivePage(item.id)}
                 >
                   {item.title}{" "}
-                  {userRole === "vip" && item.count && (
-                    <span className={styles.count}>{item.count}</span>
-                  )}
+                  {userRole === "vip" ||
+                    ("normal" && item.count && (
+                      <span className={styles.count}>{item.count}</span>
+                    ))}
                 </NavLink>
               </NavItem>
             ) : null;

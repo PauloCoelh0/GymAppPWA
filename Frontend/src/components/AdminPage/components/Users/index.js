@@ -1,22 +1,9 @@
 import React, { useContext, useEffect } from "react";
 import { Container, Row, Col } from "reactstrap";
-import Table from "../../../Table";
-import { useForm } from "react-hook-form";
 import styles from "./styles.module.scss";
 import { useGetData } from "../../hooks/useGetData";
-import { UsersContext } from "../../../../contexts/UsersProvider";
-import { usePostData } from "../../hooks/usePostData";
+import { UsersContext } from "../../../../contexts";
 import { ReactTabulator } from "react-tabulator";
-
-// import * as React from "react";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import Modal from "@mui/material/Modal";
-
-// import Collapse from "@mui/material/Collapse";
-// import Alert from "@mui/material/Alert";
-// import AlertTitle from "@mui/material/AlertTitle";
 
 //TABULATOR
 import "react-tabulator/lib/styles.css";

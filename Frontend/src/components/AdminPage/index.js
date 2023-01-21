@@ -14,7 +14,7 @@ import Mensagens from "./components/Mensagens";
 import Aulas from "./components/Aulas";
 import Users from "./components/Users";
 import { TabContext } from "./contexts";
-import { UsersContext } from "../../contexts/UsersProvider";
+import { UsersContext } from "../../contexts";
 import { RegistosAcesso } from "./components/RegistoAcessos";
 import { AcessosContext } from "./contexts";
 

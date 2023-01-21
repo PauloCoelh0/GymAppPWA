@@ -4,6 +4,7 @@ import styles from "./styles.module.scss";
 import { ReactTabulator } from "react-tabulator";
 import moment from "moment";
 import axios from "axios";
+import { MensagensContext } from "../../../../contexts";
 
 //TABULATOR
 import "react-tabulator/lib/styles.css";
@@ -18,12 +19,14 @@ import "react-tabulator/css/bootstrap/tabulator_bootstrap.min.css"; // use Theme
 
 export const Mensagens = () => {
   const [data, setData] = useState([]);
+  const { setMensagensCount } = useContext(MensagensContext);
 
   useEffect(() => {
     axios
       .get(`http://localhost:3000/mensagens`)
       .then((response) => {
         setData(response.data);
+        setMensagensCount(response.data.data.length);
       })
       .catch((error) => {
         console.log(error);

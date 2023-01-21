@@ -15,11 +15,12 @@ import Register from "./components/Register";
 import Logout from "./components/Logout";
 import LoginForm from "./components/LoginForm";
 import UserPage from "./components/UserPage";
-import { UsersProvider } from "./contexts/UsersProvider";
+import { UsersProvider } from "./contexts/UsersProvider/UsersProvider";
 import { TabProvider } from "./components/AdminPage/contexts";
 import { InscricoesProvider } from "./components/AdminPage/contexts/InscricoesProvider/InscricoesProvider";
 import { AcessosProvider } from "./components/AdminPage/contexts";
 import { Notifications } from "react-push-notification";
+import { MensagensProvider } from "./contexts/MensagensProvider/MensagensProvider";
 import Entrada from "./components/Acessos/Entrada";
 import BanhoTurco from "./components/Acessos/BanhoTurco";
 import Jacuzzi from "./components/Acessos/Jacuzzi";
@@ -124,7 +125,9 @@ function App() {
               <ProtectedRoute>
                 <TabProvider>
                   <InscricoesProvider>
-                    <UserPage />
+                    <MensagensProvider>
+                      <UserPage />
+                    </MensagensProvider>
                   </InscricoesProvider>
                 </TabProvider>
               </ProtectedRoute>

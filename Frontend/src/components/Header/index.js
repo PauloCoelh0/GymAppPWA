@@ -2,11 +2,9 @@ import React, { useContext } from "react";
 import { Navbar, NavbarBrand, Button } from "reactstrap";
 import styles from "./styles.module.scss";
 import logo from "./logo.png";
-import { UsersContext } from "../../contexts/UsersProvider";
 import { useNavigate } from "react-router-dom";
 
 const Header = () => {
-  const { countUsers } = useContext(UsersContext);
   const [logOut, setLogOut] = React.useState(false);
   const [isLoggedIn, setLoggedIn] = React.useState(
     localStorage.getItem("token")

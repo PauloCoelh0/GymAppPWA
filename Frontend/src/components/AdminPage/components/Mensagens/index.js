@@ -4,7 +4,7 @@ import axios from "axios";
 
 const url = "http://localhost:3000/mensagens/create";
 
-function Messagens() {
+function Mensagens() {
   const { register, handleSubmit } = useForm();
   const onSubmit = (data) => postMessage(data);
   const postMessage = async (data) => {
@@ -62,4 +62,4 @@ function Messagens() {
   );
 }
 
-export default Messagens;
+export default Mensagens;

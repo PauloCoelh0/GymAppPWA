@@ -1,10 +1,6 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Row, Col } from "reactstrap";
-import { useForm } from "react-hook-form";
 import styles from "./styles.module.scss";
-import { useGetData } from "../../../AdminPage/hooks/useGetData";
-import { UsersContext } from "../../../../contexts/UsersProvider";
-import { usePostData } from "../../../AdminPage/hooks/usePostData";
 import { ReactTabulator } from "react-tabulator";
 import Cookies from "js-cookie";
 import moment from "moment";

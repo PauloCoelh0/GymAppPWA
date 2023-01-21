@@ -3,12 +3,9 @@ import { Container, Row, Col } from "reactstrap";
 import Table from "../Table";
 import { useForm } from "react-hook-form";
 import styles from "./styles.module.scss";
-import { useGetData } from "./hooks/useGetData";
-import { UsersContext } from "../../contexts/UsersProvider";
-import { usePostData } from "./hooks/usePostData";
 import "./registerForm.css";
 import axios from "axios";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const url = "http://localhost:3000/auth/register";
 
