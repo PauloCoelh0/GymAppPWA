@@ -17,6 +17,7 @@ import LoginForm from "./components/LoginForm";
 import UserPage from "./components/UserPage";
 import { UsersProvider } from "./contexts/UsersProvider";
 import { TabProvider } from "./components/AdminPage/contexts";
+import { InscricoesProvider } from "./components/AdminPage/contexts/InscricoesProvider/InscricoesProvider";
 import { AcessosProvider } from "./components/AdminPage/contexts";
 import { Notifications } from "react-push-notification";
 import Entrada from "./components/Acessos/Entrada";
@@ -93,7 +94,9 @@ function App() {
             element={
               <ProtectedRoute>
                 <TabProvider>
-                  <UserPage />
+                  <InscricoesProvider>
+                    <UserPage />
+                  </InscricoesProvider>
                 </TabProvider>
               </ProtectedRoute>
             }

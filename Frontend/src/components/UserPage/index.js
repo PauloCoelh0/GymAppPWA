@@ -9,7 +9,7 @@ import {
   TabPane,
 } from "reactstrap";
 import Aulas from "./components/Marcacoes/marcacao";
-import { AulasMarcadas } from "./components/AulasMarcadas";
+import { Inscricao } from "./components/Inscricoes/inscricao";
 import { RegistosAcesso } from "./components/RegistosAcesso";
 import { Perfil } from "./components/Perfil";
 import { Member } from "./components/Member";
@@ -21,13 +21,15 @@ import {
   initSocket,
 } from "../../socket/socket";
 import addNotification from "react-push-notification";
-import { TabContext } from "../AdminPage/contexts";
+import { InscricoesContext, TabContext } from "../AdminPage/contexts";
+import Cookies from "js-cookie";
 
 const UserPage = () => {
   const [activePage, setActivePage] = useState("1");
   const { isError, isLoading, user } = useGetPerfil("users");
   const { countAulas } = useContext(TabContext);
-
+  const { countAulasInscritas } = useContext(InscricoesContext);
+  // const [userRole, setUserRole] = useState("");
   console.log(countAulas);
 
   const newNotifiction = (data) => {
@@ -53,47 +55,57 @@ const UserPage = () => {
   useEffect(() => {
     initSocket();
     console.log("Entrei aqui");
+    // setUserRole(user.data.role.name);
     socketAddListener("admin_notifications", newNotifiction);
 
     return () => socketRemoveListener("admin_notifications", newNotifiction);
   }, []);
 
+  const userRole = Cookies.get("userRole");
+  console.log(userRole);
+
   const navItems = [
     {
       id: "1",
-      title: "Aulas",
-      count: countAulas,
+      title: "Perfil",
+      show: userRole === "vip" || "normal",
     },
     {
       id: "2",
-      title: "Perfil",
+      title: "Aulas",
+      count: countAulas,
+      show: userRole === "vip",
     },
     {
       id: "3",
-      title: "AulasMarcadas",
+      title: "Inscrições",
+      count: countAulasInscritas,
+      show: userRole === "vip" || "normal",
     },
     {
       id: "4",
       title: "Registos de Acesso",
+      show: userRole === "vip" || "normal",
     },
     {
       id: "5",
       title: "Member",
+      show: userRole === "vip" || "normal",
     },
   ];
 
   const items = [
     {
-      id: "2",
+      id: "1",
       children: <Perfil user={user.data} />,
     },
     {
-      id: "1",
-      children: <Aulas />,
+      id: "2",
+      children: userRole === "vip" ? <Aulas /> : null,
     },
     {
       id: "3",
-      children: <AulasMarcadas />,
+      children: <Inscricao />,
     },
     {
       id: "4",
@@ -113,7 +125,7 @@ const UserPage = () => {
       <Row className={styles.row}>
         <Nav tabs>
           {navItems.map((item) => {
-            return (
+            return item.show ? (
               <NavItem>
                 <NavLink
                   style={{ color: "rgb(131, 6, 6)" }}
@@ -121,12 +133,12 @@ const UserPage = () => {
                   onClick={() => setActivePage(item.id)}
                 >
                   {item.title}{" "}
-                  {item.count && (
+                  {userRole === "vip" && item.count && (
                     <span className={styles.count}>{item.count}</span>
                   )}
                 </NavLink>
               </NavItem>
-            );
+            ) : null;
           })}
         </Nav>
         <TabContent activeTab={activePage}>
