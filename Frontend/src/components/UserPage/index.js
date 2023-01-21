@@ -32,34 +32,36 @@ const UserPage = () => {
   // const [userRole, setUserRole] = useState("");
   console.log(countAulas);
 
-  const newNotifiction = (data) => {
-    if (data.key === "Game") {
-      addNotification({
-        title: "Warning",
-        subtitle: "Games",
-        message: data.message,
-        theme: "darkblue",
-        native: false,
-      });
-    } else {
-      addNotification({
-        title: "New Notification",
-        subtitle: "User",
-        message: data.message,
-        theme: "red",
-        native: false,
-      });
-    }
-  };
+  // const newNotifiction = (data) => {
+  //   // if (data.key === "Aula") {
+  //   addNotification({
+  //     title: "Warning",
+  //     subtitle: "Aula",
+  //     message: data.message,
+  //     theme: "darkblue",
+  //     native: false,
+  //   });
+  //   // console.log("sa");
+  //   // alert("fixe");
+  //   // } else {
+  //   // addNotification({
+  //   //   title: "New Notification",
+  //   //   subtitle: "User",
+  //   //   message: data.message,
+  //   //   theme: "red",
+  //   //   native: false,
+  //   // });
+  //   // }
+  // };
 
-  useEffect(() => {
-    initSocket();
-    console.log("Entrei aqui");
-    // setUserRole(user.data.role.name);
-    socketAddListener("admin_notifications", newNotifiction);
+  // useEffect(() => {
+  //   initSocket();
+  //   console.log("Entrei aqui");
+  //   // setUserRole(user.data.role.name);
+  //   socketAddListener("gestor_notifications", newNotifiction);
 
-    return () => socketRemoveListener("admin_notifications", newNotifiction);
-  }, []);
+  //   return () => socketRemoveListener("gestor_notifications", newNotifiction);
+  // }, []);
 
   const userRole = Cookies.get("userRole");
   console.log(userRole);

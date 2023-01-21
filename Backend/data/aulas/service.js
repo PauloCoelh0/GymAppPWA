@@ -16,7 +16,6 @@ function AulaService(AulaModel) {
     return new Promise(function (resolve, reject) {
       model.save(function (err) {
         if (err) reject("Ocorreu um erro ao criar a aula");
-
         resolve({
           message: "Aula Criada",
           aula: model,

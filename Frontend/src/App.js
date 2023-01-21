@@ -23,8 +23,37 @@ import { Notifications } from "react-push-notification";
 import Entrada from "./components/Acessos/Entrada";
 import BanhoTurco from "./components/Acessos/BanhoTurco";
 import Jacuzzi from "./components/Acessos/Jacuzzi";
+import addNotification from "react-push-notification";
+import {
+  socketAddListener,
+  socketRemoveListener,
+  initSocket,
+} from "./socket/socket";
+import React, { useEffect, useState, useContext } from "react";
+
+const newNotifiction = (data) => {
+  addNotification({
+    title: "Warning",
+    subtitle: "Aula",
+    message: data.message,
+    theme: "darkblue",
+    native: false,
+  });
+};
 
 function App() {
+  let flag = true;
+  useEffect(() => {
+    initSocket();
+    console.log("Entrei aqui");
+    // setUserRole(user.data.role.name);
+    if (flag) {
+      socketAddListener("gestor_notifications", newNotifiction);
+      flag = false;
+    }
+
+    return () => socketRemoveListener("gestor_notifications", newNotifiction);
+  }, []);
   // const router = createBrowserRouter([
   //   {
   //     path: "/",
@@ -106,17 +135,10 @@ function App() {
         <Route path="acessos/banhoturco" element={<BanhoTurco />} />
         <Route path="acessos/jacuzzi" element={<Jacuzzi />} />
       </Routes>
+      <div className={styles.App}>
+        <Notifications />
+      </div>
     </BrowserRouter>
-    // <div className={styles.App}>
-    //   <Notifications />
-    //   <UsersProvider>
-    //     <main>
-    //       <RouterProvider router={router}>
-    //         <Header />
-    //       </RouterProvider>
-    //     </main>
-    //   </UsersProvider>
-    // </div>
   );
 }
 

@@ -106,7 +106,7 @@ const AulasRouter = (io) => {
           Aulas.create(aula).then(() => {
             console.log("Aula criada com sucesso!");
             io.sockets.emit("gestor_notifications", {
-              message: "Add new aula",
+              message: aula._id,
               key: "Aula",
             });
             res.status(200);
