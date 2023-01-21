@@ -1,4 +1,4 @@
-form {
+.mensagensForm {
     display: flex;
     flex-direction: column;
     align-items: left;
@@ -11,12 +11,12 @@ form {
     margin-bottom: 100px;
   }
   
-  label {
+  .mensagenslabel {
     font-size: 18px;
     margin-bottom: 10px;
   }
   
-  input[type="text"], textarea {
+  .mensagensinput[type="text"], textarea {
     width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
@@ -26,7 +26,7 @@ form {
     resize: vertical;
   }
   
-  button {
+  .mensagensbutton {
     width: 100%;
     background-color: rgb(131, 6, 6);
     color: white;
@@ -38,7 +38,7 @@ form {
     font-size: 18px;
   }
   
-  button:hover {
+  .mensagensbutton:hover {
     background-color: rgb(172, 48, 48);
   }
   

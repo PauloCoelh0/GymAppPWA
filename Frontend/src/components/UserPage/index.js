@@ -9,6 +9,7 @@ import {
   TabPane,
 } from "reactstrap";
 import Aulas from "./components/Marcacoes/marcacao";
+import { Mensagens } from "./components/Mensagens";
 import { Inscricao } from "./components/Inscricoes/inscricao";
 import { RegistosAcesso } from "./components/RegistosAcesso";
 import { Perfil } from "./components/Perfil";
@@ -91,6 +92,11 @@ const UserPage = () => {
     },
     {
       id: "5",
+      title: "Mensagens",
+      show: userRole === "vip" || "normal",
+    },
+    {
+      id: "6",
       title: "Member",
       show: userRole === "vip" || "normal",
     },
@@ -115,6 +121,10 @@ const UserPage = () => {
     },
     {
       id: "5",
+      children: <Mensagens />,
+    },
+    {
+      id: "6",
       children: <Member user={user.data} />,
     },
   ];

@@ -32,10 +32,11 @@ function Messagens() {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <label>
+    <form className="mensagensForm" onSubmit={handleSubmit(onSubmit)}>
+      <label className="mensagenslabel">
         Título:
         <input
+          className="mensagensinput"
           type="text"
           id="subject"
           name="subject"
@@ -44,7 +45,7 @@ function Messagens() {
         />
       </label>
       <br />
-      <label>
+      <label className="mensagenslabel">
         Menssagem:
         <textarea
           id="text"
@@ -54,7 +55,9 @@ function Messagens() {
         />
       </label>
       <br />
-      <button type="submit">Enviar</button>
+      <button className="mensagensbutton" type="submit">
+        Enviar
+      </button>
     </form>
   );
 }

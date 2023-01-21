@@ -5,7 +5,7 @@ let MensagensSchema = new Schema(
   {
     from: { type: String, default: "Gym Staff" },
     subject: { type: String, required: true },
-    date: { type: Date, required: true, default: Date.now },
+    date: { type: Date, default: Date.now },
     text: { type: String, required: true },
   },
   { collection: "mensagens" }

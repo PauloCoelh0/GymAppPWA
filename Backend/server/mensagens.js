@@ -18,7 +18,7 @@ const MensagensRouter = (io) => {
   router.use(VerifyToken);
 
   router.route("").get(function (req, res, next) {
-    const pageLimit = req.query.limit ? parseInt(req.query.limit) : 20;
+    const pageLimit = req.query.limit ? parseInt(req.query.limit) : 5;
     const pageSkip = req.query.skip ? pageLimit * parseInt(req.query.skip) : 0;
 
     req.pagination = {
