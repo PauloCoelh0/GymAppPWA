@@ -44,19 +44,24 @@ const MensagensRouter = (io) => {
 
   router
     .route("/create")
-    .post(Users.authorize([scopes.Gestor]), async (req, res, next) => {
+    .post(Users.authorize([scopes.Gestor]), function (req, res, next) {
       let body = req.body;
 
-      Mensagens.create(body).then(() => {
-        console.log("Mensagem criada com sucesso!");
-        io.sockets.emit("gestor_notifications", {
-          message: body._id,
-          key: "mensagem",
+      Mensagens.create(body)
+        .then(() => {
+          console.log("Mensagem criada com sucesso!");
+          io.sockets.emit("gestor_notifications", {
+            message: body._id,
+            key: "mensagem",
+          });
+          res.status(200);
+          res.send(body);
+          next();
+        })
+        .catch((error) => {
+          console.log("Error creating message: ", error);
+          res.status(500);
         });
-        res.status(200);
-        res.send(body);
-        next();
-      });
     });
 
   return router;

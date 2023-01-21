@@ -98,6 +98,7 @@ const LoginForm = ({ title, role, data }) => {
               <button
                 // style={{ borderRadius: "10px", backgroundColor: "red" }}
                 className={styles.button}
+                style={{ width: "337px" }}
                 onClick={() => setQrCode(!showQRCode)}
               >
                 Iniciar Sessão com Qr Code

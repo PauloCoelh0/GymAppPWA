@@ -9,11 +9,10 @@ import {
   TabContent,
   TabPane,
 } from "reactstrap";
-import Games from "./components/Games";
+
+import Mensagens from "./components/Mensagens";
 import Aulas from "./components/Aulas";
-import Stadium from "./components/Stadium";
 import Users from "./components/Users";
-import Tickets from "./components/Tickets";
 import { TabContext } from "./contexts";
 import { UsersContext } from "../../contexts/UsersProvider";
 import { RegistosAcesso } from "./components/RegistoAcessos";
@@ -42,15 +41,10 @@ const AdminPage = () => {
       count: countAcessos,
     },
 
-    // {
-    //   id: "3",
-    //   title: "Games",
-    //   count: countGames,
-    // },
-    // {
-    //   id: "4",
-    //   title: "Tickets",
-    // },
+    {
+      id: "4",
+      title: "Mensagens",
+    },
   ];
 
   const items = [
@@ -67,14 +61,10 @@ const AdminPage = () => {
       children: <RegistosAcesso />,
     },
 
-    // {
-    //   id: "3",
-    //   children: <Games />,
-    // },
-    // {
-    //   id: "4",
-    //   children: <Tickets />,
-    // },
+    {
+      id: "4",
+      children: <Mensagens />,
+    },
   ];
 
   return (
@@ -93,7 +83,7 @@ const AdminPage = () => {
                   onClick={() => setActivePage(item.id)}
                 >
                   {item.title}{" "}
-                  {item.count !== 0 && (
+                  {item.count && (
                     <span className={styles.count}>{item.count}</span>
                   )}
                 </NavLink>
