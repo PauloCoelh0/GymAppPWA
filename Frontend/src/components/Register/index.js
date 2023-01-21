@@ -7,33 +7,37 @@ import { useGetData } from "./hooks/useGetData";
 import { UsersContext } from "../../contexts/UsersProvider";
 import { usePostData } from "./hooks/usePostData";
 import "./registerForm.css";
+import axios from "axios";
+
+const url = "http://localhost:3000/auth/register";
 
 const Users = () => {
   const { register, handleSubmit } = useForm();
-  const { setUsers } = useContext(UsersContext);
-  const { isError, isLoading, data } = useGetData("users", 0, 0);
-  const { isLoading: isLoadingPost, addData } = usePostData("users");
+  const onSubmit = (data) => postUser(data);
 
-  const addUser = (data) => {
-    const newData = {
-      ...data,
-      role: { name: "normal", scope: "normal" },
-    };
+  const postUser = async (data) => {
+    const userData = new FormData();
+    userData.append("name", data.name);
+    userData.append("email", data.email);
+    userData.append("password", data.password);
+    userData.append("age", data.age);
+    userData.append("address", data.address);
+    userData.append("country", data.country);
+    userData.append("picture", data.picture[0]);
 
-    addData(newData);
+    try {
+      const response = await axios.post(url, userData, {
+        headers: {},
+      });
+      console.log(response);
+      if (response.status === 200) {
+        return response.data.data;
+      } else {
+      }
+    } catch (e) {
+      console.log(e);
+    }
   };
-
-  useEffect(() => {
-    setUsers(data.data);
-  }, [data, setUsers]);
-
-  if (isLoading) {
-    return <div>Is Loading</div>;
-  }
-
-  if (isError) {
-    return <div>UPPSSSS</div>;
-  }
 
   return (
     <Row align="middle" justify="center">
@@ -41,7 +45,7 @@ const Users = () => {
         <p />
         <h3>Registar</h3>
         <p />
-        <form className={styles.registerForm} onSubmit={handleSubmit(addUser)}>
+        <form className={styles.registerForm} onSubmit={handleSubmit(onSubmit)}>
           <input
             placeholder="Insere o teu nome"
             id="name"
