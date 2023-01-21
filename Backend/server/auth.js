@@ -46,6 +46,7 @@ function AuthRouter() {
         // The httpOnly: true setting means that the cookie can’t be read using JavaScript but can still be sent back to the server in HTTP requests
         res.cookie("token", response.token);
         res.cookie("userID", response.user);
+        res.cookie("userRole", response.userRole);
         res.status(200);
         res.send(response);
       })
