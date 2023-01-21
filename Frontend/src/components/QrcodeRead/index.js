@@ -4,7 +4,7 @@ import { QrReader } from "react-qr-reader";
 import styles from "./styles.module.scss";
 
 function QrcodeRead({ setDataLogin }) {
-  const [data, setData] = useState("No result");
+  const [data, setData] = useState({ name: "QrCode" });
 
   return (
     <div className={styles.qrCodeReader}>

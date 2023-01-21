@@ -1,6 +1,5 @@
 import { useForm } from "react-hook-form";
 import "./AulasForm.css";
-// import config from "../../../config";
 import axios from "axios";
 import { useState } from "react";
 import React, { useContext, useEffect } from "react";
