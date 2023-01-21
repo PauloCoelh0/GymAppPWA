@@ -25,7 +25,11 @@ let UserSchema = new Schema({
   age: { type: Number },
   address: { type: String, required: true },
   country: { type: String, required: true },
-  // member: { type: Boolean, default: false },
+  vipState: {
+    type: String,
+    enum: ["Pending", "Accepted", "Rejected", "Normal"],
+    default: "Normal",
+  },
   picture: { type: String, required: true },
 });
 
