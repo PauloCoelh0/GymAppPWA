@@ -46,7 +46,8 @@ const MensagensRouter = (io) => {
     .route("/create")
     .post(Users.authorize([scopes.Gestor]), function (req, res, next) {
       let body = req.body;
-
+      console.log("aqui");
+      console.log(body);
       Mensagens.create(body)
         .then(() => {
           console.log("Mensagem criada com sucesso!");

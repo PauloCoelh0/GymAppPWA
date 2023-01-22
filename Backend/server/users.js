@@ -69,11 +69,11 @@ const UsersRouter = (io) => {
 
   router
     .route("/:userId")
-    .put(Users.authorize([scopes.Gestor]), function (req, res, next) {
+    .post(Users.authorize([scopes.Gestor]), function (req, res, next) {
       console.log("update a member by id");
       let userId = req.params.userId;
       let body = req.body;
-
+      console.log("entrei aqui");
       Users.update(userId, body)
         .then((user) => {
           res.status(200);
