@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import "./AulasForm.css";
+import "./AulasForm.scss";
 import axios from "axios";
 import { useState } from "react";
 import React, { useContext, useEffect } from "react";
@@ -176,11 +176,11 @@ const AulasForm = () => {
                     required
                   />
                 </div>
-                <div className="field8">
-                  <label className="l8">Capacidadade: </label>
+                <div className="field9">
+                  <label className="l9">Capacidadade: </label>
                   <select
                     itemType="text"
-                    className="s8"
+                    className="s9"
                     name="capacity"
                     {...register("capacity")}
                   >

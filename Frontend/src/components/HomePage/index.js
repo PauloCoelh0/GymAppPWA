@@ -26,7 +26,14 @@ const HomePage = () => {
         >
           Bem-Vindo ao GYM-ESTG
         </h1>
-        <p>
+        <p
+          style={{
+            textAlign: "center",
+            margin: "20px 0",
+            padding: "0 50px",
+            fontSize: "1.2em",
+          }}
+        >
           Aqui no My Gym, oferecemos uma variedade de opções de associação para
           atender às suas necessidades de condicionamento físico e orçamento.
         </p>
@@ -52,25 +59,53 @@ const HomePage = () => {
         <h3>
           <u>Associação Básica</u>
         </h3>
-        <p>
+        <p
+          style={{
+            textAlign: "center",
+            margin: "20px 0",
+            padding: "0 50px",
+            fontSize: "1.2em",
+          }}
+        >
           A nossa assinatura básica inclui acesso a todos os nossos equipamentos
           aeróbicos e máquinas de peso.
         </p>
         <h3>
           <u>Associação Padrão</u>
         </h3>
-        <p>
+        <p
+          style={{
+            textAlign: "center",
+            margin: "20px 0",
+            padding: "0 50px",
+            fontSize: "1.2em",
+          }}
+        >
           A nossa associação padrão inclui acesso a aulas de ginástica em grupo
           e um treinamento pessoal sessão por mês.
         </p>
         <h3>
           <u>Assinatura Vip</u>
         </h3>
-        <p>
+        <p
+          style={{
+            textAlign: "center",
+            margin: "20px 0",
+            padding: "0 50px",
+            fontSize: "1.2em",
+          }}
+        >
           A nossa assinatura vip inclui todas as assinaturas básicas e padrão
           benefícios e acesso à nossa sauna, banho turco, jacuzzi e piscina.
         </p>
-        <p>
+        <p
+          style={{
+            textAlign: "center",
+            margin: "20px 0",
+            padding: "0 50px",
+            fontSize: "1.2em",
+          }}
+        >
           <b>
             Visite-nos hoje e comece a atingir seus objetivos de condicionamento
             físico!
