@@ -5,6 +5,7 @@ const cookieParser = require("cookie-parser");
 const VerifyToken = require("../middleware/Token");
 const multer = require("multer");
 const User = require("../data/users/users");
+const HttpStatus = require("http-status-codes");
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -85,8 +86,11 @@ function AuthRouter() {
       })
       .catch((err) => {
         console.log("error", err);
-        res.status(500);
-        res.send(err);
+        res.status(HttpStatus.INTERNAL_SERVER_ERROR);
+        res.send({
+          message: "Dados inválidos, por favor confirme e sua password/email.",
+          status: HttpStatus.INTERNAL_SERVER_ERROR,
+        });
       });
   });
 
