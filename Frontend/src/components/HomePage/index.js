@@ -7,56 +7,67 @@ const HomePage = () => {
   return (
     <html>
       <head>
-        <title>My Gym</title>
+        <title>GYM-ESTG</title>
       </head>
       <body>
-        <h1>Welcome to My Gym</h1>
+        <h1>Bem-Vindo ao GYM-ESTG</h1>
         <p>
-          Here at My Gym, we offer a variety of membership options to fit your
-          fitness needs and budget.
+          Aqui no My Gym, oferecemos uma variedade de opções de associação para
+          atender às suas necessidades de condicionamento físico e orçamento.
         </p>
 
-        <h2>Membership Options</h2>
+        <h2>Opções de adesão</h2>
         <table>
           <tr>
-            <th>Membership Type</th>
-            <th>Price per Month</th>
+            <th>Tipo de Membro</th>
+            <th>Preço por mês</th>
           </tr>
           <tr>
-            <td>Basic</td>
-            <td>$20</td>
+            <td>Básico</td>
+            <td>20€</td>
           </tr>
           <tr>
-            <td>Standard</td>
-            <td>$50</td>
+            <td>Padrão</td>
+            <td>50€</td>
           </tr>
           <tr>
-            <td>Premium</td>
-            <td>$80</td>
+            <td>Vip</td>
+            <td>80€</td>
           </tr>
         </table>
 
-        <h3>Basic Membership</h3>
+        <h3>
+          <u>Associação Básica</u>
+        </h3>
         <p>
-          Our basic membership includes access to all of our cardio equipment
-          and weight machines.
+          A nossa assinatura básica inclui acesso a todos os nossos equipamentos
+          aeróbicos e máquinas de peso.
         </p>
 
-        <h3>Standard Membership</h3>
+        <h3>
+          <u>Associação Padrão</u>
+        </h3>
         <p>
-          In addition to basic membership benefits, our standard membership
-          includes access to group fitness classes and a personal training
-          session per month.
+          Além dos benefícios básicos de associação, a nossa associação padrão
+          inclui acesso a aulas de ginástica em grupo e um treinamento pessoal
+          sessão por mês.
         </p>
 
-        <h3>Premium Membership</h3>
+        <h3>
+          <u>Assinatura Vip</u>
+        </h3>
         <p>
-          Our premium membership includes all basic and standard membership
-          benefits, as well as 24/7 access to the gym and access to our sauna
-          and steam room.
+          A nossa assinatura vip inclui todas as assinaturas básicas e padrão
+          benefícios, bem como acesso 24 horas por dia, 7 dias por semana ao
+          ginásio e acesso à nossa sauna, banho turco, jacuzzi e piscina.
         </p>
 
-        <p>Visit us today and start reaching your fitness goals!</p>
+        <p>
+          <b>
+            Visite-nos hoje e comece a atingir seus objetivos de condicionamento
+            físico!
+          </b>
+        </p>
       </body>
     </html>
   );
