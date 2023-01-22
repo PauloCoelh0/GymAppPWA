@@ -59,3 +59,7 @@ h3 {
   --bs-btn-active-border-color: #51585e00;
   --bs-btn-active-color: rgb(196, 196, 196);
 }
+.hovered {
+  cursor: pointer;
+  filter: brightness(80%); /* an example of effect */
+}

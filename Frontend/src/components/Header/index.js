@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useState } from "react";
 import { Navbar, NavbarBrand, Button } from "reactstrap";
 import styles from "./styles.module.scss";
 import logo from "./logo.png";
@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const [logOut, setLogOut] = React.useState(false);
+  const [isHovered, setIsHovered] = useState(false);
   const [isLoggedIn, setLoggedIn] = React.useState(
     localStorage.getItem("token")
   );
@@ -43,7 +44,14 @@ const Header = () => {
   ) : (
     <div className={styles.header}>
       <div className={styles.logo}>
-        <img className={styles.img} src={logo} alt="Logo" />
+        <img
+          className={`${styles.img} ${isHovered ? styles.hovered : ""}`}
+          src={logo}
+          alt="Logo"
+          onClick={() => navigate("/")}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+        />
       </div>
       {/* {countUsers !== 0 && (
         <div className={styles.counts}>Users: {countUsers}</div>
