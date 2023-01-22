@@ -102,7 +102,7 @@ function App() {
       <Routes>
         <Route>
           <Route path="/gestaoAcessos" element={<GestaoAcessos />} />
-          <Route path="/home" element={<HomePage />} />
+          <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginForm />} />
           <Route path="/register" element={<Register />} />
           <Route
