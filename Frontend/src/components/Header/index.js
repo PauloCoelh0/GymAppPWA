@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Navbar, NavbarBrand, Button } from "reactstrap";
 import styles from "./styles.module.scss";
 import logo from "./logo.png";
 import { useNavigate } from "react-router-dom";
+import { UsersContext } from "../../contexts";
 
 const Header = () => {
+  const { countUsers } = useContext(UsersContext);
   const [logOut, setLogOut] = React.useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [isLoggedIn, setLoggedIn] = React.useState(

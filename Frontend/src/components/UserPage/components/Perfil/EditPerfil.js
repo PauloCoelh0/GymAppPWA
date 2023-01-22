@@ -70,7 +70,7 @@ const UserUpdateForm = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      method: "PUT",
+      method: "POST",
       body: JSON.stringify(data),
     })
       .then((r) => r.json())

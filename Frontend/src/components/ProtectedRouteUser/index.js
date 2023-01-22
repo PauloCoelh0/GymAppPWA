@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import { Navigate } from "react-router-dom";
-import { useAuth } from "./hooks/useAuth";
+import { useAuth } from "../ProtectRoute/hooks/useAuth";
 import Cookies from "js-cookie";
 
-const ProtectedRoute = ({ children }) => {
+const ProtectedRouteUser = ({ children }) => {
   const { isValidLogin, isFetching, hasLogin } = useAuth();
 
   useEffect(() => {
@@ -19,12 +19,7 @@ const ProtectedRoute = ({ children }) => {
     return <Navigate to="/" />;
   }
 
-  const userRole = Cookies.get("userRole");
-
-  if (userRole !== "gestor") {
-    return <Navigate to="/" />;
-  }
   return children;
 };
 
-export default ProtectedRoute;
+export default ProtectedRouteUser;

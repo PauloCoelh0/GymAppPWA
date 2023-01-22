@@ -11,6 +11,7 @@ import GestaoAcessos from "./components/GestaoAcessos";
 import AdminPage from "./components/AdminPage";
 import Header from "./components/Header";
 import ProtectedRoute from "./components/ProtectRoute";
+import ProtectedRouteUser from "./components/ProtectedRouteUser";
 import Register from "./components/Register";
 import Logout from "./components/Logout";
 import LoginForm from "./components/LoginForm";
@@ -126,7 +127,7 @@ function App() {
           <Route
             path="/user"
             element={
-              <ProtectedRoute>
+              <ProtectedRouteUser>
                 <TabProvider>
                   <InscricoesProvider>
                     <MensagensProvider>
@@ -134,7 +135,7 @@ function App() {
                     </MensagensProvider>
                   </InscricoesProvider>
                 </TabProvider>
-              </ProtectedRoute>
+              </ProtectedRouteUser>
             }
           />
         </Route>

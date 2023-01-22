@@ -69,7 +69,7 @@ const UsersRouter = (io) => {
 
   router
     .route("/:userId")
-    .post(Users.authorize([scopes.Gestor]), function (req, res, next) {
+    .post(function (req, res, next) {
       console.log("update a member by id");
       let userId = req.params.userId;
       let body = req.body;
@@ -85,7 +85,7 @@ const UsersRouter = (io) => {
           next();
         });
     })
-    .get(Users.authorize([scopes.Gestor]), function (req, res, next) {
+    .get(function (req, res, next) {
       console.log("get user by id");
       let userId = req.params.userId;
       Users.findUserById(userId)
