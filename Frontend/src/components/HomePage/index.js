@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import "./styles.module.scss";
-import { Row, Col, Container } from "reactstrap";
-import Header from "../Header";
 
 const HomePage = () => {
   return (
