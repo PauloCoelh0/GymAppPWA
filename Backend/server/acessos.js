@@ -140,6 +140,18 @@ const AcessosRouter = (io) => {
       });
   });
 
+  router.route("/count/entrada").get(function (req, res, next) {
+    Acesso.countDocuments({ isIn: true, local: "entrada" })
+      .then((count) => {
+        res.json({ count });
+        next();
+      })
+      .catch((err) => {
+        console.log(err.message);
+        next();
+      });
+  });
+
   return router;
 };
 
