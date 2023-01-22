@@ -6,8 +6,8 @@ import Cookies from "js-cookie";
 import { InscricoesContext } from "../../../AdminPage/contexts";
 
 export function Inscricao() {
-  const cookieValue = Cookies.get("userID");
   const [aulas, setAulas] = useState([]);
+  const cookieValue = Cookies.get("userID");
   const { setAulasInscritasCount } = useContext(InscricoesContext);
   const valueWithoutJ = cookieValue.substring(3, cookieValue.length - 1);
   const userId = valueWithoutJ;

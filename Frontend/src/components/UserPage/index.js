@@ -80,7 +80,7 @@ const UserPage = () => {
     },
     {
       id: "2",
-      children: userRole === "vip" ? <Aulas /> : null,
+      children: <Aulas />,
     },
     {
       id: "3",
@@ -116,10 +116,9 @@ const UserPage = () => {
                   onClick={() => setActivePage(item.id)}
                 >
                   {item.title}{" "}
-                  {userRole === "vip" ||
-                    ("normal" && item.count && (
-                      <span className={styles.count}>{item.count}</span>
-                    ))}
+                  {item.count && (
+                    <span className={styles.count}>{item.count}</span>
+                  )}
                 </NavLink>
               </NavItem>
             ) : null;
