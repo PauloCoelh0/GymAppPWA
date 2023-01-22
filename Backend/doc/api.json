@@ -244,6 +244,207 @@
           }
         }
       }
+    },
+    "/users": {
+      "get": {
+        "tags": ["Users"],
+        "description": "Get all users",
+        "parameters": [],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Users",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "auth": {
+                  "type": "boolean"
+                },
+                "token": {
+                  "type": "string"
+                },
+                "userRole": {
+                  "type": "string",
+                  "example": "gestor"
+                },
+                "user": {
+                  "type": "string",
+                  "example": "w32432423d"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/mensagens/create": {
+      "post": {
+        "tags": ["Mensagens"],
+        "description": "Get all mensagens",
+        "parameters": [
+          {
+            "name": "body",
+            "type": "string",
+            "in": "body",
+            "required": true,
+            "description": "Create a message",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "subject": {
+                  "type": "string",
+                  "example": "subject"
+                },
+                "text": {
+                  "type": "string",
+                  "example": "text"
+                }
+              }
+            }
+          }
+        ],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "mensagens",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "from": {
+                  "type": "string",
+                  "example": "Gym Staff"
+                },
+                "subect": {
+                  "type": "string",
+                  "example": "subject"
+                },
+                "text": {
+                  "type": "string",
+                  "example": "text"
+                },
+                "date": {
+                  "type": "string",
+                  "format": "date-time",
+                  "example": "2024-03-20 10:30:30"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/mensagens": {
+      "get": {
+        "tags": ["Mensagens"],
+        "description": "Get all mensagens",
+        "parameters": [],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "mensagens",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "from": {
+                  "type": "string",
+                  "example": "Gym Staff"
+                },
+                "subect": {
+                  "type": "string",
+                  "example": "subject"
+                },
+                "text": {
+                  "type": "string",
+                  "example": "text"
+                },
+                "date": {
+                  "type": "string",
+                  "format": "date-time",
+                  "example": "2024-03-20 10:30:30"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{userId}": {
+      "put": {
+        "tags": ["Users"]
+      }
+    },
+    "/users/perfil": {
+      "get": {
+        "tags": ["Users"]
+      }
+    },
+    "/user/{userId}": {
+      "get": {
+        "tags": ["Users"]
+      }
+    },
+    "users/{userId}": {
+      "delete": {
+        "tags": ["Users"]
+      }
+    },
+    "/aulas/{aulaId}": {
+      "get": {
+        "tags": ["Aulas"]
+      }
+    },
+    "/aulas": {
+      "get": {
+        "tags": ["Aulas"]
+      }
+    },
+    "aulas/{aulaId}": {
+      "put": {
+        "tags": ["Aulas"]
+      }
+    },
+    "aulas": {
+      "delete": {
+        "tags": ["Aulas"]
+      }
+    },
+    "aulas/update/{aulaId}": {
+      "put": {
+        "tags": ["Aulas"]
+      }
+    },
+    "aulas/remove/{aulaId}": {
+      "delete": {
+        "tags": ["Aulas"]
+      }
+    },
+    "aulas/{userId}/subscription": {
+      "get": {
+        "tags": ["Aulas"]
+      }
+    },
+    "/subscription/{aulaId}/{userId}": {
+      "get": {
+        "tags": ["Aulas"]
+      }
+    },
+    "/acessos/create": {
+      "post": {
+        "tags": ["Acessos"]
+      }
+    },
+    "/acesso": {
+      "get": {
+        "tags": ["Acessos"]
+      }
+    },
+    "/acesso/{userId}": {
+      "get": {
+        "tags": ["Acessos"]
+      }
     }
   }
 }
