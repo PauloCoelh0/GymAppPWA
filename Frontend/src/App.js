@@ -103,7 +103,11 @@ function App() {
       <div className={styles.App}>
         <Notifications />
       </div>
-      <Header />
+      <UsersProvider>
+        <main>
+          <Header />
+        </main>
+      </UsersProvider>
       <Routes>
         <Route>
           <Route path="/gestaoAcessos" element={<GestaoAcessos />} />

@@ -1,8 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./styles.module.scss";
 import homePage from "./HomePage.jpg";
+import axios from "axios";
 
 const HomePage = () => {
+  const [data, setData] = useState([]);
+  const dataArray = Object.values(data);
+  useEffect(() => {
+    axios
+      .get(`http://localhost:3000/acessos/count/entrada`)
+      .then((response) => {
+        setData(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
   return (
     <html>
       <head>
@@ -26,6 +40,7 @@ const HomePage = () => {
         >
           Bem-Vindo ao GYM-ESTG
         </h1>
+        <h2>Números de membros dentro do ginásio: {dataArray}</h2>
         <p
           style={{
             textAlign: "center",

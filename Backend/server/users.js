@@ -17,35 +17,31 @@ const UsersRouter = (io) => {
   router.use(VerifyToken);
 
   //Get All Users (só gestores)
-  router
-    .route("")
-    .get(Users.authorize([scopes.Gestor]), function (req, res, next) {
-      console.log("get all users");
+  router.route("").get(function (req, res, next) {
+    console.log("get all users");
 
-      const pageLimit = req.query.limit ? parseInt(req.query.limit) : 5;
-      const pageSkip = req.query.skip
-        ? pageLimit * parseInt(req.query.skip)
-        : 0;
+    const pageLimit = req.query.limit ? parseInt(req.query.limit) : 5;
+    const pageSkip = req.query.skip ? pageLimit * parseInt(req.query.skip) : 0;
 
-      req.pagination = {
-        limit: pageLimit,
-        skip: pageSkip,
-      };
+    req.pagination = {
+      limit: pageLimit,
+      skip: pageSkip,
+    };
 
-      Users.findAll(req.pagination)
-        .then((users) => {
-          const response = {
-            auth: true,
-            ...users,
-          };
-          res.send(response);
-          next();
-        })
-        .catch((err) => {
-          console.log(err.message);
-          next();
-        });
-    });
+    Users.findAll(req.pagination)
+      .then((users) => {
+        const response = {
+          auth: true,
+          ...users,
+        };
+        res.send(response);
+        next();
+      })
+      .catch((err) => {
+        console.log(err.message);
+        next();
+      });
+  });
 
   // Get perfil do user logado
   router.route("/perfil").get(function (req, res, next) {

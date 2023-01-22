@@ -1,9 +1,10 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Navbar, NavbarBrand, Button } from "reactstrap";
 import styles from "./styles.module.scss";
 import logo from "./logo.png";
 import { useNavigate } from "react-router-dom";
 import { UsersContext } from "../../contexts";
+import axios from "axios";
 
 const Header = () => {
   const { countUsers } = useContext(UsersContext);
@@ -12,6 +13,19 @@ const Header = () => {
   const [isLoggedIn, setLoggedIn] = React.useState(
     localStorage.getItem("token")
   );
+
+  const [data, setData] = useState([]);
+  const dataArray = Object.values(data);
+  useEffect(() => {
+    axios
+      .get(`http://localhost:3000/acessos/count/entrada`)
+      .then((response) => {
+        setData(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   React.useEffect(() => {
     setLoggedIn(localStorage.getItem("token"));
@@ -55,9 +69,7 @@ const Header = () => {
           onMouseLeave={() => setIsHovered(false)}
         />
       </div>
-      {/* {countUsers !== 0 && (
-        <div className={styles.counts}>Users: {countUsers}</div>
-      )} */}
+      <div className={styles.counts}>MEMBROS NO GYM: {dataArray}</div>
       <Navbar pills={true} container={false} className={styles.navBar}>
         {!isLoggedIn && (
           <>
