@@ -34,11 +34,12 @@ import React, { useEffect, useState, useContext } from "react";
 
 const newNotifiction = (data) => {
   addNotification({
-    title: "Warning",
+    title: "Mensagem",
     subtitle: "Aula",
     message: data.message,
-    theme: "darkblue",
-    native: false,
+    theme: "white",
+    native: true,
+    duration: 8000,
   });
 };
 
@@ -98,6 +99,9 @@ function App() {
 
   return (
     <BrowserRouter>
+      <div className={styles.App}>
+        <Notifications />
+      </div>
       <Header />
       <Routes>
         <Route>
@@ -138,9 +142,6 @@ function App() {
         <Route path="acessos/banhoturco" element={<BanhoTurco />} />
         <Route path="acessos/jacuzzi" element={<Jacuzzi />} />
       </Routes>
-      <div className={styles.App}>
-        <Notifications />
-      </div>
     </BrowserRouter>
   );
 }

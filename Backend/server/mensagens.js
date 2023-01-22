@@ -64,6 +64,34 @@ const MensagensRouter = (io) => {
         });
     });
 
+  router
+    .route("/:mensagemId")
+    .delete(
+      Users.authorize([scopes.Gestor, scopes.Vip, scopes.Normal]),
+      async function (req, res, next) {
+        let mensagemId = req.params.mensagemId;
+
+        try {
+          await Mensagem.findOne({
+            _id: mensagemId,
+          });
+          Mensagens.removeById(mensagemId).then((result) => {
+            res.status(200).json({
+              mesage: "MENSAGEM SUCCESSFULLY DELETED",
+              request: {
+                type: "GET",
+                description: "LISTA DE MENSAGENS",
+                url: "http://localhost:5000/mensagens",
+              },
+            });
+          });
+        } catch (err) {
+          res.status(500);
+          res.send(err.message);
+          console.log(err.message);
+        }
+      }
+    );
   return router;
 };
 module.exports = MensagensRouter;

@@ -126,7 +126,7 @@ const AulasForm = () => {
             }}
           >
             <AlertTitle>
-              <b>ERROR:</b> DUPLICATE PLATE
+              <b>ERROR:</b> INVALID DATES
             </AlertTitle>
           </Alert>
         </Collapse>

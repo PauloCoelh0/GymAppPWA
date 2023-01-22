@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import _, { set } from "lodash";
 import { useGetPerfil } from "../../hooks/useGetPerfil";
 import QrRead from "../QrcodeRead";
+import HttpStatus from "http-status-codes";
 
 const LoginForm = ({ title, role, data }) => {
   const { register, handleSubmit } = useForm();
@@ -24,6 +25,10 @@ const LoginForm = ({ title, role, data }) => {
     })
       .then((r) => r.json())
       .then((response) => {
+        if (response.status === HttpStatus.INTERNAL_SERVER_ERROR) {
+          alert(response.message);
+          return;
+        }
         if (response.auth) {
           localStorage.setItem("token", response.token);
           console.log(response);
@@ -35,7 +40,11 @@ const LoginForm = ({ title, role, data }) => {
         }
       })
       .catch((error) => {
-        console.error("Error:", error);
+        if (error.status === 500) {
+          alert("An internal server error occurred. Please try again later.");
+        } else {
+          console.error("Error:", error);
+        }
       });
   };
 

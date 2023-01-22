@@ -46,6 +46,10 @@ export const Mensagens = () => {
   };
 
   const columns = [
+    // {
+    //   title: "ID MENSAGEM",
+    //   field: "_id",
+    // },
     {
       title: "From",
       field: "from",
@@ -81,7 +85,7 @@ export const Mensagens = () => {
         if (window.confirm("Tem certeza que pretende eliminar esta aula?")) {
           const linha = cell.getData();
 
-          const url = `http://localhost:3000/aulas/${linha._id}`;
+          const url = `http://localhost:3000/mensagens/${linha._id}`;
           const requestOptions = {
             method: "DELETE",
             headers: {

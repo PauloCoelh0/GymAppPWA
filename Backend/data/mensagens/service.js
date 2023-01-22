@@ -2,6 +2,7 @@ function MensagemService(MensagemModel) {
   let service = {
     create,
     findAll,
+    removeById,
   };
 
   function create(mensagem) {
@@ -41,6 +42,19 @@ function MensagemService(MensagemModel) {
           hasMore: skip + limit < totalMensagens,
           total: totalMensagens,
         },
+      });
+    });
+  }
+
+  function removeById(id) {
+    return new Promise(function (resolve, reject) {
+      MensagemModel.findByIdAndRemove(id, function (err) {
+        if (err)
+          reject({
+            message: "Impossible to remove",
+          });
+
+        resolve();
       });
     });
   }
