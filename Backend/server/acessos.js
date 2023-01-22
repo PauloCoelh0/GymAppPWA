@@ -93,7 +93,7 @@ const AcessosRouter = (io) => {
               res.status(401).send({ message: "Access denied" });
             }
             break;
-          case "Vip":
+          case "vip":
             if (rolesLocations.Vip.includes(local)) {
               Acessos.create({ _id, entryHour, local })
                 .then((response) => {
