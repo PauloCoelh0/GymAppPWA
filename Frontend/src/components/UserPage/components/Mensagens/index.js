@@ -40,6 +40,11 @@ export const Mensagens = () => {
     return moment(sCellValue).format("YYYY-MM-DD HH:mm");
   };
 
+  var delIcon = function (value, data, cell, row, options) {
+    //plain text value
+    return '<span><i class="fa fa-trash"></i></span>';
+  };
+
   const columns = [
     {
       title: "From",
@@ -64,6 +69,28 @@ export const Mensagens = () => {
       title: "Mensagem",
       field: "text",
       headerFilter: "input",
+    },
+    {
+      title: "ELIMINAR",
+      width: 100,
+      formatter: delIcon,
+      hozAlign: "center",
+      align: "right",
+      headerSort: false,
+      cellClick: function (e, cell) {
+        if (window.confirm("Tem certeza que pretende eliminar esta aula?")) {
+          const linha = cell.getData();
+
+          const url = `http://localhost:3000/aulas/${linha._id}`;
+          const requestOptions = {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          };
+          fetch(url, requestOptions).then(() => cell.getRow().delete());
+        }
+      },
     },
   ];
   const options = {

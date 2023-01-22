@@ -1,0 +1,113 @@
+
+.updateBtn5 {
+  margin: auto;
+    width: 100%;
+    justify-content: center;
+}
+
+.updateBtn5:hover{
+    border-color: rgb(112, 112, 112);;
+    background-color: rgb(223, 223, 223);
+}
+
+
+.updateBtn2 {
+  margin: auto;
+    width: 300px;
+    justify-content: center;
+}
+
+.updateBtn2:hover{
+  border-color: rgb(112, 112, 112);;
+  background-color: rgb(255, 0, 0);
+}
+
+
+.wrapper2 {
+  margin: auto;
+  justify-content: center;
+    position: relative;
+    overflow: hidden;
+    width: 90%;
+    height: 50px;
+}
+
+.title1{
+  margin-top: 30px;
+}
+
+
+.form-Cars1 {
+  margin-top: 20px;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.field1 {
+  margin-bottom: 5px;
+}
+
+.field1 label {
+  text-align: left;
+  width: 200px;
+  margin-right: -10px;
+  display: inline-block;
+
+}
+
+.submit1 {
+  margin-top: 20px;
+  width: 300px;
+  justify-content: center;
+  margin-left: 15%;
+  margin-bottom: 50px;
+}
+
+.submit1:hover{
+  border-color: rgb(112, 112, 112);;
+  background-color: rgb(223, 223, 223);
+}
+
+
+.buttons{
+  width: 300px;
+  padding: 10px;
+  margin-bottom: 50px;
+}
+
+.field2{
+  margin-left: -1px;
+  margin-bottom: 5px;
+  padding-top: 1.5px;
+  padding-right: 10px;
+}
+
+.l1{
+  margin-right: 89px;
+}
+
+.s1{
+  width: 205px;
+  height: 30px;
+  margin-bottom: 20px;
+}
+
+
+
+.field8{
+  margin-left: -1px;
+  margin-bottom: 5px;
+  padding-top: 1px;
+  padding-right: 10px;
+}
+
+.l8{
+  margin-right: 150px;
+}
+
+.s8{
+  width: 205px;
+  height: 30px;
+}

@@ -69,7 +69,7 @@ const UserPage = () => {
     {
       id: "6",
       title: "Member",
-      show: userRole === "vip" || "normal",
+      show: userRole === "normal",
     },
   ];
 
