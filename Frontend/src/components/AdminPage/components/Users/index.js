@@ -87,7 +87,7 @@ const Users = () => {
           linha.role.name = linha.role.scope;
           const url = `http://localhost:3000/users/${linha._id}`;
           const requestOptions = {
-            method: "PUT",
+            method: "POST",
             body: JSON.stringify(linha),
             headers: {
               "Content-Type": "application/json",
