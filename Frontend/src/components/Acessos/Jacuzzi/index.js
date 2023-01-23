@@ -21,7 +21,7 @@ const Jacuzzi = () => {
       .then((response) => {
         console.log(response);
         if (response) {
-          alert("A sua entrada foi permitida");
+          alert("QrCode lido com sucesso");
         } else {
           alert("Saida registada");
         }
